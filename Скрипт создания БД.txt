@@ -1,3 +1,7 @@
+
+create database GAR_BD;
+use GAR_BD;
+
 // смотри лаб_6 РПС авторизыцию
 
 CREATE TABLE User (
@@ -8,7 +12,7 @@ CREATE TABLE User (
 	Name varchar(20) NOT NULL,
 	Phone  varchar(10) NOT NULL,
 	Email  varchar(30) NULL,
-	PRIMARY KEY (ID_ User)
+	PRIMARY KEY (ID_User)
 );
 
 CREATE TABLE User_Role (
@@ -22,16 +26,16 @@ CREATE TABLE Message (
 	ID_Message Int NOT NULL,
 	Subject varchar(30) NOT NULL,
 	Date Date NOT NULL,
-	Content varchar(max) NULL,
+	Content Text NULL,
 	ID_User varchar(10) NOT NULL,
-	PRIMARY KEY (ID_Question)
+	PRIMARY KEY (ID_Message)
 );
 
 CREATE TABLE Client (
 	ID_Client Int NOT NULL,
 	Date_Birth Date NOT NULL,
 	Money Float NOT NULL,
-	Interests varchar(max)
+	Interests Text NULL,
 	ID_User varchar(10) NOT NULL,
 	PRIMARY KEY (ID_Client)
 );
@@ -42,7 +46,7 @@ CREATE TABLE Goal_user (
 	ID_Goal Int NOT NULL,
 	ID_Client Int NOT NULL,
 	PRIMARY KEY (ID_Goal_user)
-;
+);
 
 CREATE TABLE Goal (
 	ID_Goal Int NOT NULL,
@@ -75,6 +79,6 @@ ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Level) REFERENCES Level (ID_Level);
 ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Goal) REFERENCES Goal (ID_Goal);
 ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Client) REFERENCES Client (ID_Client);
 
-ALTER TABLE Client ADD FOREIGN KEY (ID_Client) REFERENCES Client (ID_Client);
+ALTER TABLE Client ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
 
 ALTER TABLE Message ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
