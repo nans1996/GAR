@@ -2,28 +2,29 @@
 create database GAR_BD;
 use GAR_BD;
 
-// смотри лаб_6 РПС авторизыцию
+// смотри лаб_6 РПС авторизацию
 
 CREATE TABLE User (
-	ID_User varchar(10) NOT NULL, //наименование юзера
-	Login varchar(10) NOT NULL,
+	ID_User int AUTO_INCREMENT NOT NULL, //искуственный первичный ключ
+	Login varchar(10) NOT NULL, //наименование юзера
 	Pass varchar(10) NOT NULL,
 	Surname varchar(20) NOT NULL,
 	Name varchar(20) NOT NULL,
 	Phone  varchar(10) NOT NULL,
 	Email  varchar(30) NULL,
+	UNIQUE KEY `Login_UNIQUE` (`Login`), //уникальный логин
 	PRIMARY KEY (ID_User)
 );
 
 CREATE TABLE User_Role (
 	role varchar(10) NOT NULL, //типо кода_наименования
-	ID_User varchar(10) NOT NULL,
-	PRIMARY KEY (role,ID_User),
-	CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (ID_User) REFERENCES User (ID_User)
+	Login varchar(10) NOT NULL,
+	PRIMARY KEY (role,Login), //составной первычный
+	CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login)
 );
 
 CREATE TABLE Message (
-	ID_Message Int NOT NULL,
+	ID_Message Int AUTO_INCREMENT NOT NULL,
 	Subject varchar(30) NOT NULL,
 	Date Date NOT NULL,
 	Content Text NULL,
@@ -32,7 +33,7 @@ CREATE TABLE Message (
 );
 
 CREATE TABLE Client (
-	ID_Client Int NOT NULL,
+	ID_Client Int AUTO_INCREMENT NOT NULL,
 	Date_Birth Date NOT NULL,
 	Money Float NOT NULL,
 	Interests Text NULL,
@@ -41,7 +42,7 @@ CREATE TABLE Client (
 );
 
 CREATE TABLE Goal_user (
-	ID_Goal_user Int NOT NULL,
+	ID_Goal_user Int AUTO_INCREMENT NOT NULL,
 	ID_Level Int NOT NULL,
 	ID_Goal Int NOT NULL,
 	ID_Client Int NOT NULL,
@@ -49,7 +50,7 @@ CREATE TABLE Goal_user (
 );
 
 CREATE TABLE Goal (
-	ID_Goal Int NOT NULL,
+	ID_Goal Int AUTO_INCREMENT NOT NULL,
 	Name varchar(30) NOT NULL,
 	Directory Bit NOT NULL,
 	ID_Personage Int NOT NULL,
@@ -57,14 +58,14 @@ CREATE TABLE Goal (
 );
 
 CREATE TABLE Personage (
-	ID_Personage Int NOT NULL,
+	ID_Personage Int AUTO_INCREMENT NOT NULL,
 	Name varchar(30) NOT NULL,
 	Price Float NOT NULL,
 	PRIMARY KEY (ID_Personage)
 );
 
 CREATE TABLE Level (
-	ID_Level Int NOT NULL,
+	ID_Level Int AUTO_INCREMENT NOT NULL,
 	Date Date NOT NULL,
 	Level_date Int NULL,
 	PRIMARY KEY (ID_Level)
@@ -82,3 +83,6 @@ ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Client) REFERENCES Client (ID_Client);
 ALTER TABLE Client ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
 
 ALTER TABLE Message ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
+
+
+ALTER TABLE  ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateClientTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateClientLabel_IDClient}" for="IDClient" />
+                    <h:inputText id="IDClient" value="#{clientController.selected.IDClient}" title="#{bundle.CreateClientTitle_IDClient}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_IDClient}"/>
+                    <h:outputLabel value="#{bundle.CreateClientLabel_dateBirth}" for="dateBirth" />
+                    <h:inputText id="dateBirth" value="#{clientController.selected.dateBirth}" title="#{bundle.CreateClientTitle_dateBirth}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_dateBirth}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateClientLabel_money}" for="money" />
+                    <h:inputText id="money" value="#{clientController.selected.money}" title="#{bundle.CreateClientTitle_money}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_money}"/>
+                    <h:outputLabel value="#{bundle.CreateClientLabel_interests}" for="interests" />
+                    <h:inputTextarea rows="4" cols="30" id="interests" value="#{clientController.selected.interests}" title="#{bundle.CreateClientTitle_interests}" />
+                    <h:outputLabel value="#{bundle.CreateClientLabel_IDUser}" for="IDUser" />
+                    <h:selectOneMenu id="IDUser" value="#{clientController.selected.IDUser}" title="#{bundle.CreateClientTitle_IDUser}" required="true" requiredMessage="#{bundle.CreateClientRequiredMessage_IDUser}">
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{clientController.create}" value="#{bundle.CreateClientSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{clientController.prepareList}" value="#{bundle.CreateClientShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateClientIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
