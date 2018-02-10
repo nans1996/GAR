@@ -1,0 +1,80 @@
+// смотри лаб_6 РПС авторизыцию
+
+CREATE TABLE User (
+	ID_User varchar(10) NOT NULL, //наименование юзера
+	Login varchar(10) NOT NULL,
+	Pass varchar(10) NOT NULL,
+	Surname varchar(20) NOT NULL,
+	Name varchar(20) NOT NULL,
+	Phone  varchar(10) NOT NULL,
+	Email  varchar(30) NULL,
+	PRIMARY KEY (ID_ User)
+);
+
+CREATE TABLE User_Role (
+	role varchar(10) NOT NULL, //типо кода_наименования
+	ID_User varchar(10) NOT NULL,
+	PRIMARY KEY (role,ID_User),
+	CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (ID_User) REFERENCES User (ID_User)
+);
+
+CREATE TABLE Message (
+	ID_Message Int NOT NULL,
+	Subject varchar(30) NOT NULL,
+	Date Date NOT NULL,
+	Content varchar(max) NULL,
+	ID_User varchar(10) NOT NULL,
+	PRIMARY KEY (ID_Question)
+);
+
+CREATE TABLE Client (
+	ID_Client Int NOT NULL,
+	Date_Birth Date NOT NULL,
+	Money Float NOT NULL,
+	Interests varchar(max)
+	ID_User varchar(10) NOT NULL,
+	PRIMARY KEY (ID_Client)
+);
+
+CREATE TABLE Goal_user (
+	ID_Goal_user Int NOT NULL,
+	ID_Level Int NOT NULL,
+	ID_Goal Int NOT NULL,
+	ID_Client Int NOT NULL,
+	PRIMARY KEY (ID_Goal_user)
+;
+
+CREATE TABLE Goal (
+	ID_Goal Int NOT NULL,
+	Name varchar(30) NOT NULL,
+	Directory Bit NOT NULL,
+	ID_Personage Int NOT NULL,
+	PRIMARY KEY (ID_Goal)
+);
+
+CREATE TABLE Personage (
+	ID_Personage Int NOT NULL,
+	Name varchar(30) NOT NULL,
+	Price Float NOT NULL,
+	PRIMARY KEY (ID_Personage)
+);
+
+CREATE TABLE Level (
+	ID_Level Int NOT NULL,
+	Date Date NOT NULL,
+	Level_date Int NULL,
+	PRIMARY KEY (ID_Level)
+);
+
+
+//связи между таблицами
+
+ALTER TABLE Goal ADD FOREIGN KEY (ID_Personage) REFERENCES Personage (ID_Personage);
+
+ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Level) REFERENCES Level (ID_Level);
+ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Goal) REFERENCES Goal (ID_Goal);
+ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Client) REFERENCES Client (ID_Client);
+
+ALTER TABLE Client ADD FOREIGN KEY (ID_Client) REFERENCES Client (ID_Client);
+
+ALTER TABLE Message ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
