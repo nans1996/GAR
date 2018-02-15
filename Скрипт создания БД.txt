@@ -1,5 +1,6 @@
 
 create database GAR_BD;
+drop database GAR_BD; //для особых случаев! НЕ ТОРОГАТЬ
 use GAR_BD;
 
 // смотри лаб_6 РПС авторизацию
@@ -28,8 +29,17 @@ CREATE TABLE Message (
 	Subject varchar(30) NOT NULL,
 	Date Date NOT NULL,
 	Content Text NULL,
-	ID_User varchar(10) NOT NULL,
+	ID_User Int NOT NULL,
+	ID_Topic Int NOT NULL,
 	PRIMARY KEY (ID_Message)
+);
+
+CREATE TABLE Topic (
+	ID_Topic Int AUTO_INCREMENT NOT NULL,
+	Name varchar(30) NOT NULL,
+	Date Date NOT NULL,
+	ID_User Int NOT NULL,
+	PRIMARY KEY (ID_Topic)
 );
 
 CREATE TABLE Client (
@@ -37,7 +47,7 @@ CREATE TABLE Client (
 	Date_Birth Date NOT NULL,
 	Money Float NOT NULL,
 	Interests Text NULL,
-	ID_User varchar(10) NOT NULL,
+	ID_User Int NOT NULL,
 	PRIMARY KEY (ID_Client)
 );
 
@@ -83,6 +93,7 @@ ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Client) REFERENCES Client (ID_Client);
 ALTER TABLE Client ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
 
 ALTER TABLE Message ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
+ALTER TABLE Message ADD FOREIGN KEY (ID_Topic) REFERENCES Topic (ID_Topic);
 
 
 ALTER TABLE  ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);

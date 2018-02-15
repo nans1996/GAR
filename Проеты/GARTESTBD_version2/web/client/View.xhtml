@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewClientTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewClientLabel_IDClient}"/>
+                    <h:outputText value="#{clientController.selected.IDClient}" title="#{bundle.ViewClientTitle_IDClient}"/>
+                    <h:outputText value="#{bundle.ViewClientLabel_dateBirth}"/>
+                    <h:outputText value="#{clientController.selected.dateBirth}" title="#{bundle.ViewClientTitle_dateBirth}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewClientLabel_money}"/>
+                    <h:outputText value="#{clientController.selected.money}" title="#{bundle.ViewClientTitle_money}"/>
+                    <h:outputText value="#{bundle.ViewClientLabel_interests}"/>
+                    <h:outputText value="#{clientController.selected.interests}" title="#{bundle.ViewClientTitle_interests}"/>
+                    <h:outputText value="#{bundle.ViewClientLabel_IDUser}"/>
+                    <h:outputText value="#{clientController.selected.IDUser}" title="#{bundle.ViewClientTitle_IDUser}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{clientController.destroyAndView}" value="#{bundle.ViewClientDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewClientEditLink}"/>
+                <br />
+                <h:commandLink action="#{clientController.prepareCreate}" value="#{bundle.ViewClientCreateLink}" />
+                <br />
+                <h:commandLink action="#{clientController.prepareList}" value="#{bundle.ViewClientShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewClientIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
