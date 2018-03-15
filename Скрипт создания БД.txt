@@ -20,7 +20,7 @@ CREATE TABLE User (
 CREATE TABLE User_Role (
 	role varchar(10) NOT NULL, //типо кода_наименования
 	Login varchar(10) NOT NULL,
-	PRIMARY KEY (role,Login), //составной первычный
+	PRIMARY KEY (Role,Login), //составной первычный
 	CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login)
 );
 
