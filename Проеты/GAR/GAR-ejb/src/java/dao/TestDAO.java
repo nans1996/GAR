@@ -15,7 +15,8 @@ import javax.ejb.Stateless;
 @Stateless
 public class TestDAO implements Serializable, TestInterface {
     
+    @Override
     public String TestVoid(){
-    return "Тестовое сообщение!";
+        return "Тестовое сообщение!";
     }
 }
