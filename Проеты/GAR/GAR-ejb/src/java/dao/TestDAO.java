@@ -13,7 +13,7 @@ import javax.ejb.Stateless;
  * @author Vasilisa
  */
 @Stateless
-public class TestDAO implements Serializable, TestInterface {
+public class TestDAO implements TestInterface {
     
     @Override
     public String TestVoid(){

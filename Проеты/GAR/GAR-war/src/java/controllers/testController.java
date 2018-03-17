@@ -7,6 +7,7 @@ package controllers;
 
 import dao.TestInterface;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,13 +23,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class testController {
    
     @Autowired
+//    @EJB
     TestInterface testInterface;
     
     //тестовая шляпа чтобы было понятно взимодействие
     @RequestMapping(method = RequestMethod.GET,value = "/test")
     public String userHello(ModelMap model) {
         // в модель отпровляем данные
-        model.addAttribute("message", testInterface.TestVoid());
+        model.addAttribute("message", "hi");
         return "test";
     }
 }

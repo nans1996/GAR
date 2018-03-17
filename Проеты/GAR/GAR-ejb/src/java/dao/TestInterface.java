@@ -5,13 +5,13 @@
  */
 package dao;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 
 /**
  *
  * @author Vasilisa
  */
-@Remote
+@Local
 public interface TestInterface {
     public String TestVoid();
 }
