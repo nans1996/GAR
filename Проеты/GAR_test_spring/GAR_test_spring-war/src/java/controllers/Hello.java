@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 /**
  *
  * @author Vasilisa
@@ -21,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/Hello")
 public class Hello  {
     
-    @EJB
-    UserInte userDAORemote;
+    
+    
     @RequestMapping(method = RequestMethod.GET,value = "/test")
     public String test(ModelMap model) {
         

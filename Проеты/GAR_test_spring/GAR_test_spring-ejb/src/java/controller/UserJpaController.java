@@ -24,7 +24,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
-import LocalInterface.UserInterface;
 
 /**
  *
