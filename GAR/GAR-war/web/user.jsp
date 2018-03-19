@@ -17,11 +17,34 @@
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+            <!-- Optional theme -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
             <title>Страница с пользователями</title>
         </head>
         <body>
-        <br>
-        <br>
+            <br>
+		<div class="navbar-header">
+    		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+      			<span class="sr-only">Toggle navigation</span>
+        		<span class="icon-bar"></span>
+        		<span class="icon-bar"></span>
+        		<span class="icon-bar"></span>
+    		</button>
+  		</div>
+
+  		<!-- default menu -->
+  		<div id="navbarCollapse" class="collapse navbar-collapse">
+    		<ul class="nav navbar-nav">
+      			<li class="active"><a href="#">Home</a></li>
+      			<li><a href="#">Products</a></li>
+      			<li><a href="#">Contact</a></li>
+    		</ul>
+  		</div>
+            <br>
             <table border="1">           
                 <thead>
                     <tr>
@@ -31,9 +54,10 @@
                 <c:forEach var="item" items="#{userBean.all}">
                     <tr>
                         <th><h:outputText value="#{item.login}"></h:outputText></th>
-                        </tr>
+                    </tr>
                 </c:forEach>
-            </table>    
+            </table>  
+                
             <br>
 
         </body>
