@@ -28,20 +28,5 @@ public class UserBean {
     
     private User user;
     protected UIXTable table;
-    @EJB
-    UserInterface userInterface;
-    
-    public void setTable(UIXTable table) {
-        this.table = table;
-    }
-
-    public UIXTable getTable() {
-        return table;
-    }
-    
-    public ArrayList<User> getAll() {
-        return (ArrayList<User>) userInterface.getAll();
-    }
-    
     
 }
