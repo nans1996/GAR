@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+
+	<servlet>
+		<servlet-name>ServletChart1</servlet-name>
+		<servlet-class>servlet.ServletChart1</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ServletChart2</servlet-name>
+		<servlet-class>servlet.ServletChart2</servlet-class>
+	</servlet>
+	
+    <servlet>
+        <servlet-name>ServletChart2Generator</servlet-name>
+        <servlet-class>servlet.ServletChart2Generator</servlet-class>
+    </servlet>
+
+	<servlet-mapping>
+		<servlet-name>ServletChart1</servlet-name>
+		<url-pattern>/servlet/ServletChart1</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ServletChart2</servlet-name>
+		<url-pattern>/servlet/ServletChart2</url-pattern>
+	</servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ServletChart2Generator</servlet-name>
+        <url-pattern>/servlet/ServletChart2Generator</url-pattern>
+    </servlet-mapping>
+    
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>

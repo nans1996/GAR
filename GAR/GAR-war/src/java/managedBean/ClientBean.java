@@ -5,10 +5,15 @@
  */
 package managedBean;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
 /**
  *
  * @author Vasilisa
  */
+@ManagedBean(name = "clientBean")
+@RequestScoped
 public class ClientBean {
     
 }

@@ -5,10 +5,41 @@
  */
 package managedBean;
 
+import entitys.User;
+import interfaceDao.UserInterface;
+import java.util.ArrayList;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import org.apache.myfaces.trinidad.component.UIXTable;
+
 /**
  *
  * @author Vasilisa
  */
+@ManagedBean(name = "administratorBean")
+@RequestScoped
 public class AdministratorBean {
+    public AdministratorBean() {
+        //user = new User();
+    }
+
+    //private User user;
+    protected UIXTable table;
+    @EJB
+    UserInterface userInterface;
+
+    public void setTable(UIXTable table) {
+        this.table = table;
+    }
+
+    public UIXTable getTable() {
+        return table;
+    }
+    
+    //Администрирование пользователей
+    public ArrayList<User> getAll() {
+        return (ArrayList<User>) userInterface.getAll();
+    }
     
 }

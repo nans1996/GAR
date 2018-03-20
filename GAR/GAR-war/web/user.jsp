@@ -51,7 +51,7 @@
                         <th>Login</th>
                     </tr>
                 </thead>
-                <c:forEach var="item" items="#{userBean.all}">
+                <c:forEach var="item" items="#{administratorBean.all}">
                     <tr>
                         <th><h:outputText value="#{item.login}"></h:outputText></th>
                     </tr>

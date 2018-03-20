@@ -16,12 +16,18 @@
 <f:view>
     <html>
         <head>
+           <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js" type="text/javascript"></script> 
+           <script type="text/javascript"> 
+           $("documend").ready(function(){ 
+               $("container").load("/page2.html"); 
+           });   
+           </script>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
             <title>Главная страница</title>
         </head>
         <body>
             <a href="faces/user.jsp">Страница с пользователями</a>
-
         </body>
+        <div id="container"></div>
     </html>
 </f:view>
