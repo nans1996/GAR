@@ -1,0 +1,21 @@
+body{
+background-color: #D4E6B3;
+}
+:target:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -70px; 
+  height: 70px; 
+  visibility: hidden; 
+}
+.navbar-default .navbar-nav > .active{
+    color: #000;
+    background: #d65c14;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #ffffff;
+    background: #d65c14;
+}
+
