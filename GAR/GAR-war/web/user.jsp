@@ -27,24 +27,6 @@
         </head>
         <body>
             <br>
-		<div class="navbar-header">
-    		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-      			<span class="sr-only">Toggle navigation</span>
-        		<span class="icon-bar"></span>
-        		<span class="icon-bar"></span>
-        		<span class="icon-bar"></span>
-    		</button>
-  		</div>
-
-  		<!-- default menu -->
-  		<div id="navbarCollapse" class="collapse navbar-collapse">
-    		<ul class="nav navbar-nav">
-      			<li class="active"><a href="#">Home</a></li>
-      			<li><a href="#">Products</a></li>
-      			<li><a href="#">Contact</a></li>
-    		</ul>
-  		</div>
-            <br>
             <table border="1">           
                 <thead>
                     <tr>
@@ -56,6 +38,19 @@
                         <th><h:outputText value="#{item.login}"></h:outputText></th>
                     </tr>
                 </c:forEach>
+                    
+            <h:form>
+                <tr:table binding="#{administratorBean.table}" value="#{administratorBean.all}" var="client"  rowSelection="multiple" verticalGridVisible = "true">
+                    
+                    <tr:column sortProperty="login" sortable="true">
+                        <f:facet name="header">
+                            <h:outputText value="login"/>
+                        </f:facet>
+                        <h:outputText value="#{client.login}"/>   
+                    </tr:column>    
+
+                </tr:table>        
+            </h:form>
             </table>  
                 
             <br>
