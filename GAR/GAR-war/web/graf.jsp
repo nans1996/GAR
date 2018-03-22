@@ -33,33 +33,33 @@
         }
         </style>
         <body>
+            <h:commandButton id="hdnBtn" actionListener="#{graf.usual}" style="display: none;" />
             <script type="text/javascript">
+                
 var height = 500, 
     width = 500, 
-    margin=30,
-    rawData = [
-        {x: 10, y: 67}, {x: 20, y: 74},{x: 30, y: 63},
-        {x: 40, y: 56}, {x: 50, y: 24}, {x: 60, y: 26},
-        {x: 70, y: 19}, {x: 80, y: 42}, {x: 90, y: 88}
-    ],
-    data=[];
-     
-// создание объекта svg
-var svg = d3.select("body").append("svg")
-        .attr("class", "axis")
-        .attr("width", width)
-        .attr("height", height);
- 
-// длина оси X= ширина контейнера svg - отступ слева и справа
-var xAxisLength = width - 2 * margin;     
-  
-// длина оси Y = высота контейнера svg - отступ сверху и снизу
-var yAxisLength = height - 2 * margin;
-    
-            // функция интерполяции значений на ось Х  
-            var scaleX = d3.scale.linear()
-            .domain([0, 100])
-            .range([0, xAxisLength]);
+    margin= 30,
+    rawData = [],
+    data = [];
+    list = "jQuery('#form:hdnBtn').click();";
+                for (i = 0; i < rawData.length; i++)
+                rawData[i]={x: i*10, y: list[i]*10};
+                // создание объекта svg
+                var svg = d3.select("body").append("svg")
+                        .attr("class", "axis")
+                        .attr("width", width)
+                        .attr("height", height);
+
+                // длина оси X= ширина контейнера svg - отступ слева и справа
+                var xAxisLength = width - 2 * margin;
+
+                // длина оси Y = высота контейнера svg - отступ сверху и снизу
+                var yAxisLength = height - 2 * margin;
+
+                // функция интерполяции значений на ось Х  
+                var scaleX = d3.scale.linear()
+                        .domain([0, 100])
+                        .range([0, xAxisLength]);
 
                 // функция интерполяции значений на ось Y
                 var scaleY = d3.scale.linear()
