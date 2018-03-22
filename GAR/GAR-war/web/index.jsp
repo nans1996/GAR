@@ -26,13 +26,11 @@
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
             <link href="css/style.css" rel="stylesheet">
             <link href="css/my-slider.css" rel="stylesheet">
-            <script src="js/ism-2.2.min.js"></script>
-
+            <script src="js/ism-2.2.min.js"></script> 
             <title>Главная страница</title>
         </head>
-        <body>
-           
-            <nav class="navbar navbar-default navbar-fixed-top navbar-static-top">
+        <body>           
+            <nav class="navbar navbar-default navbar-fixed-top navbar-static-top"/>
   <div class="container">
             <div class="navbar-header">
     		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
@@ -52,10 +50,12 @@
       			<li><a href="faces/user.jsp">Страница с пользователями</a></li>
       			<li><a href="faces/graf.jsp">Графики</a></li>
                         <p class="navbar-text"> Вы вошли как <a href="#" class="navbar-link">Тимофей</a></p>
-                         <button type="button" class="btn btn-default navbar-btn">Войти</button>
+                         <button  type="button" class="btn btn-default navbar-btn">Войти</button>                         
     		</ul>
   		</div>
              </div>
+    </nav>   
+        <br>
        <div class="ism-slider" id="my-slider">
   <ol>
     <li>
@@ -72,6 +72,52 @@
     </li>
   </ol>
 </div>
+                <br>
+                <br>
+               <br>
+                <br>
+                <br>
+                <br>
+                <p><img src="img/areachart.png" alt="Письма мастера дзен"></p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <table class="table table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Username</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+
+                                        <div class="footer">
+                    <p>Footer</p>
+                </div>          
         </body>
     </html>
 </f:view>
