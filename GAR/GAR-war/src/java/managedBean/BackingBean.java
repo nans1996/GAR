@@ -5,10 +5,11 @@
  */
 package managedBean;
 
-import interfaceDao.UserInterface;
-import entitys.User;
+//import entitys.User;
+//import dao.UserFacadeLocal;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import javax.ejb.EJB;
 import org.apache.myfaces.trinidad.component.UIXTable;
 
@@ -17,8 +18,8 @@ import org.apache.myfaces.trinidad.component.UIXTable;
  * @author Vasilisa
  */
 public class BackingBean {
-    @EJB
-    UserInterface userInterface;
+    //@EJB
+    //UserFacadeLocal userFacadeLocal;
     //private User user;
 
     protected UIXTable table;
@@ -50,7 +51,7 @@ public class BackingBean {
             // установка текущей строки таблицы
             tabletmp.setRowKey(rowKey);
             // получение данных из текущей строки
-            User row = (User) tabletmp.getRowData();
+        //    User row = (User) tabletmp.getRowData();
             // удаление клиента 
             //тут раскментировать как напишем метод
            // userInterface.delete(row.getID_user());
@@ -59,7 +60,8 @@ public class BackingBean {
         tabletmp.setRowKey(oldKey);
     }
 
-    public ArrayList<User> getAll() {
-        return (ArrayList) userInterface.getAll();
-    }
+    //public List<User> getAll() {
+      //  return userFacadeLocal.findAll();
+   //   return null;
+   // }
 }

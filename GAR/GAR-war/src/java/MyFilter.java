@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import entitys.User;
+//import entitys.User;
 import managedBean.UserBean;
 import java.io.IOException;
 import java.io.PrintStream;
