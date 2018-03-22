@@ -41,7 +41,7 @@ var height = 500,
     margin= 30,
     rawData = [],
     data = [];
-    list = "jQuery('#form:hdnBtn').click();";
+    list = jQuery('#form:hdnBtn').click();
                 for (i = 0; i < rawData.length; i++)
                 rawData[i]={x: i*10, y: list[i]*10};
                 // создание объекта svg
