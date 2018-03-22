@@ -1,4 +1,4 @@
-
+﻿
 create database GAR_BD;
 drop database GAR_BD; //для особых случаев! НЕ ТОРОГАТЬ
 use GAR_BD;
@@ -96,4 +96,4 @@ ALTER TABLE Message ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
 ALTER TABLE Message ADD FOREIGN KEY (ID_Topic) REFERENCES Topic (ID_Topic);
 
 
-ALTER TABLE  ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
+ALTER TABLE Topic ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
