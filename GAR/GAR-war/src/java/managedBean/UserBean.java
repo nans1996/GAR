@@ -5,8 +5,7 @@
  */
 package managedBean;
 
-import entitys.User;
-import interfaceDao.UserInterface;
+//import entitys.User;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -22,11 +21,11 @@ import org.apache.myfaces.trinidad.component.UIXTable;
 @RequestScoped
 public class UserBean {
     
-    public UserBean(){
-        user = new User();
-    }
+   // public UserBean(){
+    //    user = new User();
+   // }
     
-    private User user;
+   // private User user;
     protected UIXTable table;
     
 }

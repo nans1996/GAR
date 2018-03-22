@@ -6,8 +6,9 @@
 package managedBean;
 
 import entitys.User;
-import interfaceDao.UserInterface;
+import dao.UserFacadeLocal;
 import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -27,7 +28,7 @@ public class AdministratorBean {
     //private User user;
     protected UIXTable table;
     @EJB
-    UserInterface userInterface;
+    UserFacadeLocal userFacadeLocal;
 
     public void setTable(UIXTable table) {
         this.table = table;
@@ -37,9 +38,9 @@ public class AdministratorBean {
         return table;
     }
     
-    //Администрирование пользователей
-    public ArrayList<User> getAll() {
-        return (ArrayList<User>) userInterface.getAll();
+//    Администрирование пользователей
+    public List<User> getAll() {
+        return  userFacadeLocal.findAll();
     }
     
 }
