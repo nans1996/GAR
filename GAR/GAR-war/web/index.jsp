@@ -29,7 +29,7 @@
             <script src="js/ism-2.2.min.js"></script> 
             <title>Главная страница</title>
         </head>
-        <body>           
+        <body>  
             <nav class="navbar navbar-default navbar-fixed-top navbar-static-top"/>
   <div class="container">
             <div class="navbar-header">
@@ -52,7 +52,7 @@
       			<li><a href="faces/graf.jsp">Графики</a></li>
                         <li><a href="faces/rating.jsp">Рейтинг</a></li>
                         <p class="navbar-text"> Вы вошли как <a href="#" class="navbar-link">Тимофей</a></p>
-                         <button  type="button" class="btn btn-default navbar-btn">Войти</button>                         
+                        <a href="faces/authorization.jsp" class="btn btn-default navbar-btn">Войти</a>                         
     		</ul>
   		</div>
              </div>
