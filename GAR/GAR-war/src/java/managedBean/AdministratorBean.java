@@ -12,7 +12,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import org.apache.myfaces.trinidad.component.UIXTable;
-
+import model.*;
 /**
  *
  * @author Vasilisa
