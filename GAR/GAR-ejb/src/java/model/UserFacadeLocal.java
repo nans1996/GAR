@@ -3,30 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package model;
 
-import entitys.Topic;
+import entitys.User;
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
- * @author Vasilisa
+ * @author Анастасия
  */
 @Local
-public interface TopicFacadeLocal {
+public interface UserFacadeLocal {
 
-    void create(Topic topic);
+    void create(User user);
 
-    void edit(Topic topic);
+    void edit(User user);
 
-    void remove(Topic topic);
+    void remove(User user);
 
-    Topic find(Object id);
+    User find(Object id);
 
-    List<Topic> findAll();
+    List<User> findAll();
 
-    List<Topic> findRange(int[] range);
+    List<User> findRange(int[] range);
 
     int count();
     

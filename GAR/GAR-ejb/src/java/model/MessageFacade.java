@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package model;
 
 import entitys.Message;
 import javax.ejb.Stateless;
@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Vasilisa
+ * @author Анастасия
  */
 @Stateless
 public class MessageFacade extends AbstractFacade<Message> implements MessageFacadeLocal {

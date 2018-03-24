@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package model;
 
-import entitys.Level;
+import entitys.UserRole;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Vasilisa
+ * @author Анастасия
  */
 @Stateless
-public class LevelFacade extends AbstractFacade<Level> implements LevelFacadeLocal {
+public class UserRoleFacade extends AbstractFacade<UserRole> implements UserRoleFacadeLocal {
 
     @PersistenceContext(unitName = "GAR-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class LevelFacade extends AbstractFacade<Level> implements LevelFacadeLoc
         return em;
     }
 
-    public LevelFacade() {
-        super(Level.class);
+    public UserRoleFacade() {
+        super(UserRole.class);
     }
     
 }

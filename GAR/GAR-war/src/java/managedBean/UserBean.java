@@ -26,6 +26,7 @@ public class UserBean {
    // }
     
    // private User user;
+    //впринципе не обязательно использовать тринидад, можно написать в стиле .NET
     protected UIXTable table;
     
 }

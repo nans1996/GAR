@@ -6,7 +6,6 @@
 package managedBean;
 
 import entitys.User;
-import dao.UserFacadeLocal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;

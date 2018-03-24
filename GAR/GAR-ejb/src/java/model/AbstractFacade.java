@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package model;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
  *
- * @author Vasilisa
+ * @author Анастасия
  */
 public abstract class AbstractFacade<T> {
 

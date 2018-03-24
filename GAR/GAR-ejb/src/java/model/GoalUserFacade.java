@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package model;
 
-import entitys.Client;
+import entitys.GoalUser;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Vasilisa
+ * @author Анастасия
  */
 @Stateless
-public class ClientFacade extends AbstractFacade<Client> implements ClientFacadeLocal {
+public class GoalUserFacade extends AbstractFacade<GoalUser> implements GoalUserFacadeLocal {
 
     @PersistenceContext(unitName = "GAR-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         return em;
     }
 
-    public ClientFacade() {
-        super(Client.class);
+    public GoalUserFacade() {
+        super(GoalUser.class);
     }
     
 }

@@ -3,30 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package model;
 
-import entitys.User;
+import entitys.Goal;
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
- * @author Vasilisa
+ * @author Анастасия
  */
 @Local
-public interface UserFacadeLocal {
+public interface GoalFacadeLocal {
 
-    void create(User user);
+    void create(Goal goal);
 
-    void edit(User user);
+    void edit(Goal goal);
 
-    void remove(User user);
+    void remove(Goal goal);
 
-    User find(Object id);
+    Goal find(Object id);
 
-    List<User> findAll();
+    List<Goal> findAll();
 
-    List<User> findRange(int[] range);
+    List<Goal> findRange(int[] range);
 
     int count();
     
