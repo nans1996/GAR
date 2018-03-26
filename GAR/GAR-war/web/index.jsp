@@ -56,7 +56,7 @@
     		</ul>
   		</div>
              </div>
-    </nav>   
+    </nav>  
         <br>
        <div class="ism-slider" id="my-slider">
   <ol>
