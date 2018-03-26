@@ -61,15 +61,15 @@
        <div class="ism-slider" id="my-slider">
   <ol>
     <li>
-      <img src="ism/image/slides/flower-729514_1280.jpg">
+      <img src="https://entrepreneuralarabiya.com/wp-content/uploads/2016/01/20151220223839-shutterstock-223131421.jpeg">
+      <div class="ism-caption ism-caption-0">То, к чему стремятся, что надо осуществить</div>
+    </li>
+    <li>
+      <img src="https://scientificrussia.ru/data/auto/material/large-preview-0__2_.jpg">
       <div class="ism-caption ism-caption-0">My slide caption text</div>
     </li>
     <li>
-      <img src="ism/image/slides/beautiful-701678_1280.jpg">
-      <div class="ism-caption ism-caption-0">My slide caption text</div>
-    </li>
-    <li>
-      <img src="ism/image/slides/summer-192179_1280.jpg">
+      <img src="http://psihologija.org/wp-content/uploads/2015/03/dostizhenie-celi.jpg">
       <div class="ism-caption ism-caption-0">My slide caption text</div>
     </li>
   </ol>
