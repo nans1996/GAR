@@ -12,3 +12,5 @@ background-color: #D4E6B3;
     color: #ffffff;
     background: #d65c14;
 }
+#left { position: absolute; left: 0; top: 0; width: 50%; }
+#right { position: absolute; right: 0; top: 0; width: 50%; } 
