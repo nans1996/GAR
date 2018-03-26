@@ -51,7 +51,7 @@
       			<li><a href="faces/user.jsp">Страница с пользователями</a></li>
       			<li><a href="faces/graf.jsp">Графики</a></li>
                         <li><a href="faces/rating.jsp">Рейтинг</a></li>
-                        <p class="navbar-text"> Вы вошли как <a href="#" class="navbar-link">Тимофей</a></p>
+                        <p class="navbar-text"> Вы вошли как <a href="faces/profil.jsp" class="navbar-link">Тимофей</a></p>
                         <a href="faces/authorization.jsp" class="btn btn-default navbar-btn">Войти</a>                         
     		</ul>
   		</div>
@@ -75,17 +75,7 @@
   </ol>
 </div>
                 <br>
-                <br>
-               <br>
-                <br>
-                <br>
-                <br>
-                <p><img src="img/areachart.png" alt="Письма мастера дзен"></p>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>             
+                <br>         
 <footer class="page-footer font-small unique-color-dark pt-0">
 
     <div style="background-color: #6351ce;">
