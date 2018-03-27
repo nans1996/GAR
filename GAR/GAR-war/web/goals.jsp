@@ -24,6 +24,7 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
             <!-- Latest compiled and minified JavaScript -->
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap-flex.min.css" rel="stylesheet" >
             <link href="css/style.css" rel="stylesheet">
             <link href="css/my-slider.css" rel="stylesheet">
             <link href="css/goals.css" rel="stylesheet">
@@ -67,16 +68,12 @@
   <input type="text" class="input-medium search-query">
   <button type="submit" class="btn">Поиск</button>
 </form>
-            <h:form>
-  		
-            <div class="container"> 
-<div class="row">
- 
-<div class="col-md-6 blog_box">
- <a href="#" class="mask">
-<img src="https://cdn.lifehacker.ru/wp-content/uploads/2014/10/01_1441803818-1140x547.png" alt="image" class="img-responsive zoom-img" />
-</a>
- <h3><a href="single.html">Бегать по утрам</a></h3>
+ <h:form>
+        <div class="row">
+            <a href="#" class="mask">
+ <div class="col-xs"><img src="https://cdn.lifehacker.ru/wp-content/uploads/2014/10/01_1441803818-1140x547.png" alt="image" class="img-responsive zoom-img" />
+            </a>
+ <h3>Бегать по утрам</h3>
  <div class="links">
  <ul>
  <li><i class="fa blog-icon fa-calendar"> </i><span>Март 27, 2018</span></li>
@@ -85,15 +82,11 @@
  </ul>
  </div>
 <p>Все еще обещаешь себе начать заниматься спортом? Утренняя пробежка – отличная привычка, благодаря которой можно решить множество проблем, с которыми все чаще сталкивается все население планеты.</p>
- <a href="#" class="btn1 btn-8 btn-8c">Добавить</a>
-<div class="clearfix"></div>
- </div> 
-
-<div class="col-md-6 blog_box">
-<a href="#" class="mask">
-<img src="https://estet-portal.com/images/article/main/polza-yogi-6-vesomyh-argumentov-vstat-na-kovrik-1513156626.jpeg" alt="image" class="img-responsive zoom-img"/>
+ <a href="#" class="btn1 btn-8 btn-8c">Добавить</a></div>
+ <a href="#" class="mask">
+ <div class="col-xs"><img src="https://estet-portal.com/images/article/main/polza-yogi-6-vesomyh-argumentov-vstat-na-kovrik-1513156626.jpeg" alt="image" class="img-responsive zoom-img"/>
 </a>
-<h3><a href="#">Ходить на йогу</a></h3>
+<h3>Ходить на йогу</h3>
 <div class="links">
  <ul>
  <li><i class="fa blog-icon fa-calendar"> </i><span>Март 27, 2018</span></li>
@@ -102,14 +95,10 @@
  </ul>
 </div>
  <p>Польза йоги в первую очередь касается тела, ведь доказано — практика асан развивает гибкость, приводит мышцы в тонус, оздоравливает все системы организма. Но кроме этого, занятия йогой положительно сказываются и на когнитивных способностях и психологическом состоянии человека.</p>
- <a href="#" class="btn1 btn-8 btn-8c">Добавить</a>
-<div class="clearfix"></div>
- </div> 
- 
-<div class="clearfix"></div>
+ <a href="#" class="btn1 btn-8 btn-8c">Добавить</a></div>
+ <div class="col-xs">.col-xs</div>
 </div>
-</div> 
-            </h:form>
+        </h:form>
         </body>
     </html>
 </f:view>
