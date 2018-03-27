@@ -119,7 +119,7 @@
 
 <ul class="nav">
  <li class="nav-header">Мои цели</li>
- <li class="active"><a href="#">Бегать по утрам</a></li>
+ <li class="active"><a href="faces/goal_user.jsp">Бегать по утрам</a></li>
  <li><a href="#">Ходить на йогу</a></li>
  <li><a href="#">Ложиться в 21.00</a></li>
  <li><a href="#">Бросить курить</a></li>
