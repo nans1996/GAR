@@ -55,37 +55,29 @@
              </div>
     </nav>
         <br>
-        
-         <table class="table table table-striped">
-  <thead>
+        <br><br><br><br>
+         <table  class="table table table-striped" >
+      <thead>
     <tr>
       <th>#</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Username</th>
     </tr>
-  </thead>
+  </thead>   
+             <c:forEach items="${userBean.findAll()}" var="u"> 
+ 
   <tbody>
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
       <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
+      <td>${u.name}</td>
+      <td>${u.surname}</td>
+      <td>${u.login}</td>
     </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
+      </tbody>
+             </c:forEach>          
 </table>
+        
         </body>
     </html>
 </f:view>

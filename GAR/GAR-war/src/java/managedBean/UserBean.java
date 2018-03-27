@@ -26,19 +26,19 @@ public class UserBean {
 
     @EJB
     private UserFacadeLocal userFacade;
-    User u = new User();
+    private User u = new User();
     
     public UserBean(){
         
     }
     
      //вывести всех пользователей
-   public List<User> findAllUser(){
+   public List<User> findAll(){
       return this.userFacade.findAll();
    }
    //создать  
    public String createUser(){
-       this.userFacade.create(this.u);
+       this.userFacade.create(this.getU());
        //после добавления перебрасывает на index
      return "index";
    }
@@ -49,13 +49,27 @@ public class UserBean {
    
    //обновить 
    public String editUser(User u){
-       this.u = u;
+       this.setU(u);
        return "edit";
    }
    public String editUser(){
-       this.userFacade.edit(this.u);
-       this.u = new User();
+       this.userFacade.edit(this.getU());
+       this.setU(new User());
        return "index";
    }
+
+    /**
+     * @return the u
+     */
+    public User getU() {
+        return u;
+    }
+
+    /**
+     * @param u the u to set
+     */
+    public void setU(User u) {
+        this.u = u;
+    }
 
 }

@@ -26,7 +26,30 @@
             <title>Страница с пользователями</title>
         </head>
         <body>
-            <br>
+            <br/>
+             <table  class="table table table-striped" >
+      <thead>
+    <tr>
+      <th>Login</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+    </tr>
+  </thead>   
+             <c:forEach items="${userBean.findAll()}" var="u"> 
+ 
+  <tbody>
+    <tr>
+      <td>${u.login}</td>
+      <td>${u.name}</td>
+      <td>${u.surname}</td>
+      <td>${u.phone}</td>
+       <td>${u.email}</td>
+    </tr>
+      </tbody>
+             </c:forEach>          
+</table>
             <table border="1">           
                 <thead>
                     <tr>
@@ -39,18 +62,7 @@
                     </tr>
                 </c:forEach>
                     
-            <h:form>
-                <tr:table binding="#{administratorBean.table}" value="#{administratorBean.all}" var="client"  rowSelection="multiple" verticalGridVisible = "true">
-                    
-                    <tr:column sortProperty="login" sortable="true">
-                        <f:facet name="header">
-                            <h:outputText value="login"/>
-                        </f:facet>
-                        <h:outputText value="#{client.login}"/>   
-                    </tr:column>    
-
-                </tr:table>        
-            </h:form>
+            
             </table>  
                 
             <br>
