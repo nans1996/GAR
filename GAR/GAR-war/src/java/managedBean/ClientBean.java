@@ -23,14 +23,14 @@ public class ClientBean implements Serializable {
 
     @EJB
     private TopicFacadeLocal topicFacade;
-Topic t = new Topic();
+    Topic topic = new Topic();
     @EJB
     private MessageFacadeLocal messageFacade;
-    Message m = new Message();
- //пробуем написать контроллер
+    Message message = new Message();
+    //пробуем написать контроллер
     @EJB
     private GoalUserFacadeLocal goalUserFacade;
-GoalUser gu = new GoalUser();
+    GoalUser goalUser = new GoalUser();
 
     
     
@@ -76,35 +76,35 @@ GoalUser gu = new GoalUser();
    }
    //создать 
    public String createGoalUser(){
-       this.goalUserFacade.create(this.gu);
+       this.goalUserFacade.create(this.goalUser);
        //после добавления перебрасывает на index
      return "index";
    }
     //удалить
-   public void deleteGoalUser(GoalUser gu){
-       this.goalUserFacade.remove(gu);
+   public void deleteGoalUser(GoalUser goalUser){
+       this.goalUserFacade.remove(goalUser);
    }
    
    //обновить 
-   public String editGoalUser(GoalUser gu){
-       this.gu = gu;
+   public String editGoalUser(GoalUser goalUser){
+       this.goalUser = goalUser;
        return "edit";
    }
    public String editGoalUser(){
-       this.goalUserFacade.edit(this.gu);
-       this.gu = new GoalUser();
+       this.goalUserFacade.edit(this.goalUser);
+       this.goalUser = new GoalUser();
        return "index";
    }
    //создать сообщение пока так же
     public String createMessage(){
-       this.messageFacade.create(this.m);
+       this.messageFacade.create(this.message);
        //после добавления перебрасывает на index
      return "index";
    }
     
     //создать новую тему на форуме
     public String createTopic(){
-       this.topicFacade.create(this.t);
+       this.topicFacade.create(this.topic);
        //после добавления перебрасывает на index
      return "index";
    }

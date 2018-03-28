@@ -39,6 +39,7 @@ public class ChartView implements Serializable{
         LineChartSeries target = new LineChartSeries();
         target.setFill(true);
         target.setLabel("Больше спать");
+        
         target.set("1", 1);
         target.set("2", 2);
         target.set("3", 3);
@@ -53,7 +54,6 @@ public class ChartView implements Serializable{
         target.set("12", 7);
         target.set("13", 8);
         target.set("14", 9);
- 
  
         areaModel.addSeries(target);
  

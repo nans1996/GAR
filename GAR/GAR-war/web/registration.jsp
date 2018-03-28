@@ -27,60 +27,60 @@
         </head>
         <body>
             <div class="container">
- <div class="row">
-      <div class="col-md-offset-3 col-md-6">
-            <form class="form-horizontal">
- <span class="heading">РЕГИСТРАЦИЯ</span>
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-6">
+                        <form class="form-horizontal">
+                            <span class="heading">РЕГИСТРАЦИЯ</span>
 
-  <div class="form-group">
-    <label class="control-label col-xs-3" for="lastName">Фамилия:</label>
-    <div class="col-xs-9">
-      <input type="text" readonly onfocus="this.removeAttribute('readonly')" class="form-control" id="lastName" placeholder="Введите фамилию">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-xs-3" for="firstName">Имя:</label>
-    <div class="col-xs-9">
-      <input type="text" readonly onfocus="this.removeAttribute('readonly')" class="form-control" id="firstName" placeholder="Введите имя">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-xs-3" for="inputEmail">Email:</label>
-    <div class="col-xs-9">
-      <input type="email" readonly onfocus="this.removeAttribute('readonly')" class="form-control" id="inputEmail" placeholder="Email">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-xs-3" for="inputPassword">Пароль:</label>
-    <div class="col-xs-9">
-      <input type="password" readonly onfocus="this.removeAttribute('readonly')" class="form-control" id="inputPassword" placeholder="Введите пароль">
-    </div>
-  </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3" for="lastName">Фамилия:</label>
+                                <div class="col-xs-9">
+                                    <input type="text" readonly onfocus="this.removeAttribute('readonly')" class="form-control" id="lastName" placeholder="Введите фамилию">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3" for="firstName">Имя:</label>
+                                <div class="col-xs-9">
+                                    <input type="text" readonly onfocus="this.removeAttribute('readonly')" class="form-control" id="firstName" placeholder="Введите имя">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3" for="inputEmail">Email:</label>
+                                <div class="col-xs-9">
+                                    <input type="email" readonly onfocus="this.removeAttribute('readonly')" class="form-control" id="inputEmail" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3" for="inputPassword">Пароль:</label>
+                                <div class="col-xs-9">
+                                    <input type="password" readonly onfocus="this.removeAttribute('readonly')" class="form-control" id="inputPassword" placeholder="Введите пароль">
+                                </div>
+                            </div>
 
-  <div class="form-group">
-    <label class="control-label col-xs-3" for="phoneNumber">Телефон:</label>
-    <div class="col-xs-9">
-      <input type="tel" readonly onfocus="this.removeAttribute('readonly')" class="form-control" id="phoneNumber" placeholder="Введите номер телефона">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-xs-offset-3 col-xs-9">
-      <label class="checkbox-inline">
-        <input type="checkbox" value="agree">  Я согласен с <a href="#">условиями</a>.
-      </label>
-    </div>
-  </div>
-  <br />
-  <div class="form-group">
-    <div class="col-xs-offset-3 col-xs-9">
-      <input type="submit" class="btn btn-primary" value="Регистрация">
-      <input type="reset" class="btn btn-default" value="Очистить форму">
-    </div>
-  </div>
-  </div>
-  </div>
-    </div>
-</form>
-        </body>
-    </html>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3" for="phoneNumber">Телефон:</label>
+                                <div class="col-xs-9">
+                                    <input type="tel" readonly onfocus="this.removeAttribute('readonly')" class="form-control" id="phoneNumber" placeholder="Введите номер телефона">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-offset-3 col-xs-9">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="agree">  Я согласен с <a href="#">условиями</a>.
+                                    </label>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <div class="col-xs-offset-3 col-xs-9">
+                                    <input type="submit" class="btn btn-primary" value="Регистрация">
+                                    <input type="reset" class="btn btn-default" value="Очистить форму">
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
 </f:view>

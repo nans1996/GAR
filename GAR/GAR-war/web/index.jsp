@@ -47,9 +47,7 @@
                     
     		<ul class="nav navbar-nav navbar-right">
       			<li class="active"><a href="#">Главная  </a> </li>
-                        <li><a href="faces/goals.jsp">Цели</a></li>
-      			<li><a href="faces/user.jsp">Страница с пользователями</a></li>
-      			<li><a href="faces/graf.jsp">Графики</a></li>
+                        <li><a href="goal/faces/goals.jsp">Цели</a></li>
                         <li><a href="faces/rating.jsp">Рейтинг</a></li>
                         <p class="navbar-text"> Вы вошли как <a href="faces/profil.jsp" class="navbar-link">Тимофей</a></p>
                         <a href="faces/authorization.jsp" class="btn btn-default navbar-btn">Войти</a>                         

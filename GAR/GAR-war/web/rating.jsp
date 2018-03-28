@@ -28,56 +28,44 @@
             <title>Рейтинг</title>
         </head>
         <body>
-                    <nav class="navbar navbar-default navbar-fixed-top navbar-static-top"/>
-  <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top navbar-static-top"/>
+        <div class="container">
             <div class="navbar-header">
-    		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-      			<span class="sr-only">Toggle navigation</span>
-        		<span class="icon-bar"></span>
-        		<span class="icon-bar"></span>
-        		<span class="icon-bar"></span>
-    		</button> 
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button> 
                 <a class="navbar-brand" href="#">GAR</a>
             </div>
-             <!-- default menu -->
-             
-  		<div id="navbarCollapse" class="collapse navbar-collapse">
-                    
-    		<ul class="nav navbar-nav navbar-right">
-      			<li><a href="faces/index.jsp">Главная</a> </li>
-      			<li><a href="faces/user.jsp">Страница с пользователями</a></li>
-      			<li><a href="faces/graf.jsp">Графики</a></li>
-                        <li class="active"><a href="#">Рейтинг</a></li>
-                        <p class="navbar-text"> Вы вошли как <a href="#" class="navbar-link">Тимофей</a></p>
-                         <button  type="button" class="btn btn-default navbar-btn">Войти</button>                         
-    		</ul>
-  		</div>
-             </div>
+            <!-- default menu -->
+
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="faces/index.jsp">Главная</a> </li>
+                    <li class="active"><a href="#">Рейтинг</a></li>
+                    <p class="navbar-text"> Вы вошли как <a href="#" class="navbar-link">Тимофей</a></p>
+                    <button  type="button" class="btn btn-default navbar-btn">Войти</button>                         
+                </ul>
+            </div>
+        </div>
     </nav>
-        <br>
-        <br><br><br><br>
-         <table  class="table table table-striped" >
-      <thead>
-    <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-    </tr>
-  </thead>   
-             <c:forEach items="${userBean.findAll()}" var="u"> 
- 
-  <tbody>
-    <tr>
-      <th scope="row">2</th>
-      <td>${u.name}</td>
-      <td>${u.surname}</td>
-      <td>${u.login}</td>
-    </tr>
-      </tbody>
-             </c:forEach>          
-</table>
-        
-        </body>
-    </html>
+    <br>
+    <br><br><br><br>
+    <table  class="table table table-striped" >
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+            </tr>
+        </thead>   
+
+    </table>
+
+</body>
+</html>
 </f:view>

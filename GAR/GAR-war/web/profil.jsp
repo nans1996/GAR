@@ -45,9 +45,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active"><a href="#">Главная  </a> </li>
-                    <li><a href="faces/goals.jsp">Цели</a></li>
-                    <li><a href="faces/user.jsp">Страница с пользователями</a></li>
-                    <li><a href="faces/graf.jsp">Графики</a></li>
+                    <li><a href="goal/faces/goals.jsp">Цели</a></li>
                     <li><a href="faces/rating.jsp">Рейтинг</a></li>
                     <p class="navbar-text"> Вы вошли как <a href="faces/profil.jsp" class="navbar-link">Тимофей</a></p>
                     <a href="faces/authorization.jsp" class="btn btn-default navbar-btn">Войти</a>                         
@@ -119,7 +117,7 @@
 
         <ul class="nav">
             <li class="nav-header">Мои цели</li>
-            <li class="active"><a href="faces/goal_user.xhtml">Бегать по утрам</a></li>
+            <li class="active"><a href="goal/goal_user.xhtml">Бегать по утрам</a></li>
             <li><a href="#">Ходить на йогу</a></li>
             <li><a href="#">Ложиться в 21.00</a></li>
             <li><a href="#">Бросить курить</a></li>

@@ -27,29 +27,29 @@
         </head>
         <body>
             <br/>
-             <table  class="table table table-striped" >
-      <thead>
-    <tr>
-      <th>Login</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Phone</th>
-      <th>Email</th>
-    </tr>
-  </thead>   
-             <c:forEach items="${userBean.findAll()}" var="u"> 
- 
-  <tbody>
-    <tr>
-      <td>${u.login}</td>
-      <td>${u.name}</td>
-      <td>${u.surname}</td>
-      <td>${u.phone}</td>
-       <td>${u.email}</td>
-    </tr>
-      </tbody>
-             </c:forEach>          
-</table>
+            <table  class="table table table-striped" >
+                <thead>
+                    <tr>
+                        <th>Login</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>   
+                <c:forEach items="${userBean.findAll()}" var="u"> 
+
+                    <tbody>
+                        <tr>
+                            <td>${u.login}</td>
+                            <td>${u.name}</td>
+                            <td>${u.surname}</td>
+                            <td>${u.phone}</td>
+                            <td>${u.email}</td>
+                        </tr>
+                    </tbody>
+                </c:forEach>          
+            </table>
             <table border="1">           
                 <thead>
                     <tr>
@@ -59,12 +59,12 @@
                 <c:forEach var="item" items="#{administratorBean.all}">
                     <tr>
                         <th><h:outputText value="#{item.login}"></h:outputText></th>
-                    </tr>
+                        </tr>
                 </c:forEach>
-                    
-            
+
+
             </table>  
-                
+
             <br>
 
         </body>
