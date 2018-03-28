@@ -36,37 +36,37 @@ public class ChartView implements Serializable{
     private void createAreaModel() {
         areaModel = new LineChartModel();
  
-        LineChartSeries boys = new LineChartSeries();
-        boys.setFill(true);
-        boys.setLabel("Boys");
-        boys.set("2004", 120);
-        boys.set("2005", 100);
-        boys.set("2006", 44);
-        boys.set("2007", 150);
-        boys.set("2008", 25);
+        LineChartSeries target = new LineChartSeries();
+        target.setFill(true);
+        target.setLabel("Больше спать");
+        target.set("1", 1);
+        target.set("2", 2);
+        target.set("3", 3);
+        target.set("4", 3);
+        target.set("5", 3);
+        target.set("6", 4);
+        target.set("7", 4);
+        target.set("8", 4);
+        target.set("9", 4);
+        target.set("10", 5);
+        target.set("11", 6);
+        target.set("12", 7);
+        target.set("13", 8);
+        target.set("14", 9);
  
-        LineChartSeries girls = new LineChartSeries();
-        girls.setFill(true);
-        girls.setLabel("Girls");
-        girls.set("2004", 52);
-        girls.set("2005", 60);
-        girls.set("2006", 110);
-        girls.set("2007", 90);
-        girls.set("2008", 120);
  
-        areaModel.addSeries(boys);
-        areaModel.addSeries(girls);
+        areaModel.addSeries(target);
  
-        areaModel.setTitle("Area Chart");
+        areaModel.setTitle("Достижение цели");
         areaModel.setLegendPosition("ne");
         areaModel.setStacked(true);
         areaModel.setShowPointLabels(true);
  
-        Axis xAxis = new CategoryAxis("Years");
+        Axis xAxis = new CategoryAxis("Дни");
         areaModel.getAxes().put(AxisType.X, xAxis);
         Axis yAxis = areaModel.getAxis(AxisType.Y);
-        yAxis.setLabel("Births");
+        yAxis.setLabel("Шкала выполнения");
         yAxis.setMin(0);
-        yAxis.setMax(300);
+        yAxis.setMax(10);
     }
 }
