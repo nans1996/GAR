@@ -1,4 +1,3 @@
-.fa fa-table { margin-right:5px; }
 .thumbnail {
  margin-bottom: 20px;
  padding: 0px;
@@ -14,7 +13,7 @@
  margin-bottom: 10px
 }
 .item.list-group-item:nth-of-type(odd):hover,.item.list-group-item:hover {
- background: rgb(105,65,152)
+ background: rgb(244, 191, 66)
 }
 .item.list-group-item .list-group-image {
  margin-right: 10px
