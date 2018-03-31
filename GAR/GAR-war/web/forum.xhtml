@@ -3,142 +3,331 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <link rel="stylesheet" href="http://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
-<link rel="stylesheet" href="http://bootstraptema.ru/plugins/font-awesome/4-4-0/font-awesome.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link> 
- <link href="css/comment.css" rel="stylesheet"></link>  
-        </h:head>
-        <h:body>
-<section class="container">
-<div class="row">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/> 
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/forum.css"/> 
+        <link rel="stylesheet" href="css/xcode.css"/> 
+        <script src="js/highlight.pack.js"></script>  
+        <script>hljs.initHighlightingOnLoad();</script> 
 
-<div class="col-md-12">
-<div class="panel">
- <div class="panel-body">
- <textarea class="form-control" rows="2" placeholder="Добавьте Ваш комментарий"></textarea>
- <div class="mar-top clearfix">
- <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Добавить</button>
- <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
- <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
- <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a>
- </div>
- </div>
-</div>
-<div class="panel">
- <div class="panel-body">
- <!-- Содержание Новостей -->
- <!--===================================================-->
- <div class="media-block">
-     <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="http://bootstraptema.ru/snippets/icons/2016/mia/1.png"></img></a>
- <div class="media-body">
- <div class="mar-btm">
- <a href="#" class="btn-link text-semibold media-heading box-inline">Максим</a>
- <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i> - 19-06-2016</p>
- </div>
- <p>Секция с комментариями для сайта с подключенным Bootstrap!!!</p>
- <div class="pad-ver">
- <div class="btn-group">
- <a class="btn btn-sm btn-default btn-hover-success" href="#"><i class="fa fa-thumbs-up"></i></a>
- <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
- </div>
- <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
- </div>
+        <title>Форум</title>
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-default navbar-fixed-top navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button> 
+                    <a class="navbar-brand" href="#">GAR</a>
+                </div>
+                <!-- default menu -->
 
- <!-- Комментарий -->
- <div>
- <div class="media-block">
- <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="http://bootstraptema.ru/snippets/icons/2016/mia/2.png"></img></a>
- <div class="media-body">
- <div class="mar-btm">
- <a href="#" class="btn-link text-semibold media-heading box-inline">Вася</a>
- <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i> - 19-06-2016</p>
- </div>
- <p>Дада. С формой добавления нового комментария!</p>
- <div class="pad-ver">
- <div class="btn-group">
- <a class="btn btn-sm btn-default btn-hover-success active" href="#"><i class="fa fa-thumbs-up"></i> Нравится</a>
- <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
- </div>
- <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
- </div>
- </div>
- </div>
+                <div id="navbarCollapse" class="collapse navbar-collapse">
 
- <div class="media-block">
- <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="http://bootstraptema.ru/snippets/icons/2016/mia/3.png"></img>
- </a>
- <div class="media-body">
- <div class="mar-btm">
- <a href="#" class="btn-link text-semibold media-heading box-inline">Денис</a>
- <p class="text-muted text-sm"><i class="fa fa-globe fa-lg"></i> - 20-06-2016</p>
- </div>
- <p>Просто так что нибудь напишу</p>
- <div class="pad-ver">
- <div class="btn-group">
- <a class="btn btn-sm btn-default btn-hover-success" href="#"><i class="fa fa-thumbs-up"></i></a>
- <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
- </div>
- <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
- </div>
- </div>
- </div>
- </div>
- </div>
- </div>
- <!--===================================================-->
- <!-- Конец Содержания Новостей -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="faces/index.xhtml">Главная  </a> </li>                        
+                        <li><a href="faces/goals1.xhtml">Цели</a></li>
+                        <li><a href="faces/user.xhtml">Страница с пользователями</a></li>
+                        <li><a href="faces/rating.xhtml">Рейтинг</a></li>
+                        <li class="active"><a href="#">Форум</a></li>
+                        <p class="navbar-text"> Вы вошли как <a href="faces/profil.xhtml" class="navbar-link">Тимофей</a></p>
+                        <a href="faces/authorization.xhtml" class="btn btn-default navbar-btn">Войти</a>                         
+                    </ul>
+                </div>
+            </div>
+        </nav>   
+        <br/>
+        <br/>
+        <div id="forumContainer"> 
 
 
- <!-- Содержание Новостей -->
- <!--===================================================-->
- <div class="media-block pad-all">
-     <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="http://bootstraptema.ru/snippets/icons/2016/mia/4.png"></img></a>
- <div class="media-body">
- <div class="mar-btm">
- <a href="#" class="btn-link text-semibold media-heading box-inline">Ирина</a>
- <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i> - 20-06-2016</p>
- </div>
- <p>А я добавлю картинку</p>
- <img class="img-responsive thumbnail" src="http://drawings-girls.ucoz.net/2015/05/krasivaya-devushka-albinos.jpg" alt="Image"></img>
- <div class="pad-ver">
- <span class="tag tag-sm"><i class="fa fa-heart text-danger"></i> 250 Лайков</span>
- <div class="btn-group">
- <a class="btn btn-sm btn-default btn-hover-success" href="#"><i class="fa fa-thumbs-up"></i></a>
- <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
- </div>
- <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
- </div>
- <hr/>
- <!-- Комментарий -->
- <div>
- <div class="media-block pad-all">
-     <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="http://bootstraptema.ru/snippets/icons/2016/mia/5.png"></img></a>
- <div class="media-body">
- <div class="mar-btm">
- <a href="#" class="btn-link text-semibold media-heading box-inline">Коля</a>
- <p class="text-muted text-sm"><i class="fa fa-globe fa-lg"></i> - 20-06-2016</p>
- </div>
- <p><a href="http://bootstraptema.ru/" target="_blank" class="btn" >Всё для Bootstrap</a></p>
- <div>
- <div class="btn-group">
- <a class="btn btn-sm btn-default btn-hover-success" href="#"><i class="fa fa-thumbs-up"></i></a>
- <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
- </div>
- <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
- </div>
- </div>
- </div>
- </div>
- </div>
- </div>
- <!--===================================================-->
- <!-- Конец Содержания Новостей -->
- </div>
-</div>
-</div>
+            <div class="gDivLeft"><div class="gDivRight"><table border="0" width="100%" bgcolor="#FFFFFF" cellspacing="1" cellpadding="0" class="gTable"><tr><td class="gTableTop" colspan="5"><div style="float:right" class="gTopCornerRight"></div><a class="catLink" href="/forum/1">Технический форум</a></td></tr><tr><td width="5%" class="gTableSubTop">&nbsp;</td><td class="gTableSubTop">Форум</td><td width="8%" class="gTableSubTop" align="center">Темы</td><td width="8%" class="gTableSubTop" align="center">Ответы</td><td width="30%" class="gTableSubTop">Обновления</td></tr><tr> 
+                            <td class="forumIcoTd" align="center"> 
+                                <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
+                            </td> 
+                            <td class="forumNameTd"> 
+                                <a class="forum" href="/forum/2">Административный</a> 
 
-</div><!-- /.row -->
-</section><!-- /.container -->
-  </h:body>
+
+                                <div class="forumDescr">Правила форума, обратная связь с администрацией</div> 
+                                <div class="subforumDescr">Подфорумы: <a href="/forum/3">Вопросы и предложения</a> | <a href="/forum/4">Инструкции</a></div> 
+
+                            </td> 
+                            <td class="forumThreadTd" align="center">4</td> 
+                            <td class="forumPostTd" align="center">6</td> 
+                            <td class="forumLastPostTd"> 
+
+
+                                <br/>Тема: <a class="forumLastPostLink" href="/forum/4-29-1">Фоновое изображение профиля</a> 
+                                <br/>Сообщение от: <span class="lastPostGuest"><a class="lastPostUserLink" href="/index/8-0-ps~studio">ps-studio</a></span> 
+
+                            </td> 
+                        </tr><tr><td colspan="7"><div id="nativeroll_video_cont" style="display:none;"></div>
+
+
+                            </td></tr></table></div></div><div class="gDivBottomLeft"></div><div class="gDivBottomCenter"></div><div class="gDivBottomRight"></div><br />
+            <div class="gDivLeft"><div class="gDivRight"><table border="0" width="100%" bgcolor="#FFFFFF" cellspacing="1" cellpadding="0" class="gTable"><tr><td class="gTableTop" colspan="5"><div style="float:right" class="gTopCornerRight"></div><a class="catLink" href="/forum/25">Работа с сайтом (дополнения и улучшения)</a></td></tr><tr><td width="5%" class="gTableSubTop">&nbsp;</td><td class="gTableSubTop">Форум</td><td width="8%" class="gTableSubTop" align="center">Темы</td><td width="8%" class="gTableSubTop" align="center">Ответы</td><td width="30%" class="gTableSubTop">Обновления</td></tr><tr> 
+                            <td class="forumIcoTd" align="center"> 
+                                <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
+                            </td> 
+                            <td class="forumNameTd"> 
+                                <a class="forum" href="/forum/27">Готовые шаблоны для сайтов</a> 
+
+
+                                <div class="forumDescr">Шаблоны для сайтов uCoz, редизайн стандартных, не стандартные шаблоны</div> 
+                                <div class="subforumDescr">Подфорумы: <a href="/forum/43">Шаблоны для блога</a> | <a href="/forum/44">Игровые шаблоны</a> | <a href="/forum/45">Шаблоны для фотосайта и портфолио</a> | <a href="/forum/46">Шаблоны для интернет-магазина</a> | <a href="/forum/47">Многомодульные шаблоны</a></div> 
+
+                            </td> 
+                            <td class="forumThreadTd" align="center">4</td> 
+                            <td class="forumPostTd" align="center">1</td> 
+                            <td class="forumLastPostTd"> 
+
+                                <br/>Тема: <a class="forumLastPostLink" href="/forum/27-19-1">Если Вы делаете шаблоны для ...</a> 
+                                <br/>Сообщение от: <span class="lastPostUser"><a class="lastPostUserLink" href="/index/8-0-ps~studio">ps-studio</a></span> 
+
+                            </td> 
+                        </tr><tr> 
+                            <td class="forumIcoTd" align="center"> 
+                                <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
+                            </td> 
+                            <td class="forumNameTd"> 
+                                <a class="forum" href="/forum/28">Модули системы</a> 
+
+
+                                <div class="forumDescr"></div> 
+                                <div class="subforumDescr">Подфорумы: <a href="/forum/29">Новости и блог</a> | <a href="/forum/30">Каталоги</a> | <a href="/forum/31">Фотоальбомы и видео</a> | <a href="/forum/32">Форум</a> | <a href="/forum/33">Доска объявлений</a> | <a href="/forum/34">Онлайн игры, Гостевая книга и Тесты</a> | <a href="/forum/35">Интернет-магазин</a> | <a href="/forum/36">Поиск по сайту</a> | <a href="/forum/37">Почтовые формы и опросы</a> | <a href="/forum/38">Статистика сайта</a> | <a href="/forum/39">Мини-чат, FAQ</a></div> 
+
+                            </td> 
+                            <td class="forumThreadTd" align="center">2</td> 
+                            <td class="forumPostTd" align="center">10</td> 
+                            <td class="forumLastPostTd"> 
+
+
+                                <br/>Тема: <a class="forumLastPostLink" href="/forum/32-32-1">Вид материалов форума в зелёной гамме</a> 
+                                <br/>Сообщение от: <span class="lastPostGuest"><a class="lastPostUserLink" href="/index/8-0-ps~studio">ps-studio</a></span> 
+
+                            </td> 
+                        </tr><tr> 
+                            <td class="forumIcoTd" align="center"> 
+                                <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
+                            </td> 
+                            <td class="forumNameTd"> 
+                                <a class="forum" href="/forum/40">Общее</a> 
+
+
+                                <div class="forumDescr">Решения, не привязанные к конкретному модулю системы</div> 
+                                <div class="subforumDescr">Подфорумы: <a href="/forum/49">Оформление комментариев</a></div> 
+
+                            </td> 
+                            <td class="forumThreadTd" align="center">7</td> 
+                            <td class="forumPostTd" align="center">13</td> 
+                            <td class="forumLastPostTd"> 
+
+
+                                <br/>Тема: <a class="forumLastPostLink" href="/forum/49-28-1">Вид комментариев от PS-Studi...</a> 
+                                <br/>Сообщение от: <span class="lastPostGuest"><a class="lastPostUserLink" href="/index/8-0-ps~studio">ps-studio</a></span> 
+
+                            </td> 
+                        </tr><tr><td colspan="7"><div id="nativeroll_video_cont" style="display:none;"></div>
+
+                            </td></tr></table></div></div><div class="gDivBottomLeft"></div><div class="gDivBottomCenter"></div><div class="gDivBottomRight"></div><br />
+            <div class="gDivLeft"><div class="gDivRight"><table border="0" width="100%" bgcolor="#FFFFFF" cellspacing="1" cellpadding="0" class="gTable"><tr><td class="gTableTop" colspan="5"><div style="float:right" class="gTopCornerRight"></div><a class="catLink" href="/forum/26">Общение</a></td></tr><tr><td width="5%" class="gTableSubTop">&nbsp;</td><td class="gTableSubTop">Форум</td><td width="8%" class="gTableSubTop" align="center">Темы</td><td width="8%" class="gTableSubTop" align="center">Ответы</td><td width="30%" class="gTableSubTop">Обновления</td></tr><tr> 
+                            <td class="forumIcoTd" align="center"> 
+                                <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
+                            </td> 
+                            <td class="forumNameTd"> 
+                                <a class="forum" href="/forum/41">Форум взаимопомощи</a> 
+
+
+                                <div class="forumDescr">Обсуждение и решение проблем, возникающих при работе с uCoz</div> 
+
+
+                            </td> 
+                            <td class="forumThreadTd" align="center">3</td> 
+                            <td class="forumPostTd" align="center">0</td> 
+                            <td class="forumLastPostTd"> 
+
+
+                                <br/>Тема: <a class="forumLastPostLink" href="/forum/41-36-1">Работа с системой uCoz и её ...</a> 
+                                <br/>Сообщение от: <span class="lastPostUser"><a class="lastPostUserLink" href="/index/8-0-ps~studio">ps-studio</a></span> 
+
+                            </td> 
+                        </tr><tr> 
+                            <td class="forumIcoTd" align="center"> 
+                                <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
+                            </td> 
+                            <td class="forumNameTd"> 
+                                <a class="forum" href="/forum/42">Свободное общение</a> 
+
+
+                                <div class="forumDescr">Общение на любые, не связанные с uCoz системой темы</div> 
+
+
+                            </td> 
+                            <td class="forumThreadTd" align="center">2</td> 
+                            <td class="forumPostTd" align="center">11</td> 
+                            <td class="forumLastPostTd"> 
+
+
+                                <br/>Тема: <a class="forumLastPostLink" href="/forum/42-37-1">Музыка, которая мне нравится</a> 
+                                <br/>Сообщение от: <span class="lastPostUser"><a class="lastPostUserLink" href="/index/8-0-ps~studio">ps-studio</a></span> 
+
+                            </td> 
+                        </tr></table></div></div>
+            <div class="gDivBottomLeft"></div>
+            <div class="gDivBottomCenter"></div>
+            <div class="gDivBottomRight"></div><div align="right" style="padding-top:5px;" class="funcBlock">[ <a class="funcLink" href="javascript://" rel="nofollow" onclick="window.location.href = '/forum/0-0-0-30';return false;">Отметить все сообщения прочитанными</a> ]</div>
+            <br /><br /><br /><div class="gDivLeft"><div class="gDivRight"><table border="0" width="100%" cellspacing="1" cellpadding="0" class="gTable">
+
+
+                    </table>
+                </div></div><div class="gDivBottomLeft"></div><div class="gDivBottomCenter"></div><div class="gDivBottomRight"></div>
+
+
+        </div> 
+ <footer class="page-footer font-small unique-color-dark pt-0">
+
+            <div style="background-color: #6351ce;">
+                <div class="container">
+                    <!--Grid row-->
+                    <div class="row py-4 d-flex align-items-center">
+
+                        <!--Grid column-->
+                        <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+                            <h6 class="mb-0 white-text">Get connected with us on social networks!</h6>
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-md-6 col-lg-7 text-center text-md-right">
+                            <!--Facebook-->
+                            <a class="fb-ic ml-0">
+                                <i class="fa fa-facebook white-text mr-lg-4"> </i>
+                            </a>
+                            <!--Twitter-->
+                            <a class="tw-ic">
+                                <i class="fa fa-twitter white-text mr-lg-4"> </i>
+                            </a>
+                            <!--Google +-->
+                            <a class="gplus-ic">
+                                <i class="fa fa-google-plus white-text mr-lg-4"> </i>
+                            </a>
+                            <!--Linkedin-->
+                            <a class="li-ic">
+                                <i class="fa fa-linkedin white-text mr-lg-4"> </i>
+                            </a>
+                            <!--Instagram-->
+                            <a class="ins-ic">
+                                <i class="fa fa-instagram white-text mr-lg-4"> </i>
+                            </a>
+                        </div>
+                        <!--Grid column-->
+
+                    </div>
+                    <!--Grid row-->
+                </div>
+            </div>
+
+            <!--Footer Links-->
+            <div class="container mt-5 mb-4 text-center text-md-left">
+                <div class="row mt-3">
+
+                    <!--First column-->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Company name</strong>
+                        </h6>
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>
+                        <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit
+                            amet, consectetur adipisicing elit.</p>
+                    </div>
+                    <!--/.First column-->
+
+                    <!--Second column-->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Products</strong>
+                        </h6>
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>
+                        <p>
+                            <a href="#!">MDBootstrap</a>
+                        </p>
+                        <p>
+                            <a href="#!">MDWordPress</a>
+                        </p>
+                        <p>
+                            <a href="#!">BrandFlow</a>
+                        </p>
+                        <p>
+                            <a href="#!">Bootstrap Angular</a>
+                        </p>
+                    </div>
+                    <!--/.Second column-->
+
+                    <!--Third column-->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Useful links</strong>
+                        </h6>
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>
+                        <p>
+                            <a href="#!">Your Account</a>
+                        </p>
+                        <p>
+                            <a href="#!">Become an Affiliate</a>
+                        </p>
+                        <p>
+                            <a href="#!">Shipping Rates</a>
+                        </p>
+                        <p>
+                            <a href="#!">Help</a>
+                        </p>
+                    </div>
+                    <!--/.Third column-->
+
+                    <!--Fourth column-->
+                    <div class="col-md-4 col-lg-3 col-xl-3">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Contact</strong>
+                        </h6>
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>
+                        <p>
+                            <i class="fa fa-home mr-3"></i> New York, NY 10012, US</p>
+                        <p>
+                            <i class="fa fa-envelope mr-3"></i> info@example.com</p>
+                        <p>
+                            <i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
+                        <p>
+                            <i class="fa fa-print mr-3"></i> + 01 234 567 89</p>
+                    </div>
+                    <!--/.Fourth column-->
+
+                </div>
+            </div>
+            <!--/.Footer Links-->
+
+            <!-- Copyright-->
+            <div class="footer-copyright py-3 text-center">
+                © 2018 Copyright:
+                <a href="https://mdbootstrap.com/material-design-for-bootstrap/">
+                    <strong> MDBootstrap.com</strong>
+                </a>
+            </div>
+            <!--/.Copyright -->
+
+        </footer>    
+
+        <!-- 0.02434 (s7) -->
+    </h:body>
 </html>
 
