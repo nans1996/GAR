@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entitys;
+package entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -59,12 +59,12 @@ public class Message implements Serializable {
     @Size(max = 65535)
     @Column(name = "Content")
     private String content;
-    @JoinColumn(name = "ID_User", referencedColumnName = "ID_User")
-    @ManyToOne(optional = false)
-    private User iDUser;
     @JoinColumn(name = "ID_Topic", referencedColumnName = "ID_Topic")
     @ManyToOne(optional = false)
     private Topic iDTopic;
+    @JoinColumn(name = "ID_User", referencedColumnName = "ID_User")
+    @ManyToOne(optional = false)
+    private User iDUser;
 
     public Message() {
     }
@@ -111,20 +111,20 @@ public class Message implements Serializable {
         this.content = content;
     }
 
-    public User getIDUser() {
-        return iDUser;
-    }
-
-    public void setIDUser(User iDUser) {
-        this.iDUser = iDUser;
-    }
-
     public Topic getIDTopic() {
         return iDTopic;
     }
 
     public void setIDTopic(Topic iDTopic) {
         this.iDTopic = iDTopic;
+    }
+
+    public User getIDUser() {
+        return iDUser;
+    }
+
+    public void setIDUser(User iDUser) {
+        this.iDUser = iDUser;
     }
 
     @Override
@@ -149,7 +149,7 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return "entitys.Message[ iDMessage=" + iDMessage + " ]";
+        return "entity.Message[ iDMessage=" + iDMessage + " ]";
     }
     
 }

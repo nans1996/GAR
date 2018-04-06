@@ -5,14 +5,14 @@
  */
 package model;
 
-import entitys.UserRole;
+import entity.UserRole;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Анастасия
+ * @author Vasilisa
  */
 @Stateless
 public class UserRoleFacade extends AbstractFacade<UserRole> implements UserRoleFacadeLocal {

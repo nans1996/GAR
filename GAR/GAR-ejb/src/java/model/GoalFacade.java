@@ -5,14 +5,14 @@
  */
 package model;
 
-import entitys.Goal;
+import entity.Goal;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Анастасия
+ * @author Vasilisa
  */
 @Stateless
 public class GoalFacade extends AbstractFacade<Goal> implements GoalFacadeLocal {

@@ -6,7 +6,7 @@
 package managedBean;
 
 //import entitys.User;
-import entitys.*;
+import entity.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;

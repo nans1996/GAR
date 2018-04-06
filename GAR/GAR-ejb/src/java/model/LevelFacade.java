@@ -5,14 +5,14 @@
  */
 package model;
 
-import entitys.Level;
+import entity.Level;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Анастасия
+ * @author Vasilisa
  */
 @Stateless
 public class LevelFacade extends AbstractFacade<Level> implements LevelFacadeLocal {

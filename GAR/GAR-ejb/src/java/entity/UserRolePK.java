@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entitys;
+package entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -22,7 +22,7 @@ public class UserRolePK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
-    @Column(name = "role")
+    @Column(name = "Role")
     private String role;
     @Basic(optional = false)
     @NotNull
@@ -80,7 +80,7 @@ public class UserRolePK implements Serializable {
 
     @Override
     public String toString() {
-        return "entitys.UserRolePK[ role=" + role + ", login=" + login + " ]";
+        return "entity.UserRolePK[ role=" + role + ", login=" + login + " ]";
     }
     
 }

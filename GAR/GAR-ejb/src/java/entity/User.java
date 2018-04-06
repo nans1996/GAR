@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entitys;
+package entity;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -81,6 +81,8 @@ public class User implements Serializable {
     private Collection<UserRole> userRoleCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDUser")
     private Collection<Client> clientCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDUser")
+    private Collection<Topic> topicCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDUser")
     private Collection<Message> messageCollection;
 
@@ -175,6 +177,15 @@ public class User implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Topic> getTopicCollection() {
+        return topicCollection;
+    }
+
+    public void setTopicCollection(Collection<Topic> topicCollection) {
+        this.topicCollection = topicCollection;
+    }
+
+    @XmlTransient
     public Collection<Message> getMessageCollection() {
         return messageCollection;
     }
@@ -205,7 +216,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "entitys.User[ iDUser=" + iDUser + " ]";
+        return "entity.User[ iDUser=" + iDUser + " ]";
     }
     
 }

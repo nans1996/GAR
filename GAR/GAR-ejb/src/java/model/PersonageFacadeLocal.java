@@ -5,13 +5,13 @@
  */
 package model;
 
-import entitys.Personage;
+import entity.Personage;
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
- * @author Анастасия
+ * @author Vasilisa
  */
 @Local
 public interface PersonageFacadeLocal {

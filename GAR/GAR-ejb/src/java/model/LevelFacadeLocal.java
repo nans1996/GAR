@@ -5,13 +5,13 @@
  */
 package model;
 
-import entitys.Level;
+import entity.Level;
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
- * @author Анастасия
+ * @author Vasilisa
  */
 @Local
 public interface LevelFacadeLocal {

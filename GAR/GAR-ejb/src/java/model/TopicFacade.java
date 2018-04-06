@@ -5,14 +5,14 @@
  */
 package model;
 
-import entitys.Topic;
+import entity.Topic;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Анастасия
+ * @author Vasilisa
  */
 @Stateless
 public class TopicFacade extends AbstractFacade<Topic> implements TopicFacadeLocal {

@@ -1,27 +1,28 @@
 ﻿
 create database GAR_BD;
-drop database GAR_BD; //для особых случаев! НЕ ТОРОГАТЬ
+drop database GAR_BD; #//для особых случаев! НЕ ТОРОГАТЬ
 use GAR_BD;
 
-// смотри лаб_6 РПС авторизацию
+#// смотри лаб_6 РПС авторизацию
 
 CREATE TABLE User (
-	ID_User int AUTO_INCREMENT NOT NULL, //искуственный первичный ключ
-	Login varchar(10) NOT NULL, //наименование юзера
+	ID_User int AUTO_INCREMENT NOT NULL, #//искуственный первичный ключ
+	Login varchar(10) NOT NULL UNIQUE, #//наименование юзера
 	Pass varchar(10) NOT NULL,
 	Surname varchar(20) NOT NULL,
 	Name varchar(20) NOT NULL,
 	Phone  varchar(10) NOT NULL,
 	Email  varchar(30) NULL,
-	UNIQUE KEY `Login_UNIQUE` (`Login`), //уникальный логин
+	#UNIQUE KEY `Login_UNIQUE` (`Login`), //уникальный логин
 	PRIMARY KEY (ID_User)
 );
 
 CREATE TABLE User_Role (
-	role varchar(10) NOT NULL, //типо кода_наименования
+	Role varchar(10) NOT NULL, #//типо кода_наименования
 	Login varchar(10) NOT NULL,
-	PRIMARY KEY (Role,Login), //составной первычный
+	PRIMARY KEY (Role,Login), #//составной первычный
 	CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login)
+	#CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login)
 );
 
 CREATE TABLE Message (
@@ -82,7 +83,7 @@ CREATE TABLE Level (
 );
 
 
-//связи между таблицами
+#//связи между таблицами
 
 ALTER TABLE Goal ADD FOREIGN KEY (ID_Personage) REFERENCES Personage (ID_Personage);
 

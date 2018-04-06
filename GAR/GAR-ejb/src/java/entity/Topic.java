@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entitys;
+package entity;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -37,8 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Topic.findAll", query = "SELECT t FROM Topic t")
     , @NamedQuery(name = "Topic.findByIDTopic", query = "SELECT t FROM Topic t WHERE t.iDTopic = :iDTopic")
     , @NamedQuery(name = "Topic.findByName", query = "SELECT t FROM Topic t WHERE t.name = :name")
-    , @NamedQuery(name = "Topic.findByDate", query = "SELECT t FROM Topic t WHERE t.date = :date")
-    , @NamedQuery(name = "Topic.findByIDUser", query = "SELECT t FROM Topic t WHERE t.iDUser = :iDUser")})
+    , @NamedQuery(name = "Topic.findByDate", query = "SELECT t FROM Topic t WHERE t.date = :date")})
 public class Topic implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,10 +58,9 @@ public class Topic implements Serializable {
     @Column(name = "Date")
     @Temporal(TemporalType.DATE)
     private Date date;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_User")
-    private int iDUser;
+    @JoinColumn(name = "ID_User", referencedColumnName = "ID_User")
+    @ManyToOne(optional = false)
+    private User iDUser;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDTopic")
     private Collection<Message> messageCollection;
 
@@ -71,11 +71,10 @@ public class Topic implements Serializable {
         this.iDTopic = iDTopic;
     }
 
-    public Topic(Integer iDTopic, String name, Date date, int iDUser) {
+    public Topic(Integer iDTopic, String name, Date date) {
         this.iDTopic = iDTopic;
         this.name = name;
         this.date = date;
-        this.iDUser = iDUser;
     }
 
     public Integer getIDTopic() {
@@ -102,11 +101,11 @@ public class Topic implements Serializable {
         this.date = date;
     }
 
-    public int getIDUser() {
+    public User getIDUser() {
         return iDUser;
     }
 
-    public void setIDUser(int iDUser) {
+    public void setIDUser(User iDUser) {
         this.iDUser = iDUser;
     }
 
@@ -141,7 +140,7 @@ public class Topic implements Serializable {
 
     @Override
     public String toString() {
-        return "entitys.Topic[ iDTopic=" + iDTopic + " ]";
+        return "entity.Topic[ iDTopic=" + iDTopic + " ]";
     }
     
 }

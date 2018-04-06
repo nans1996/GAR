@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import model.*;
-import entitys.*;
+import entity.*;
 
 /**
  *

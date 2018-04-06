@@ -45,12 +45,12 @@ public class MyFilter implements Filter {
             log("MyFilter:DoBeforeProcessing");
         }
        
-        String username = ((HttpServletRequest)request).getRemoteUser();
-        if (username != null) {
-            //Visitor visitor =  visitorDAORemote.getId(username);    
-            //жестко.. нужно исправить
-            ((HttpServletRequest)request).getSession().setAttribute(null,null);//Visitor.VISITOR_KEY, visitor);
-        }
+//        String username = ((HttpServletRequest)request).getRemoteUser();
+//        if (username != null) {
+//            //Visitor visitor =  visitorDAORemote.getId(username);    
+//            //жестко.. нужно исправить
+//            ((HttpServletRequest)request).getSession().setAttribute(null,null);//Visitor.VISITOR_KEY, visitor);
+//        }
         // Write code here to process the request and/or response before
         // the rest of the filter chain is invoked.
         // For example, a logging filter might log items on the request object,

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entitys;
+package entity;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -122,7 +122,7 @@ public class Level implements Serializable {
 
     @Override
     public String toString() {
-        return "entitys.Level[ iDLevel=" + iDLevel + " ]";
+        return "entity.Level[ iDLevel=" + iDLevel + " ]";
     }
     
 }

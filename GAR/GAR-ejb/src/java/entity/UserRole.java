@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entitys;
+package entity;
 
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
@@ -84,7 +84,7 @@ public class UserRole implements Serializable {
 
     @Override
     public String toString() {
-        return "entitys.UserRole[ userRolePK=" + userRolePK + " ]";
+        return "entity.UserRole[ userRolePK=" + userRolePK + " ]";
     }
     
 }

@@ -5,13 +5,13 @@
  */
 package model;
 
-import entitys.Goal;
+import entity.Goal;
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
- * @author Анастасия
+ * @author Vasilisa
  */
 @Local
 public interface GoalFacadeLocal {

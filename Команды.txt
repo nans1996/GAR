@@ -2,4 +2,6 @@ asadmin create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.o
 
 asadmin create-jdbc-resource --connectionpoolid GARPool jdbc/GARperson
 
-asadmin create-auth-realm --classname com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm --property datasource-jndi=jdbc/GARperson:user-table=User:user-name-column=Login:password-column=Pass:group-table=User_Role:group-name-column=Role:jaas-context=jdbcRealmGAR:digest-algorithm=none jdbcRealmGAR
+asadmin create-auth-realm --classname com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm --property datasource-jndi=jdbc/GARperson:user-table=user:user-name-column=Login:password-column=Pass:group-table=User_Role:group-name-column=Role:jaas-context=jdbcRealm:digest-algorithm=none jdbcRealmGAR
+
+asadmin delete-auth-realm jdbcRealmGAR

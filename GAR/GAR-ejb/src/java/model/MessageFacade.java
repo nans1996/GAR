@@ -5,14 +5,14 @@
  */
 package model;
 
-import entitys.Message;
+import entity.Message;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Анастасия
+ * @author Vasilisa
  */
 @Stateless
 public class MessageFacade extends AbstractFacade<Message> implements MessageFacadeLocal {

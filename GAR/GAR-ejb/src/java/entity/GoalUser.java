@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entitys;
+package entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -37,15 +37,15 @@ public class GoalUser implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_Goal_user")
     private Integer iDGoaluser;
+    @JoinColumn(name = "ID_Client", referencedColumnName = "ID_Client")
+    @ManyToOne(optional = false)
+    private Client iDClient;
     @JoinColumn(name = "ID_Level", referencedColumnName = "ID_Level")
     @ManyToOne(optional = false)
     private Level iDLevel;
     @JoinColumn(name = "ID_Goal", referencedColumnName = "ID_Goal")
     @ManyToOne(optional = false)
     private Goal iDGoal;
-    @JoinColumn(name = "ID_Client", referencedColumnName = "ID_Client")
-    @ManyToOne(optional = false)
-    private Client iDClient;
 
     public GoalUser() {
     }
@@ -62,6 +62,14 @@ public class GoalUser implements Serializable {
         this.iDGoaluser = iDGoaluser;
     }
 
+    public Client getIDClient() {
+        return iDClient;
+    }
+
+    public void setIDClient(Client iDClient) {
+        this.iDClient = iDClient;
+    }
+
     public Level getIDLevel() {
         return iDLevel;
     }
@@ -76,14 +84,6 @@ public class GoalUser implements Serializable {
 
     public void setIDGoal(Goal iDGoal) {
         this.iDGoal = iDGoal;
-    }
-
-    public Client getIDClient() {
-        return iDClient;
-    }
-
-    public void setIDClient(Client iDClient) {
-        this.iDClient = iDClient;
     }
 
     @Override
@@ -108,7 +108,7 @@ public class GoalUser implements Serializable {
 
     @Override
     public String toString() {
-        return "entitys.GoalUser[ iDGoaluser=" + iDGoaluser + " ]";
+        return "entity.GoalUser[ iDGoaluser=" + iDGoaluser + " ]";
     }
     
 }
