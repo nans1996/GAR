@@ -57,7 +57,7 @@
         <auth-method>FORM</auth-method>
         <realm-name>jdbcRealmGAR</realm-name>
         <form-login-config>
-            <form-login-page>/login.xhtml</form-login-page>
+            <form-login-page>/authorization.xhtml</form-login-page>
             <form-error-page>/Error.html</form-error-page>
         </form-login-config>
     </login-config>

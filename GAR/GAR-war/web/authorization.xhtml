@@ -15,14 +15,14 @@
             <div class="row">
 
                 <div class="col-md-offset-3 col-md-6">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal"  method="post" action="j_security_check">
                         <span class="heading">АВТОРИЗАЦИЯ</span>
                         <div class="form-group">
-                            <input type="email" class="form-control" id="inputEmail" placeholder="E-mail"></input>
+                            <input type="text" name="j_username" placeholder="Login"></input>
                             <i class="fa fa-user"></i>
                         </div>
                         <div class="form-group help">
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Password"></input>
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="j_password"></input>
                             <i class="fa fa-lock"></i>
                             <a href="#" class="fa fa-question-circle"></a>
                         </div>
@@ -32,8 +32,8 @@
                                 <label for="checkbox1"></label>
                             </div>
                             <span class="text">Запомнить</span>
-                            <a href="faces/index.xhtml" class="btn btn-default">ВХОД</a>
-                            <a href="faces/registration.xhtml" class="btn btn-default">Регистрация</a>
+                            <input type="submit" value="войти" class="btn btn-default"/>
+                            <a href="/faces/registration.xhtml" class="btn btn-default">Регистрация</a>
                         </div>  
                     </form>
                 </div>
