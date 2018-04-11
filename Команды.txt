@@ -1,7 +1,0 @@
-asadmin create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlDataSource --restype javax.sql.DataSource --property portNumber=3306:password=1997:user=root:serverName=localhost:databaseName=GAR_BD GARPool
-
-asadmin create-jdbc-resource --connectionpoolid GARPool jdbc/GARperson
-
-asadmin create-auth-realm --classname com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm --property datasource-jndi=jdbc/GARperson:user-table=user:user-name-column=Login:password-column=Pass:group-table=User_Role:group-name-column=Role:jaas-context=jdbcRealm:digest-algorithm=none jdbcRealmGAR
-
-asadmin delete-auth-realm jdbcRealmGAR

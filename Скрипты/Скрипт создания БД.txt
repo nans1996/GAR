@@ -1,0 +1,100 @@
+﻿
+create database GAR_BD;
+drop database GAR_BD; #//для особых случаев! НЕ ТОРОГАТЬ
+use GAR_BD;
+
+#// смотри лаб_6 РПС авторизацию
+
+CREATE TABLE User (
+	ID_User int AUTO_INCREMENT NOT NULL, #//искуственный первичный ключ
+	Login varchar(10) NOT NULL UNIQUE, #//наименование юзера
+	Pass varchar(10) NOT NULL,
+	Surname varchar(20) NOT NULL,
+	Name varchar(20) NOT NULL,
+	Phone  varchar(10) NOT NULL,
+	Email  varchar(30) NULL,
+	#UNIQUE KEY `Login_UNIQUE` (`Login`), //уникальный логин
+	PRIMARY KEY (ID_User)
+);
+
+CREATE TABLE User_Role (
+	Role varchar(10) NOT NULL, #//типо кода_наименования
+	Login varchar(10) NOT NULL,
+	PRIMARY KEY (Role,Login), #//составной первычный
+	CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login)
+	#CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login)
+);
+
+CREATE TABLE Message (
+	ID_Message Int AUTO_INCREMENT NOT NULL,
+	Subject varchar(30) NOT NULL,
+	Date Date NOT NULL,
+	Content Text NULL,
+	ID_User Int NOT NULL,
+	ID_Topic Int NOT NULL,
+	PRIMARY KEY (ID_Message)
+);
+
+CREATE TABLE Topic (
+	ID_Topic Int AUTO_INCREMENT NOT NULL,
+	Name varchar(30) NOT NULL,
+	Date Date NOT NULL,
+	ID_User Int NOT NULL,
+	PRIMARY KEY (ID_Topic)
+);
+
+CREATE TABLE Client (
+	ID_Client Int AUTO_INCREMENT NOT NULL,
+	Date_Birth Date NOT NULL,
+	Money Float NOT NULL,
+	Interests Text NULL,
+	ID_User Int NOT NULL,
+	PRIMARY KEY (ID_Client)
+);
+
+CREATE TABLE Goal_user (
+	ID_Goal_user Int AUTO_INCREMENT NOT NULL,
+	ID_Level Int NOT NULL,
+	ID_Goal Int NOT NULL,
+	ID_Client Int NOT NULL,
+	PRIMARY KEY (ID_Goal_user)
+);
+
+CREATE TABLE Goal (
+	ID_Goal Int AUTO_INCREMENT NOT NULL,
+	Name varchar(30) NOT NULL,
+	Directory Bit NOT NULL,
+	ID_Personage Int NOT NULL,
+	PRIMARY KEY (ID_Goal)
+);
+
+CREATE TABLE Personage (
+	ID_Personage Int AUTO_INCREMENT NOT NULL,
+	Name varchar(30) NOT NULL,
+	Price Float NOT NULL,
+	PRIMARY KEY (ID_Personage)
+);
+
+CREATE TABLE Level (
+	ID_Level Int AUTO_INCREMENT NOT NULL,
+	Date Date NOT NULL,
+	Level_date Int NULL,
+	PRIMARY KEY (ID_Level)
+);
+
+
+#//связи между таблицами
+
+ALTER TABLE Goal ADD FOREIGN KEY (ID_Personage) REFERENCES Personage (ID_Personage);
+
+ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Level) REFERENCES Level (ID_Level);
+ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Goal) REFERENCES Goal (ID_Goal);
+ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Client) REFERENCES Client (ID_Client);
+
+ALTER TABLE Client ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
+
+ALTER TABLE Message ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
+ALTER TABLE Message ADD FOREIGN KEY (ID_Topic) REFERENCES Topic (ID_Topic);
+
+
+ALTER TABLE Topic ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
