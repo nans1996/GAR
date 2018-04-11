@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package filters;
 
-//import entitys.User;
-import managedBean.UserBean;
+import entity.User;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import javax.ejb.EJB;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -19,13 +18,15 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import managedBean.UserBean;
+import model.UserFacadeLocal;
 
 /**
  *
  * @author Vasilisa
  */
-@WebFilter(filterName = "MyFilter", urlPatterns = {"/*"})
-public class MyFilter implements Filter {
+@WebFilter(filterName = "CurrentUser", urlPatterns = {"/*"})
+public class CurrentUser implements Filter {
     
     private static final boolean debug = true;
 
@@ -34,23 +35,25 @@ public class MyFilter implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
     
-    //@EJB
-    //private dao.VisitorDAORemote visitorDAORemote;
-    public MyFilter() {
+    public CurrentUser() {
     }    
     
+    //@EJB
+    //private UserFacadeLocal userFacadeLocal;
+        
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("MyFilter:DoBeforeProcessing");
+            log("CurrentUser:DoBeforeProcessing");
         }
-       
-//        String username = ((HttpServletRequest)request).getRemoteUser();
-//        if (username != null) {
-//            //Visitor visitor =  visitorDAORemote.getId(username);    
-//            //жестко.. нужно исправить
-//            ((HttpServletRequest)request).getSession().setAttribute(null,null);//Visitor.VISITOR_KEY, visitor);
-//        }
+
+        //Вытаскиваем текущего поьзователя
+        String login = ((HttpServletRequest)request).getRemoteUser();
+        if (login != null) {
+        //Вытаскиваем его из БД
+            //User user =  userFacadeLocal.findLogin(username);
+            ((HttpServletRequest)request).getSession().setAttribute(UserBean.USER_KEY, login);
+        }
         // Write code here to process the request and/or response before
         // the rest of the filter chain is invoked.
         // For example, a logging filter might log items on the request object,
@@ -76,7 +79,7 @@ public class MyFilter implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("MyFilter:DoAfterProcessing");
+            log("CurrentUser:DoAfterProcessing");
         }
 
         // Write code here to process the request and/or response after
@@ -112,7 +115,7 @@ public class MyFilter implements Filter {
             throws IOException, ServletException {
         
         if (debug) {
-            log("MyFilter:doFilter()");
+            log("CurrentUser:doFilter()");
         }
         
         doBeforeProcessing(request, response);
@@ -172,7 +175,7 @@ public class MyFilter implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {                
-                log("MyFilter:Initializing filter");
+                log("CurrentUser:Initializing filter");
             }
         }
     }
@@ -183,9 +186,9 @@ public class MyFilter implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("MyFilter()");
+            return ("CurrentUser()");
         }
-        StringBuffer sb = new StringBuffer("MyFilter(");
+        StringBuffer sb = new StringBuffer("CurrentUser(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());

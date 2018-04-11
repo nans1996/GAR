@@ -9,6 +9,7 @@ import entity.User;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +28,13 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
 
     public UserFacade() {
         super(User.class);
+    }
+    
+    @Override
+    public User findLogin(String login){
+        Query q = em.createNamedQuery("User.findByLogin");
+        q.setParameter("login", login);
+        return (User) q.getSingleResult();
     }
     
 }
