@@ -1,10 +1,10 @@
-.modal-body{
+.form-horizontal{
  background: #fff;
  padding-bottom: 40px;
  border-radius: 15px;
  text-align: center;
 }
-.modal-body .heading{
+.form-horizontal .heading{
  display: block;
  font-size: 35px;
  font-weight: 700;
@@ -12,12 +12,12 @@
  border-bottom: 1px solid #f0f0f0;
  margin-bottom: 30px;
 }
-.modal-body .form-group{
+.form-horizontal .form-group{
  padding: 0 40px;
  margin: 0 0 25px 0;
  position: relative;
 }
-.modal-body .form-control{
+.form-horizontal .form-control{
  background: #f0f0f0;
  border: none;
  border-radius: 20px;
@@ -26,12 +26,12 @@
  height: 40px;
  transition: all 0.3s ease 0s;
 }
-.modal-body .form-control:focus{
+.form-horizontal .form-control:focus{
  background: #e0e0e0;
  box-shadow: none;
  outline: 0 none;
 }
-.modal-body .form-group i{
+.form-horizontal .form-group i{
  position: absolute;
  top: 12px;
  left: 60px;
@@ -39,10 +39,10 @@
  color: #c8c8c8;
  transition : all 0.5s ease 0s;
 }
-.modal-body .form-control:focus + i{
+.form-horizontal .form-control:focus + i{
  color: #00b4ef;
 }
-.modal-body .fa-question-circle{
+.form-horizontal .fa-question-circle{
  display: inline-block;
  position: absolute;
  top: 12px;
@@ -51,10 +51,10 @@
  color: #808080;
  transition: all 0.5s ease 0s;
 }
-.modal-body .fa-question-circle:hover{
+.form-horizontal .fa-question-circle:hover{
  color: #000;
 }
-.modal-footer .main-checkbox{
+.form-horizontal .main-checkbox{
  float: left;
  width: 20px;
  height: 20px;
@@ -64,7 +64,7 @@
  margin: 5px 0 0 5px;
  border: 1px solid #11a3fc;
 }
-.modal-footer .main-checkbox label{
+.form-horizontal .main-checkbox label{
  width: 20px;
  height: 20px;
  position: absolute;
@@ -72,7 +72,7 @@
  left: 0;
  cursor: pointer;
 }
-.modal-footer .main-checkbox label:after{
+.form-horizontal .main-checkbox label:after{
  content: "";
  width: 10px;
  height: 5px;
@@ -87,20 +87,20 @@
  -webkit-transform: rotate(-45deg);
  transform: rotate(-45deg);
 }
-.modal-footer .main-checkbox input[type=checkbox]{
+.form-horizontal .main-checkbox input[type=checkbox]{
  visibility: hidden;
 }
-.modal-footer .main-checkbox input[type=checkbox]:checked + label:after{
+.form-horizontal .main-checkbox input[type=checkbox]:checked + label:after{
  opacity: 1;
 }
-.modal-footer .text{
+.form-horizontal .text{
  float: left;
  margin-left: 7px;
  line-height: 20px;
  padding-top: 5px;
  text-transform: capitalize;
 }
-.modal-footer .btn{
+.form-horizontal .btn{
  float: right;
  font-size: 14px;
  color: #fff;
@@ -112,13 +112,13 @@
  transition: all 0.5s ease 0s;
 }
 @media only screen and (max-width: 479px){
- .modal-footer .form-group{
+ .form-horizontal .form-group{
  padding: 0 25px;
  }
- .modal-footer .form-group i{
+ .form-horizontal .form-group i{
  left: 45px;
  }
- .modal-footer .btn{
+ .form-horizontal .btn{
  padding: 10px 20px;
  }
 }
