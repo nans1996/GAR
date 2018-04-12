@@ -5,7 +5,6 @@
  */
 package filters;
 
-import entity.User;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -19,7 +18,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import managedBean.UserBean;
-import model.UserFacadeLocal;
 
 /**
  *
@@ -50,10 +48,9 @@ public class CurrentUser implements Filter {
         //Вытаскиваем текущего поьзователя
         String login = ((HttpServletRequest)request).getRemoteUser();
         if (login != null) {
-        //Вытаскиваем его из БД
-            //User user =  userFacadeLocal.findLogin(username);
             ((HttpServletRequest)request).getSession().setAttribute(UserBean.USER_KEY, login);
         }
+        
         // Write code here to process the request and/or response before
         // the rest of the filter chain is invoked.
         // For example, a logging filter might log items on the request object,
