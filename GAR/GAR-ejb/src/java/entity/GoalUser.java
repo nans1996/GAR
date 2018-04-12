@@ -6,7 +6,9 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,6 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "GoalUser.findByIDGoaluser", query = "SELECT g FROM GoalUser g WHERE g.iDGoaluser = :iDGoaluser")})
 public class GoalUser implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDGoaluser")
+    private Collection<Level> levelCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,9 +47,6 @@ public class GoalUser implements Serializable {
     @JoinColumn(name = "ID_Client", referencedColumnName = "ID_Client")
     @ManyToOne(optional = false)
     private Client iDClient;
-    @JoinColumn(name = "ID_Level", referencedColumnName = "ID_Level")
-    @ManyToOne(optional = false)
-    private Level iDLevel;
     @JoinColumn(name = "ID_Goal", referencedColumnName = "ID_Goal")
     @ManyToOne(optional = false)
     private Goal iDGoal;
@@ -70,13 +74,6 @@ public class GoalUser implements Serializable {
         this.iDClient = iDClient;
     }
 
-    public Level getIDLevel() {
-        return iDLevel;
-    }
-
-    public void setIDLevel(Level iDLevel) {
-        this.iDLevel = iDLevel;
-    }
 
     public Goal getIDGoal() {
         return iDGoal;
@@ -109,6 +106,15 @@ public class GoalUser implements Serializable {
     @Override
     public String toString() {
         return "entity.GoalUser[ iDGoaluser=" + iDGoaluser + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Level> getLevelCollection() {
+        return levelCollection;
+    }
+
+    public void setLevelCollection(Collection<Level> levelCollection) {
+        this.levelCollection = levelCollection;
     }
     
 }

@@ -23,6 +23,8 @@ public interface ClientFacadeLocal {
     void remove(Client client);
 
     Client find(Object id);
+    
+    Client findIdUser(Integer id);
 
     List<Client> findAll();
 

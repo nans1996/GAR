@@ -12,6 +12,9 @@ import java.util.List;
 import javax.ejb.EJB;
 import model.*;
 import entity.*;
+import java.util.Date;
+import java.util.Map;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -31,42 +34,86 @@ public class ClientBean implements Serializable {
     @EJB
     private GoalUserFacadeLocal goalUserFacade;
     GoalUser goalUser = new GoalUser();
-
-    
-    
-    
-    Client c = new Client();
+    @EJB
+    private GoalFacadeLocal goalFacadeLocal;
+    Level level = new Level();
+    @EJB
+    private LevelFacadeLocal levelFacadeLocal;
+    Client client = new Client();
     @EJB
     private ClientFacadeLocal clientFacade;
+    
+    private UserBean userBean;
 
     /**
      * Creates a new instance of ClientBean
      */
     public ClientBean() {
     }
-   //вывести всех клиентов
-   public List<Client> findAllClient(){
-      return this.clientFacade.findAll();
-   }
+
+    public UserBean getUserBean() {
+        return userBean;
+    }
+
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
+    }
+
+    public GoalUser getGoalUser() {
+        return goalUser;
+    }
+
+    public void setGoalUser(GoalUser goalUser) {
+        this.goalUser = goalUser;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+    
+    //вывести всех клиентов
+    public List<Client> findAllClient() {
+        return this.clientFacade.findAll();
+    }
    //создать клиента 
    public String createClient(){
-       this.clientFacade.create(this.c);
+       this.clientFacade.create(this.client);
        //после добавления перебрасывает на index
      return "index";
    }
     //удалить
-   public void deleteClient(Client c){
-       this.clientFacade.remove(c);
+   public void deleteClient(Client client){
+       this.clientFacade.remove(client);
    }
    
    //обновить клиента
-   public String editClient(Client c){
-       this.c = c;
+   public String editClient(Client client){
+       this.client = client;
        return "edit";
    }
    public String editClient(){
-       this.clientFacade.edit(this.c);
-       this.c = new Client();
+       this.clientFacade.edit(this.client);
+       this.client = new Client();
        return "index";
    }
    
@@ -75,11 +122,17 @@ public class ClientBean implements Serializable {
       return this.goalUserFacade.findAll();
    }
    //создать 
-   public String createGoalUser(){
-       this.goalUserFacade.create(this.goalUser);
-       //после добавления перебрасывает на index
-     return "index";
-   }
+   public String create() {
+       client = clientFacade.findIdUser(userBean.getCurrentUses().getIDUser());
+       goalUser.setIDClient(client);
+       goalUser.setIDGoal(goalFacadeLocal.find(1));
+       goalUser.setLevelCollection(null);
+//       level.setDate(new Date());
+//       level.setIDGoaluser(goalUser);       
+        this.goalUserFacade.create(this.goalUser);
+        //после добавления перебрасывает на index
+        return "index";
+    }
     //удалить
    public void deleteGoalUser(GoalUser goalUser){
        this.goalUserFacade.remove(goalUser);
@@ -106,6 +159,7 @@ public class ClientBean implements Serializable {
     public String createTopic(){
        this.topicFacade.create(this.topic);
        //после добавления перебрасывает на index
-     return "index";
+        return "index";
    }
+    
 }

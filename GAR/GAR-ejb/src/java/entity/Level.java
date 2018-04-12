@@ -6,24 +6,22 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -52,8 +50,9 @@ public class Level implements Serializable {
     private Date date;
     @Column(name = "Level_date")
     private Integer leveldate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDLevel")
-    private Collection<GoalUser> goalUserCollection;
+    @JoinColumn(name = "ID_Goal_user", referencedColumnName = "ID_Goal_user")
+    @ManyToOne(optional = false)
+    private GoalUser iDGoaluser;
 
     public Level() {
     }
@@ -91,13 +90,12 @@ public class Level implements Serializable {
         this.leveldate = leveldate;
     }
 
-    @XmlTransient
-    public Collection<GoalUser> getGoalUserCollection() {
-        return goalUserCollection;
+    public GoalUser getIDGoaluser() {
+        return iDGoaluser;
     }
 
-    public void setGoalUserCollection(Collection<GoalUser> goalUserCollection) {
-        this.goalUserCollection = goalUserCollection;
+    public void setIDGoaluser(GoalUser iDGoaluser) {
+        this.iDGoaluser = iDGoaluser;
     }
 
     @Override

@@ -39,6 +39,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Goal.findByDirectory", query = "SELECT g FROM Goal g WHERE g.directory = :directory")})
 public class Goal implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "Description")
+    private String description;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -137,6 +142,14 @@ public class Goal implements Serializable {
     @Override
     public String toString() {
         return "entity.Goal[ iDGoal=" + iDGoal + " ]";
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
     
 }

@@ -24,6 +24,10 @@ public class AdministratorBean {
         //user = new User();
     }
 
+    @EJB
+    private UserFacadeLocal userFacade;
+    private User user = new User();
+    
     //private User user;
     protected UIXTable table;
     @EJB
@@ -41,5 +45,37 @@ public class AdministratorBean {
     public List<User> getAll() {
         return  userFacadeLocal.findAll();
     }
+        //вывести всех пользователей
+    public List<User> findAll() {
+        return this.userFacade.findAll();
+    }
+    //создать  
+
+    public String createUser() {
+        this.userFacade.create(this.getUser());
+        //после добавления перебрасывает на index
+        return "index";
+    }
+    
+    //удалить
+    public void deleteUser(User user) {
+        this.userFacade.remove(user);
+    }
+
+    //обновить 
+    public String editUser(User user) {
+        this.setUser(user);
+        return "edit";
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
     
 }
