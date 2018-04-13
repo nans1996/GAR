@@ -49,10 +49,13 @@ public class UserBean {
 //    }
     
     public User getCurrentUses(){
+        return userFacade.findLogin(getCurrentUser());
+    }
+    
+    public String getCurrentUser(){
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, Object> params = fc.getExternalContext().getSessionMap();
         String login = (String) params.get(UserBean.USER_KEY);
-        return userFacade.findLogin(login);
+        return login;
     }
-
 }

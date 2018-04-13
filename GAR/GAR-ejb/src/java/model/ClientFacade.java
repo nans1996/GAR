@@ -31,7 +31,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     }
     
     public Client findIdUser(Integer idUser){
-        Query q = em.createNamedQuery("Client.findByIDUser");
+        Query q = em.createNamedQuery("findByIDUser");
         q.setParameter("idUser", idUser);
         return (Client) q.getSingleResult();
     }

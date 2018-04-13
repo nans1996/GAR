@@ -36,14 +36,17 @@ public class ClientBean implements Serializable {
     GoalUser goalUser = new GoalUser();
     @EJB
     private GoalFacadeLocal goalFacadeLocal;
+    private Goal goal = new Goal();
     Level level = new Level();
     @EJB
     private LevelFacadeLocal levelFacadeLocal;
     Client client = new Client();
     @EJB
     private ClientFacadeLocal clientFacade;
-    
-    private UserBean userBean;
+    private User user = new User();
+    private UserBean userBean = new UserBean();
+    @EJB
+    private UserFacadeLocal userFacadeLocal;
 
     /**
      * Creates a new instance of ClientBean
@@ -53,6 +56,22 @@ public class ClientBean implements Serializable {
 
     public UserBean getUserBean() {
         return userBean;
+    }
+
+    public Goal getGoal() {
+        return goal;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setGoal(Goal goal) {
+        this.goal = goal;
     }
 
     public void setUserBean(UserBean userBean) {
@@ -122,8 +141,11 @@ public class ClientBean implements Serializable {
       return this.goalUserFacade.findAll();
    }
    //создать 
-   public String create() {
-       client = clientFacade.findIdUser(userBean.getCurrentUses().getIDUser());
+   public String createGoalUser() {
+       goal = goalFacadeLocal.find(goal.getIDGoal());
+       goalUser.setIDGoal(goal);
+       user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+       client = clientFacade.findIdUser(user.getIDUser());
        goalUser.setIDClient(client);
        goalUser.setIDGoal(goalFacadeLocal.find(1));
        goalUser.setLevelCollection(null);
