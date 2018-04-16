@@ -55,7 +55,8 @@ private Topic topic = new Topic();
         message.setDate(new Date());
         message.setSubject("subject");
         message.setIDTopic(topicFacade.find(1));
-        user = userFacade.findLogin(userBean.getCurrentUser());
+         //пока сделаем дефолд
+        user = userFacade.findLogin("gambler");
         message.setIDUser(user);
         this.messageFacade.create(this.getMessage());
         return "comment";
