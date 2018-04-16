@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
@@ -51,12 +52,18 @@
         <div id="forumContainer"> 
 
 
-            <div class="gDivLeft"><div class="gDivRight"><table border="0" width="100%" bgcolor="#FFFFFF" cellspacing="1" cellpadding="0" class="gTable"><tr><td class="gTableTop" colspan="5"><div style="float:right" class="gTopCornerRight"></div><a class="catLink" href="/forum/1">Технический форум</a></td></tr><tr><td width="5%" class="gTableSubTop">&nbsp;</td><td class="gTableSubTop">Форум</td><td width="8%" class="gTableSubTop" align="center">Ответы</td><td width="30%" class="gTableSubTop">Обновления</td></tr><tr> 
-                            <td class="forumIcoTd" align="center"> 
+            <div class="gDivLeft"><div class="gDivRight"><table border="0" width="100%" bgcolor="#FFFFFF" cellspacing="1" cellpadding="0" class="gTable"><tr><td class="gTableTop" colspan="5"><div style="float:right" class="gTopCornerRight"></div><a class="catLink" href="/forum/1">Форум</a></td></tr><tr><td width="5%" class="gTableSubTop">&nbsp;</td>
+                            <td class="gTableSubTop">Тема</td>
+                            <td width="8%" class="gTableSubTop" align="center">Ответы</td>
+                            <td width="30%" class="gTableSubTop">Обновления</td></tr>
+                       
+                        
+                        <c:forEach items="${forumBean.allTopics}" var="t">    
+                        <tr> <td class="forumIcoTd" align="center"> 
                                 <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
                             </td> 
                             <td class="forumNameTd"> 
-                                <a class="forum" href="faces/comment.xhtml">Административный</a> 
+                                <a class="forum" href="faces/comment.xhtml">${t.name}</a> 
 
 
 <!--                                <div class="forumDescr">Правила форума, обратная связь с администрацией</div> 
@@ -67,14 +74,21 @@
                             <td class="forumLastPostTd"> 
 
 
-                                <br/>Тема: <a class="forumLastPostLink" href="/forum/4-29-1">Фоновое изображение профиля</a> 
+<!--                                <br/>Тема: <a class="forumLastPostLink" href="/forum/4-29-1">Фоновое изображение профиля</a> -->
                                 <br/>Сообщение от: <span class="lastPostGuest"><a class="lastPostUserLink" href="/index/8-0-ps~studio">ps-studio</a></span> 
 
                             </td> 
-                        </tr><tr><td colspan="7"><div id="nativeroll_video_cont" style="display:none;"></div>
+                        </tr>
+                        </c:forEach>   
+                        <tr><td colspan="7"><div id="nativeroll_video_cont" style="display:none;"></div>
 
-
-                            </td></tr></table></div></div>
+                              </td>   
+                           
+                        
+                        </tr></table></div></div>
+            
+            
+            
             <div class="gDivBottomLeft"></div>
             <div class="gDivBottomCenter"></div><div class="gDivBottomRight"></div><br />
  

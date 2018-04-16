@@ -13,17 +13,7 @@
             <div class="row">
 
                 <div class="col-md-12">
-                    <div class="panel">
-                        <div class="panel-body">
-                            <textarea class="form-control" rows="2" placeholder="Добавьте Ваш комментарий"></textarea>
-                            <div class="mar-top clearfix">
-                                <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Добавить</button>
-                                <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
-                                <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
-                                <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a>
-                            </div>
-                        </div>
-                    </div>
+                  
                     <div class="panel">
                         <div class="panel-body">
                             <!-- Содержание Новостей -->
@@ -135,6 +125,21 @@
                             <!-- Конец Содержания Новостей -->
                         </div>
                     </div>
+                    
+                      <div class="panel">
+                        <div class="panel-body">
+<!--                            <textarea class="form-control" rows="2" placeholder="Добавьте Ваш комментарий"></textarea>-->
+<h:inputText class="form-control">#{forumBean.message.content}</h:inputText>
+                            <div class="mar-top clearfix">
+                                <h:commandButton  value="Добавить"><i class="fa fa-pencil fa-fw"></i>#{forumBean.createMessage()}</h:commandButton>
+<!--                                <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Добавить</button>-->
+                                <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
+                                <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
+                                <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
 
             </div><!-- /.row -->
