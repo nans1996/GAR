@@ -1,6 +1,8 @@
 ﻿
-create database GAR_BD;
+
 drop database GAR_BD; #//для особых случаев! НЕ ТОРОГАТЬ
+
+create database GAR_BD;
 use GAR_BD;
 
 #// смотри лаб_6 РПС авторизацию
@@ -64,6 +66,7 @@ CREATE TABLE Goal (
 	ID_Goal Int AUTO_INCREMENT NOT NULL,
 	Name varchar(30) NOT NULL,
 	Directory Bit NOT NULL,
+Description text not null,
 	ID_Personage Int NOT NULL,
 	PRIMARY KEY (ID_Goal)
 );

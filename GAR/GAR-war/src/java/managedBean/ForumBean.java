@@ -24,6 +24,7 @@ import model.UserFacadeLocal;
 @SessionScoped
 public class ForumBean implements Serializable {
 
+   private String content1;
     @EJB
     private UserFacadeLocal userFacade;
 
@@ -42,9 +43,16 @@ private Topic topic = new Topic();
     public ForumBean() {
     }
  
+   
+    
     public List<Topic> getAllTopics(){
        return this.topicFacade.findAll();
     }
+    
+     public List<Message> getAllMessage(){
+       return this.messageFacade.findAll();
+    }
+    
     
     public String createTopic(){
         this.topicFacade.create(this.getTopic());
@@ -53,12 +61,13 @@ private Topic topic = new Topic();
 
     public String createMessage(){
         message.setDate(new Date());
+         //пока сделаем дефолд
         message.setSubject("subject");
         message.setIDTopic(topicFacade.find(1));
-         //пока сделаем дефолд
-        user = userFacade.findLogin("gambler");
+        user = userFacade.findLogin("gamler");
         message.setIDUser(user);
-        this.messageFacade.create(this.getMessage());
+        message.setContent(getContent());
+        this.messageFacade.create(message);
         return "comment";
     }
     /**
@@ -87,6 +96,20 @@ private Topic topic = new Topic();
      */
     public void setMessage(Message message) {
         this.message = message;
+    }
+
+    /**
+     * @return the content
+     */
+    public String getContent() {
+        return content1;
+    }
+
+    /**
+     * @param content the content to set
+     */
+    public void setContent(String content) {
+        this.content1 = content;
     }
     
     
