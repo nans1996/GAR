@@ -6,6 +6,7 @@
 package model;
 
 import entity.Client;
+import entity.Goal;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -31,5 +32,6 @@ public interface ClientFacadeLocal {
     List<Client> findRange(int[] range);
 
     int count();
+
     
 }

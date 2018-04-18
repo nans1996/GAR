@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
@@ -64,74 +65,26 @@
                 <button href="#myGoal" type="submit" class="btn" id="btnGoal">Добавить цель</button>
             </div>
             <div id="products" class="row list-group">
-                <div class="item col-xs-4 col-lg-4">
-                    <div class="thumbnail">
-                        <img class="group list-group-image" src="http://5beautysecrets.ru/wp-content/uploads/2017/01/kak_pravilno_nachat_begat_s_nulja_1-400x250.jpg" alt="1"></img>
-                        <div class="caption">
-                            <h4 class="group inner list-group-item-heading">Бегать по утрам</h4>
-                            <p class="group inner list-group-item-text">
-                                Утренняя пробежка – отличная привычка, благодаря которой можно решить множество проблем, с которыми все чаще сталкивается все население планеты.  
-                            </p>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-6">
-                                    <a href="#" class="btn btn-warning">Добавить</a>
+                
+                <c:forEach items="${clientBean.findAllGoalDefolt()}" var="u"> 
+                    <div class="item col-xs-4 col-lg-4">
+                        <div class="thumbnail">
+                            <img class="group list-group-image" src="http://5beautysecrets.ru/wp-content/uploads/2017/01/kak_pravilno_nachat_begat_s_nulja_1-400x250.jpg" alt="1"></img>
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading">Бегать по утрам</h4>
+                                <p class="group inner list-group-item-text">
+                                    Утренняя пробежка – отличная привычка, благодаря которой можно решить множество проблем, с которыми все чаще сталкивается все население планеты.  
+                                </p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <a href="#" class="btn btn-warning">Добавить</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="item col-xs-4 col-lg-4">
-                    <div class="thumbnail">
-                        <img class="group list-group-image" src="http://bootstraptema.ru/images/type/400x250.png" alt="2" />
-                        <div class="caption">
-                            <h4 class="group inner list-group-item-heading">Товар 2</h4>
-                            <p class="group inner list-group-item-text">
-                                Описание товара 2, Описание товара 2, Описание товара 2, Описание товара 2, Описание товара 2, Описание товара 2, Описание товара 2, Описание товара 2, Описание товара 2.
-                            </p>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-6">
-                                    <a class="btn btn-warning" href="#">Добавить</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item col-xs-4 col-lg-4">
-                    <div class="thumbnail">
-                        <img class="group list-group-image" src="http://bootstraptema.ru/images/type/400x250.png" alt="3" />
-                        <div class="caption">
-                            <h4 class="group inner list-group-item-heading">Товар 3</h4>
-                            <p class="group inner list-group-item-text">
-                                Описание товара 3, Описание товара 3, Описание товара 3, Описание товара 3, Описание товара 3, Описание товара 3, Описание товара 3, Описание товара 3, Описание товара 3.
-                            </p>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-6">
-                                    <a class="btn btn-warning" href="#">Добавить</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-                <div class="item col-xs-4 col-lg-4">
-                    <div class="thumbnail">
-                        <img class="group list-group-image" src="http://bootstraptema.ru/images/type/400x250.png" alt="3" />
-                        <div class="caption">
-                            <h4 class="group inner list-group-item-heading">Товар 3</h4>
-                            <p class="group inner list-group-item-text">
-                                Описание товара 3, Описание товара 3, Описание товара 3, Описание товара 3, Описание товара 3, Описание товара 3, Описание товара 3, Описание товара 3, Описание товара 3.
-                            </p>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-6">
-                                    <a class="btn btn-warning" href="#">Добавить</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-
-                 
+                    </div>    
+                </c:forEach>   
+                
             </div>
         </div>
         <div id="myGoal" class="modal fade">
