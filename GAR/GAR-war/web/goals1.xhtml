@@ -66,14 +66,16 @@
             </div>
             <div id="products" class="row list-group">
                 
-                <c:forEach items="${clientBean.findAllGoalDefolt()}" var="u"> 
+                <c:forEach items="${clientBean.findAllGoalDefolt()}" var="item"> 
                     <div class="item col-xs-4 col-lg-4">
                         <div class="thumbnail">
                             <img class="group list-group-image" src="http://5beautysecrets.ru/wp-content/uploads/2017/01/kak_pravilno_nachat_begat_s_nulja_1-400x250.jpg" alt="1"></img>
                             <div class="caption">
-                                <h4 class="group inner list-group-item-heading">Бегать по утрам</h4>
+                                <h4 class="group inner list-group-item-heading">
+                                    <h:outputText value="#{item.name}"></h:outputText>
+                                </h4>
                                 <p class="group inner list-group-item-text">
-                                    Утренняя пробежка – отличная привычка, благодаря которой можно решить множество проблем, с которыми все чаще сталкивается все население планеты.  
+                                    <h:outputText value="#{item.description}"></h:outputText>
                                 </p>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-6">

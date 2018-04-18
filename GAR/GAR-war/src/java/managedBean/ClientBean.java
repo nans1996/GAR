@@ -177,6 +177,11 @@ public class ClientBean implements Serializable {
      return "index";
    }
     
+   //вывод дефолтных целей 
+    public List<Goal> findAllGoalDefolt(){
+    return goalFacadeLocal.findGoalDefolt();
+    }
+    
     //создать новую тему на форуме
     public String createTopic(){
        this.topicFacade.create(this.topic);
