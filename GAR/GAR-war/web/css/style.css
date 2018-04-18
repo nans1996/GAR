@@ -6,11 +6,16 @@ background-color: #D4E6B3;
     color: #000;
     background: #d65c14;
 }
+
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
     color: #ffffff;
     background: #d65c14;
+}
+.navbar-brand > img {
+    height: 30px;
+    width: 60px;
 }
 #left { position: absolute; left: 0; top: 0; width: 50%; }
 #right { position: absolute; right: 0; top: 0; width: 50%; } 
