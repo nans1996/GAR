@@ -142,15 +142,15 @@ public class ClientBean implements Serializable {
    }
    //создать 
    public String createGoalUser() {
-       goal = goalFacadeLocal.find(goal.getIDGoal());
+       FacesContext fc = FacesContext.getCurrentInstance();
+       Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+       int id = Integer.parseInt(params.get("id"));
+       goal = goalFacadeLocal.find(id);
        goalUser.setIDGoal(goal);
        user = userFacadeLocal.findLogin(userBean.getCurrentUser());
        client = clientFacade.findIdUser(user.getIDUser());
        goalUser.setIDClient(client);
-       goalUser.setIDGoal(goalFacadeLocal.find(1));
-       goalUser.setLevelCollection(null);
-//       level.setDate(new Date());
-//       level.setIDGoaluser(goalUser);       
+       goalUser.setLevelCollection(null);   
         this.goalUserFacade.create(this.goalUser);
         //после добавления перебрасывает на index
         return "index";
