@@ -47,11 +47,22 @@ public class ClientBean implements Serializable {
     private UserBean userBean = new UserBean();
     @EJB
     private UserFacadeLocal userFacadeLocal;
+    @EJB 
+    private PersonageFacadeLocal personageFacadeLocal;
+    private Personage personage;
 
     /**
      * Creates a new instance of ClientBean
      */
     public ClientBean() {
+    }
+
+    public Personage getPersonage() {
+        return personage;
+    }
+
+    public void setPersonage(Personage personage) {
+        this.personage = personage;
     }
 
     public UserBean getUserBean() {
@@ -140,17 +151,35 @@ public class ClientBean implements Serializable {
    public List<GoalUser> findAllGoalClient(){
       return this.goalUserFacade.findAll();
    }
-   //создать 
-   public String createGoalUser() {
-       goal = goalFacadeLocal.find(goal.getIDGoal());
+   //Добавление пользователю дефолтной цели 
+   public String createGoalDefoltUser() {
+       FacesContext fc = FacesContext.getCurrentInstance();
+       Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+       int id = Integer.parseInt(params.get("id"));
+       goal = goalFacadeLocal.find(id);
        goalUser.setIDGoal(goal);
        user = userFacadeLocal.findLogin(userBean.getCurrentUser());
        client = clientFacade.findIdUser(user.getIDUser());
        goalUser.setIDClient(client);
-       goalUser.setIDGoal(goalFacadeLocal.find(1));
-       goalUser.setLevelCollection(null);
-//       level.setDate(new Date());
-//       level.setIDGoaluser(goalUser);       
+       goalUser.setLevelCollection(null);   
+        this.goalUserFacade.create(this.goalUser);
+        //после добавления перебрасывает на index
+        return "index";
+    }
+   
+    public String createGoalUser() {
+       user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+       client = clientFacade.findIdUser(user.getIDUser());
+       goal.setDirectory(true);
+       goal.setGoalUserCollection(null);
+       //пока с дефолтным персонажем
+       personage = personageFacadeLocal.find(1);
+       goal.setIDPersonage(personage);
+       goalFacadeLocal.create(goal);
+       
+       goalUser.setIDGoal(goal);
+       goalUser.setIDClient(client);
+       goalUser.setLevelCollection(null);   
         this.goalUserFacade.create(this.goalUser);
         //после добавления перебрасывает на index
         return "index";
