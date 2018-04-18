@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
@@ -65,7 +66,7 @@
                 <button href="#myGoal" type="submit" class="btn" id="btnGoal">Добавить цель</button>
             </div>
             <div id="products" class="row list-group">
-                
+
                 <c:forEach items="${clientBean.findAllGoalDefolt()}" var="item"> 
                     <div class="item col-xs-4 col-lg-4">
                         <div class="thumbnail">
@@ -79,14 +80,17 @@
                                 </p>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-6">
-                                        <a href="#" class="btn btn-warning">Добавить</a>
+                                        <!--                                        <a href="#" class="btn btn-warning">Добавить</a>-->
+                                        <h:commandLink class="btn btn-warning" action="#{clientBean.createGoalUser}" value="Удалить">
+                                            <f:param name="id" value="#{item.IDGoal}"/>
+                                        </h:commandLink>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>    
                 </c:forEach>   
-                
+
             </div>
         </div>
         <div id="myGoal" class="modal fade">
@@ -105,7 +109,7 @@
                                 <label class="control-label col-xs-3" for="NameGoal">Название цели:</label>
                                 <div class="col-xs-9">
                                     <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>
-                                   
+
                                 </div>
                             </div>
                             <div class="form-group">
@@ -158,14 +162,14 @@
 
                             </div>
                         </div>
-                    
-                    <!-- Футер модального окна -->
-                    <div class="modal-footer">
-                        <div class="form-group"> 
-                            <h:commandButton class="btn btn-warning" action="#{clientBean.createGoalUser}" value="ДОБАВИТЬ МНЕ ЦЕЛЬ!!" />
-                        </div>  
-                    </div>
-                </h:form>
+
+                        <!-- Футер модального окна -->
+                        <div class="modal-footer">
+                            <div class="form-group"> 
+                                <h:commandButton class="btn btn-warning" action="#{clientBean.createGoalUser}" value="ДОБАВИТЬ МНЕ ЦЕЛЬ!!" />
+                            </div>  
+                        </div>
+                    </h:form>
                 </div>
             </div>
         </div>
