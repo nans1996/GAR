@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import model.UserFacadeLocal;
+import model.UserRoleFacadeLocal;
 import org.apache.myfaces.trinidad.component.UIXTable;
 
 /**
@@ -25,11 +26,15 @@ import org.apache.myfaces.trinidad.component.UIXTable;
 @RequestScoped
 public class UserBean {
 
+
+
     public static final String USER_KEY = "CurrentUser";
         
     @EJB
     private UserFacadeLocal userFacade;
-    //private User user = new User();
+    private User user = new User();
+    
+    private UserRole userrole = new  UserRole();
 
     public UserBean() {
     }
@@ -40,13 +45,22 @@ public class UserBean {
 //        return "index";
 //    }
 //
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    public String createUser(){
+        this.userFacade.create(this.user);
+       // userrole.setLogin(user.getLogin());
+       // userrole.setRole("client");
+       // this.userRolePKFacade.create(this.userrole);
+       new UserRole("client",user.getLogin());
+        return "authorization";
+    }
     
     public User getCurrentUses(){
         return userFacade.findLogin(getCurrentUser());
