@@ -32,7 +32,7 @@ public class ClientBean implements Serializable {
     Message message = new Message();
     //пробуем написать контроллер
     @EJB
-    private GoalUserFacadeLocal goalUserFacade;
+    private GoalUserFacadeLocal goalUserFacadeLocal;
     GoalUser goalUser = new GoalUser();
     @EJB
     private GoalFacadeLocal goalFacadeLocal;
@@ -138,19 +138,22 @@ public class ClientBean implements Serializable {
    
    //обновить клиента
    public String editClient(Client client){
-       this.client = client;
+       client = client;
        return "edit";
    }
    public String editClient(){
-       this.clientFacade.edit(this.client);
-       this.client = new Client();
+       clientFacade.edit(client);
+       client = new Client();
        return "index";
    }
    
-    //вывести цели клиентов
-   public List<GoalUser> findAllGoalClient(){
-      return this.goalUserFacade.findAll();
+    //вывести цели клиента
+   public List<GoalUser> findAllGoalCurrentClient(){
+       user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+       client = clientFacade.findIdUser(user.getIDUser());
+       return goalUserFacadeLocal.findGoalCurrentClient(client.getIDClient());
    }
+   
    //Добавление пользователю дефолтной цели 
    public String createGoalDefoltUser() {
        FacesContext fc = FacesContext.getCurrentInstance();
@@ -162,7 +165,7 @@ public class ClientBean implements Serializable {
        client = clientFacade.findIdUser(user.getIDUser());
        goalUser.setIDClient(client);
        goalUser.setLevelCollection(null);   
-        this.goalUserFacade.create(this.goalUser);
+        this.goalUserFacadeLocal.create(this.goalUser);
         //после добавления перебрасывает на index
         return "index";
     }
@@ -179,13 +182,13 @@ public class ClientBean implements Serializable {
        goalUser.setIDGoal(goal);
        goalUser.setIDClient(client);
        goalUser.setLevelCollection(null);   
-        this.goalUserFacade.create(this.goalUser);
+        this.goalUserFacadeLocal.create(this.goalUser);
         //после добавления перебрасывает на index изменить на страницу подтверждения
         return "index";
     }
     //удалить
    public void deleteGoalUser(GoalUser goalUser){
-       this.goalUserFacade.remove(goalUser);
+       this.goalUserFacadeLocal.remove(goalUser);
    }
    
    //обновить 
@@ -194,7 +197,7 @@ public class ClientBean implements Serializable {
        return "edit";
    }
    public String editGoalUser(){
-       this.goalUserFacade.edit(this.goalUser);
+       this.goalUserFacadeLocal.edit(this.goalUser);
        this.goalUser = new GoalUser();
        return "index";
    }

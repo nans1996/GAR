@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GoalUser.findAll", query = "SELECT g FROM GoalUser g")
+    , @NamedQuery(name = "GoalUser.findAllCurrentClient", query = "SELECT g FROM GoalUser g WHERE g.iDClient.iDClient = :iDClient")
     , @NamedQuery(name = "GoalUser.findByIDGoaluser", query = "SELECT g FROM GoalUser g WHERE g.iDGoaluser = :iDGoaluser")})
 public class GoalUser implements Serializable {
 

@@ -37,4 +37,5 @@ public class GoalFacade extends AbstractFacade<Goal> implements GoalFacadeLocal 
         q.setParameter("directory", false);
         return (List<Goal>) q.getResultList();
     }
+    
 }

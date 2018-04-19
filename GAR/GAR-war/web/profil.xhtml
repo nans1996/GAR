@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
@@ -98,13 +100,15 @@
             <p>Правая половина</p>
             <br/>
 
-            <ul class="nav">
-                <li class="nav-header">Мои цели</li>
-                <li class="active"><a href="faces/goal_user.xhtml">Бегать по утрам</a></li>
-                <li><a href="#">Ходить на йогу</a></li>
-                <li><a href="#">Ложиться в 21.00</a></li>
-                <li><a href="#">Бросить курить</a></li>
+            <ul class="nav">      
+                <h:form>
+                    <li class="nav-header">Мои цели</li>
+                    <c:forEach items="${clientBean.findAllGoalCurrentClient()}" var="item"> 
+                        <li><a href="#"><h:outputText value="#{item.IDGoal.name}"/></a></li>
+                    </c:forEach>
+                </h:form>
             </ul>
+            
         </div>
     </h:body>
 </html>

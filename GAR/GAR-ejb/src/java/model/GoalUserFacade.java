@@ -6,9 +6,11 @@
 package model;
 
 import entity.GoalUser;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +31,10 @@ public class GoalUserFacade extends AbstractFacade<GoalUser> implements GoalUser
         super(GoalUser.class);
     }
     
+    @Override
+    public List<GoalUser> findGoalCurrentClient(Integer iDClient){
+        Query q = em.createNamedQuery("GoalUser.findAllCurrentClient");
+        q.setParameter("iDClient", iDClient);
+        return (List<GoalUser>) q.getResultList();
+    }
 }
