@@ -58,7 +58,7 @@ public class UserBean {
        // userrole.setLogin(user.getLogin());
        // userrole.setRole("client");
        // this.userRolePKFacade.create(this.userrole);
-       new UserRole("client",user.getLogin());
+       // new UserRole("client",user.getLogin());
         return "authorization";
     }
     

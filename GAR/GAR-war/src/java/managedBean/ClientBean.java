@@ -176,12 +176,11 @@ public class ClientBean implements Serializable {
        personage = personageFacadeLocal.find(1);
        goal.setIDPersonage(personage);
        goalFacadeLocal.create(goal);
-       
        goalUser.setIDGoal(goal);
        goalUser.setIDClient(client);
        goalUser.setLevelCollection(null);   
         this.goalUserFacade.create(this.goalUser);
-        //после добавления перебрасывает на index
+        //после добавления перебрасывает на index изменить на страницу подтверждения
         return "index";
     }
     //удалить

@@ -5,87 +5,90 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"></link>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-            <link href="css/style-registration.css" rel="stylesheet"></link>
-            <title>Регистрация</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+        <link href="css/style-registration.css" rel="stylesheet"></link>
+        <title>Регистрация</title>
     </h:head>
     <h:body>
-       
-        <div class="container">
-            <div class="row">
-                <div class="col-md-offset-3 col-md-6">
-                    <form class="form-horizontal">
-                         <h:form>
+        <!--<form class="form-horizontal">-->
+        <h:form class="form-horizontal">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-6">
+                        
+
                         <span class="heading">РЕГИСТРАЦИЯ</span>
 
                         <div class="form-group">
                             <label class="control-label col-xs-3" for="lastName">Фамилия:</label>
                             <div class="col-xs-9">
-                                <input type="text"  class="form-control" id="lastName" placeholder="Введите фамилию"></input>
-                                <h:inputText required="true" requiredMessage="Заполните поле" class="form-control" id="surname" value="#{userBean.user.surname}" validatorMessage="Можно использовать только буквы!">
-                                    <f:validateRegex pattern="[A-Za-zА-Яа-я]"/>
-                                </h:inputText>
+                               
+                               <h:inputText class="form-control" id="surname" value="#{userBean.user.surname}" />
+<!--                                    <f:validateRegex pattern="[A-Za-zА-Яа-я]"/>
+                                </h:inputText>-->
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-3" for="firstName">Имя:</label>
                             <div class="col-xs-9">
-                                <input type="text"  class="form-control" id="firstName" placeholder="Введите имя"></input>
+                                <!--<input type="text"  class="form-control" id="firstName" placeholder="Введите имя"></input>-->
                                 <h:inputText required="true" class="form-control" id="name" value="#{userBean.user.name}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-3" for="inputLogin">Login:</label>
                             <div class="col-xs-9">
-                                <input type="login" class="form-control" id="inputLogin" placeholder="Login"></input>
+                                <!--<input type="login" class="form-control" id="inputLogin" placeholder="Login"></input>-->
                                 <h:inputText required="true" class="form-control" id="login" value="#{userBean.user.login}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-3" for="inputEmail">Email:</label>
                             <div class="col-xs-9">
-                                <input type="email"  class="form-control" id="inputEmail" placeholder="Email"></input>
+                                <!--<input type="email"  class="form-control" id="inputEmail" placeholder="Email"></input>-->
                                 <h:inputText required="true" class="form-control" id="email" value="#{userBean.user.email}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-3" for="inputPassword">Пароль:</label>
                             <div class="col-xs-9">
-<!--                                <input type="password" class="form-control" id="inputPassword" placeholder="Введите пароль"></input>-->
-<h:inputText required="true" class="form-control" id="pass" value="#{userBean.user.pass}"/>
+                                <!--                                <input type="password" class="form-control" id="inputPassword" placeholder="Введите пароль"></input>-->
+                                <h:inputText required="true" class="form-control" id="pass" value="#{userBean.user.pass}"/>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-xs-3" for="phoneNumber">Телефон:</label>
                             <div class="col-xs-9">
-<!--                                <input type="tel"  class="form-control" id="phoneNumber" placeholder="Введите номер телефона"></input>-->
-<h:inputText required="true"  class="form-control" id="phone" value="#{userBean.user.phone}" title="phone"/>
+                                <!--                                <input type="tel"  class="form-control" id="phoneNumber" placeholder="Введите номер телефона"></input>-->
+                                <h:inputText required="true"  class="form-control" id="phone" value="#{userBean.user.phone}" title="phone"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-offset-3 col-xs-9">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" value="agree"></input>  Я согласен с <a href="#">условиями</a>.
-                                </label>
+                                <!--<label class="checkbox-inline">-->
+                                    <!--<input type="checkbox" value="agree"></input>  Я согласен с <a href="#">условиями</a>.-->
+                                <!--</label>-->
                             </div>
                         </div>
                         <br />
                         <div class="form-group">
                             <div class="col-xs-offset-3 col-xs-9">
-                                
+
                                 <h:commandButton  class="btn btn-primary" value="Регистрация" action="#{userBean.createUser}"/>
+
                                 <input type="reset" class="btn btn-default" value="Очистить форму"></input>
                             </div>
                         </div>
-                         </h:form>
-                    </form>
+
+                       
+                    </div>
                 </div>
             </div>
-        </div>
-       
+        </h:form>
+           <!--</form>-->
     </h:body>
 </html>
 
