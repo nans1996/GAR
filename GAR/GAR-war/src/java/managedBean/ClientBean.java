@@ -170,21 +170,9 @@ public class ClientBean implements Serializable {
         return "index";
     }
    
-    public String createGoalUser() {
-       user = userFacadeLocal.findLogin(userBean.getCurrentUser());
-       client = clientFacade.findIdUser(user.getIDUser());
-       goal.setDirectory(true);
-       goal.setGoalUserCollection(null);
-       //пока с дефолтным персонажем
-       personage = personageFacadeLocal.find(1);
-       goal.setIDPersonage(personage);
-       goalFacadeLocal.create(goal);
-       goalUser.setIDGoal(goal);
-       goalUser.setIDClient(client);
-       goalUser.setLevelCollection(null);   
-        this.goalUserFacadeLocal.create(this.goalUser);
-        //после добавления перебрасывает на index изменить на страницу подтверждения
-        return "index";
+    public String editGoalUser() {
+        
+        return "goal_user";
     }
     //удалить
    public void deleteGoalUser(GoalUser goalUser){
@@ -196,11 +184,11 @@ public class ClientBean implements Serializable {
        this.goalUser = goalUser;
        return "edit";
    }
-   public String editGoalUser(){
-       this.goalUserFacadeLocal.edit(this.goalUser);
-       this.goalUser = new GoalUser();
-       return "index";
-   }
+//   public String editGoalUser(){
+//       this.goalUserFacadeLocal.edit(this.goalUser);
+//       this.goalUser = new GoalUser();
+//       return "index";
+//   }
    //создать сообщение пока так же
     public String createMessage(){
        this.messageFacade.create(this.message);
