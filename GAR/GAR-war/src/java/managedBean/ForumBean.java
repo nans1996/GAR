@@ -64,6 +64,7 @@ private Topic topic = new Topic();
          //пока сделаем дефолд
         message.setSubject("subject");
         message.setIDTopic(topicFacade.find(1));
+        
         user = userFacade.findLogin("gamler");
         message.setIDUser(user);
         message.setContent(getContent());
