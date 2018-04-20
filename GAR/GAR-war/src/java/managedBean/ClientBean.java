@@ -171,8 +171,28 @@ public class ClientBean implements Serializable {
     }
    
     public String editGoalUser() {
-        
-        return "goal_user";
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        int id = Integer.parseInt(params.get("id"));
+        goalUser = goalUserFacadeLocal.find(id);
+        return "index";
+    }
+   
+    public String createGoalUser() {
+       user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+       client = clientFacade.findIdUser(user.getIDUser());
+       goal.setDirectory(true);
+       goal.setGoalUserCollection(null);
+       //пока с дефолтным персонажем
+       personage = personageFacadeLocal.find(1);
+       goal.setIDPersonage(personage);
+       goalFacadeLocal.create(goal);
+       goalUser.setIDGoal(goal);
+       goalUser.setIDClient(client);
+       goalUser.setLevelCollection(null);   
+        this.goalUserFacadeLocal.create(this.goalUser);
+        //после добавления перебрасывает на index изменить на страницу подтверждения
+        return "index";
     }
     //удалить
    public void deleteGoalUser(GoalUser goalUser){

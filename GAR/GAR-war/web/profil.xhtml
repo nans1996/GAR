@@ -105,15 +105,15 @@
                     <li class="nav-header">Мои цели</li>
                     <c:forEach items="${clientBean.findAllGoalCurrentClient()}" var="item"> 
                         <i class="icon-search">
-                        <h:commandLink styleClass="btn btn-default" action="#{clientBean.editGoalUser}" value="#{item.IDGoal.name}">
-                            <f:param name="id" value="#{item.IDGoaluser}"/>
-                        </h:commandLink>
+                            <h:commandLink styleClass="btn btn-default" action="#{clientBean.editGoalUser}" value="#{item.IDGoal.name}">
+                                <f:param name="id" value="#{item.IDGoaluser}"/>
+                            </h:commandLink>
                         </i>
                         <br/>
                     </c:forEach>
                 </h:form>
             </ul>
-            
+
         </div>
     </h:body>
 </html>
