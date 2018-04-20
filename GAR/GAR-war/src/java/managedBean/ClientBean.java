@@ -175,7 +175,7 @@ public class ClientBean implements Serializable {
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         int id = Integer.parseInt(params.get("id"));
         goalUser = goalUserFacadeLocal.find(id);
-        return "index";
+        return "goal_user";
     }
    
     public String createGoalUser() {

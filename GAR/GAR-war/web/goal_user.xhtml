@@ -48,125 +48,46 @@
                 </div>
             </div>
         </nav>
+        
         <table> 
-        <th><img src="http://fotovideoforum.ru/resources/image/57910"/></th>
-        <th><p:chart type="line" model="#{chartView.areaModel}" style="height:400px;width:700px" /></th>
+            <th><p:chart type="line" model="#{chartView.areaModel}" style="height:400px;width:700px" /></th>
+            <th>
+                <img src="http://fotovideoforum.ru/resources/image/57910"/>
+            </th>
         </table>
-        <table class="table table-bordered">
-            <thead>
+     
+            <table>           
+                <thead>
+                    <tr>
+                        <th>Наименование цели</th>
+                        <th>Описание цели</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <th>
+                         <h:outputText value="#{clientBean.goalUser.IDGoal.name}"/>
+                    </th> 
+                    <th>
+                        <h:outputText value="#{clientBean.goalUser.IDGoal.description}"/>
+                    </th> 
+                </tr>
+            </table>     
+<!--        <table class="table table-bordered">-->
+<!--            <thead>
                 <tr>
                     <th>День 1</th>
-                    <th>День 2</th>
-                    <th>День 3</th>
-                    <th>День 4</th>
-                    <th>День 5</th>
-                    <th>День 6</th>
-                    <th>День 7</th>
-                    <th>День 8</th>
-                    <th>День 9</th>
-                    <th>День 10</th>
-                    <th>День 11</th>
-                    <th>День 12</th>
-                    <th>День 13</th>
-                    <th>День 14</th>
-                    <th>День 15</th>
-                    <th>День 16</th>
-                    <th>День 17</th>
-                    <th>День 18</th>
-                    <th>День 19</th>
-                    <th>День 20</th>
-                    <th>День 21</th>
                 </tr>
-            </thead>
-            <tbody>
+            </thead>-->
+<!--            <tbody>
                 <tr>
                     <td><label class="btn btn-success">
                             <input type="checkbox" autocomplete="off"/>
                             <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td>	<label class="btn btn-primary">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-info">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-default">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-warning">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td>	<label class="btn btn-danger">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-success">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td>	<label class="btn btn-primary">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-info">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-default">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-warning">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td>	<label class="btn btn-danger">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-success">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td>	<label class="btn btn-primary">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-info">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-default">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-warning">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td>	<label class="btn btn-danger">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-success">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td>	<label class="btn btn-primary">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
-                    <td><label class="btn btn-info">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label></td>
+                        </label>
+                    </td>
                 </tr>
-            </tbody>
-        </table>
+            </tbody>-->
+<!--        </table>-->
     </h:body>
 </html>
 
