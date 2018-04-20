@@ -17,44 +17,34 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-offset-3 col-md-6">
-                        
-
                         <span class="heading">РЕГИСТРАЦИЯ</span>
-
                         <div class="form-group">
                             <label class="control-label col-xs-3" for="lastName">Фамилия:</label>
                             <div class="col-xs-9">
-                               
                                <h:inputText class="form-control" id="surname" value="#{userBean.user.surname}" />
-<!--                                    <f:validateRegex pattern="[A-Za-zА-Яа-я]"/>
-                                </h:inputText>-->
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-3" for="firstName">Имя:</label>
                             <div class="col-xs-9">
-                                <!--<input type="text"  class="form-control" id="firstName" placeholder="Введите имя"></input>-->
                                 <h:inputText required="true" class="form-control" id="name" value="#{userBean.user.name}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-3" for="inputLogin">Login:</label>
                             <div class="col-xs-9">
-                                <!--<input type="login" class="form-control" id="inputLogin" placeholder="Login"></input>-->
                                 <h:inputText required="true" class="form-control" id="login" value="#{userBean.user.login}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-3" for="inputEmail">Email:</label>
                             <div class="col-xs-9">
-                                <!--<input type="email"  class="form-control" id="inputEmail" placeholder="Email"></input>-->
                                 <h:inputText required="true" class="form-control" id="email" value="#{userBean.user.email}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-3" for="inputPassword">Пароль:</label>
                             <div class="col-xs-9">
-                                <!--                                <input type="password" class="form-control" id="inputPassword" placeholder="Введите пароль"></input>-->
                                 <h:inputText required="true" class="form-control" id="pass" value="#{userBean.user.pass}"/>
                             </div>
                         </div>
@@ -62,33 +52,24 @@
                         <div class="form-group">
                             <label class="control-label col-xs-3" for="phoneNumber">Телефон:</label>
                             <div class="col-xs-9">
-                                <!--                                <input type="tel"  class="form-control" id="phoneNumber" placeholder="Введите номер телефона"></input>-->
                                 <h:inputText required="true"  class="form-control" id="phone" value="#{userBean.user.phone}" title="phone"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-offset-3 col-xs-9">
-                                <!--<label class="checkbox-inline">-->
-                                    <!--<input type="checkbox" value="agree"></input>  Я согласен с <a href="#">условиями</a>.-->
-                                <!--</label>-->
                             </div>
                         </div>
                         <br />
                         <div class="form-group">
                             <div class="col-xs-offset-3 col-xs-9">
-
                                 <h:commandButton  class="btn btn-primary" value="Регистрация" action="#{userBean.createUser}"/>
-
                                 <input type="reset" class="btn btn-default" value="Очистить форму"></input>
                             </div>
                         </div>
-
-                       
                     </div>
                 </div>
             </div>
         </h:form>
-           <!--</form>-->
     </h:body>
 </html>
 

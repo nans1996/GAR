@@ -7,6 +7,7 @@ package managedBean;
 
 //import entitys.User;
 import entity.*;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +34,11 @@ public class UserBean {
     @EJB
     private UserFacadeLocal userFacade;
     private User user = new User();
-    
-    private UserRole userrole = new  UserRole();
-
+    private UserRole userRole = new  UserRole();
+    private UserRolePK rolePK = new UserRolePK();
+    private String USER_ROLE = "gambler";
+    @EJB
+    private UserRoleFacadeLocal userRoleFacadeLocal;
     public UserBean() {
     }
 
@@ -54,12 +57,18 @@ public class UserBean {
     }
     
     public String createUser(){
-        this.userFacade.create(this.user);
-       // userrole.setLogin(user.getLogin());
-       // userrole.setRole("client");
-       // this.userRolePKFacade.create(this.userrole);
-       // new UserRole("client",user.getLogin());
-        return "authorization";
+        user.setMessageCollection(null);
+        user.setTopicCollection(null);
+        user.setUserRoleCollection(null);
+        user.setClientCollection(null);
+        userFacade.create(user);
+        
+        rolePK.setLogin(user.getLogin());
+        rolePK.setRole(USER_ROLE);
+        userRole.setUserRolePK(rolePK);
+        userRole.setUser(user);
+        userRoleFacadeLocal.create(userRole);
+        return "newjsf";
     }
     
     public User getCurrentUses(){
