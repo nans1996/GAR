@@ -9,6 +9,7 @@ import entity.Message;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -25,6 +26,19 @@ public class MessageFacade extends AbstractFacade<Message> implements MessageFac
         return em;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public int countMessageId(int id){
+        Query count = em.createNamedQuery("SELECT Count(m) FROM Message m WHERE m.iDTopic = :iDTopic")
+                .setParameter("iDTopic", id);
+   return (int)count.getSingleResult();
+
+           }
+    
     public MessageFacade() {
         super(Message.class);
     }

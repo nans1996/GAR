@@ -68,7 +68,7 @@ public class UserBean {
         userRole.setUserRolePK(rolePK);
         userRole.setUser(user);
         userRoleFacadeLocal.create(userRole);
-        return "newjsf";
+        return "authorization";
     }
     
     public User getCurrentUses(){
