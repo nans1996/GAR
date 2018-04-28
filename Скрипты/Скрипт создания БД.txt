@@ -29,7 +29,7 @@ CREATE TABLE User_Role (
 
 CREATE TABLE Message (
 	ID_Message Int AUTO_INCREMENT NOT NULL,
-	Subject varchar(30) NOT NULL,
+	Subject varchar(30) NOT NULL,#наверное стоит убрать ?
 	Date Date NOT NULL,
 	Content Text NULL,
 	ID_User Int NOT NULL,

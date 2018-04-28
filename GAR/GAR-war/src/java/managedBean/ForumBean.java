@@ -21,50 +21,47 @@ import model.UserFacadeLocal;
  * @author Анастасия
  */
 @Named(value = "forumBean")
-@SessionScoped
+@SessionScoped//может стоит на запрос?
 public class ForumBean implements Serializable {
 
- 
     @EJB
     private UserFacadeLocal userFacade;
 
     @EJB
     private MessageFacadeLocal messageFacade;
-private Message message = new Message();
+    private Message message = new Message();
     @EJB
     private TopicFacadeLocal topicFacade;
-private Topic topic = new Topic();
+    private Topic topic = new Topic();
     private User user = new User();
-    private UserBean userBean = new  UserBean();
-    
+    private UserBean userBean = new UserBean();
     /**
      * Creates a new instance of ForumBean
      */
     public ForumBean() {
     }
- 
-   
-    
-    public List<Topic> getAllTopics(){
-       return this.topicFacade.findAll();
+
+    public List<Topic> getAllTopics() {
+        List<Topic> listTopic = topicFacade.findAll();
+        return listTopic;
     }
-    
-     public List<Message> getAllMessage(){
-       return this.messageFacade.findAll();
+
+    public List<Message> getAllMessage() {
+        return this.messageFacade.findAll();
     }
-    
-     public  int countMessage(int id){
-         return this.messageFacade.countMessageId(id);
-     }
-    
-    public String createTopic(){
+
+    public int countMessage(int id) {
+        return topicFacade.find(id).getMessageCollection().size();
+    }
+
+    public String createTopic() {
         this.topicFacade.create(this.getTopic());
         return "forum";
     }
 
-    public String createMessage(){
+    public String createMessage() {
         message.setDate(new Date());
-         //пока сделаем дефолд
+        //пока сделаем дефолд
         message.setSubject("subject");
         message.setIDTopic(topicFacade.find(1));
         user = userFacade.findLogin(userBean.getCurrentUser());
@@ -73,6 +70,7 @@ private Topic topic = new Topic();
         message.setContent("");
         return "comment";
     }
+
     /**
      * @return the topic
      */
@@ -101,5 +99,4 @@ private Topic topic = new Topic();
         this.message = message;
     }
 
-      
 }

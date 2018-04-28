@@ -56,42 +56,37 @@
                             <td class="gTableSubTop">Тема</td>
                             <td width="8%" class="gTableSubTop" align="center">Ответы</td>
                             <td width="30%" class="gTableSubTop">Обновления</td></tr>
-                       
-                        
+
+
                         <c:forEach items="${forumBean.allTopics}" var="t">    
-                        <tr> <td class="forumIcoTd" align="center"> 
-                                <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
-                            </td> 
-                            <td class="forumNameTd"> 
-                                <a class="forum" href="faces/comment.xhtml">${t.name}</a> 
+                            <tr> <td class="forumIcoTd" align="center"> 
+                                    <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
+                                </td> 
+                                <td class="forumNameTd"> 
+                                    <a class="forum" href="faces/comment.xhtml">${t.name}</a> 
+                                </td> 
+                                <td class="forumPostTd" align="center"><h:outputText value="#{forumBean.countMessage(t.IDTopic)}"></h:outputText></td> 
+                                <td class="forumLastPostTd"> 
 
 
-<!--                                <div class="forumDescr">Правила форума, обратная связь с администрацией</div> 
-                                <div class="subforumDescr">Подфорумы: <a href="/forum/3">Вопросы и предложения</a> | <a href="/forum/4">Инструкции</a></div> -->
+                                    <!--                                <br/>Тема: <a class="forumLastPostLink" href="/forum/4-29-1">Фоновое изображение профиля</a> -->
+                                    <br/>Сообщение от: <span class="lastPostGuest"><a class="lastPostUserLink" href="/index/8-0-ps~studio">ps-studio</a></span> 
 
-                            </td> 
-                            <td class="forumPostTd" align="center"><h:outputText value="#{forumBean.countMessage(t.IDTopic)}"></h:outputText></td> 
-                            <td class="forumLastPostTd"> 
-
-
-<!--                                <br/>Тема: <a class="forumLastPostLink" href="/forum/4-29-1">Фоновое изображение профиля</a> -->
-                                <br/>Сообщение от: <span class="lastPostGuest"><a class="lastPostUserLink" href="/index/8-0-ps~studio">ps-studio</a></span> 
-
-                            </td> 
-                        </tr>
+                                </td> 
+                            </tr>
                         </c:forEach>   
                         <tr><td colspan="7"><div id="nativeroll_video_cont" style="display:none;"></div>
 
-                              </td>   
-                           
-                        
+                            </td>   
+
+
                         </tr></table></div></div>
-            
-            
-            
+
+
+
             <div class="gDivBottomLeft"></div>
             <div class="gDivBottomCenter"></div><div class="gDivBottomRight"></div><br />
- 
+
             <div class="gDivBottomLeft"></div>
             <div class="gDivBottomCenter"></div>
             <div class="gDivBottomRight"></div>
@@ -99,7 +94,7 @@
 
 
         </div> 
- <footer class="page-footer font-small unique-color-dark pt-0">
+        <footer class="page-footer font-small unique-color-dark pt-0">
 
             <div style="background-color: #6351ce;">
                 <div class="container">

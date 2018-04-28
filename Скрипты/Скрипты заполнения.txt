@@ -22,3 +22,8 @@ Insert Into Goal(Name,Directory,Description,ID_Personage) Values('Спать',0,
 
 #Дефолтный Игрок 
 Insert Into Client(Date_Birth,Money,Interests,ID_User) Values('1997-07-07',0,'Люблю программировать,рисовать и спать.',2)
+
+#Темы для форума
+
+#Сообщения пользователя
+Insert Into Client(Subject,Date,Content,ID_User,ID_Topic) Values(0,'2018-28-04','Люблю программировать,рисовать и спать.',2)
