@@ -25,19 +25,6 @@ public class MessageFacade extends AbstractFacade<Message> implements MessageFac
     protected EntityManager getEntityManager() {
         return em;
     }
-
-    /**
-     *
-     * @param id
-     * @return
-     */
-    @Override
-    public int countMessageId(int id){
-        Query count = em.createNamedQuery("SELECT Count(m) FROM Message m WHERE m.iDTopic = :iDTopic")
-                .setParameter("iDTopic", id);
-   return (int)count.getSingleResult();
-
-           }
     
     public MessageFacade() {
         super(Message.class);
