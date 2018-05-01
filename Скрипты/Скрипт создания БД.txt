@@ -115,10 +115,12 @@ CREATE TABLE Image(
 #Связующая страница что-бы у одного персонажа несколько картинок
 CREATE TABLE Personage_Image (
 	ID_Personage_Image Int AUTO_INCREMENT NOT NULL,
-	ID_Image Int NULL NULL,#Картиночка на уровне
+	ID_Image Int UNSIGNED NULL NULL,#Картиночка на уровне
 	Level Int NULL NULL,#на каком уровне выводить данную картинку
 	ID_Personage Int NULL NULL,#Какой-то песонаж
 	PRIMARY KEY (ID_Personage_Image)
 );
 
 #Ключи 
+ALTER TABLE Personage_Image ADD FOREIGN KEY (ID_Image) REFERENCES Image (ID_Image);
+ALTER TABLE Personage_Image ADD FOREIGN KEY (ID_Personage) REFERENCES Personage (ID_Personage);
