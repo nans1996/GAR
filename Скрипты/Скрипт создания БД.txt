@@ -66,7 +66,7 @@ CREATE TABLE Goal (
 	ID_Goal Int AUTO_INCREMENT NOT NULL,
 	Name varchar(30) NOT NULL,
 	Directory Bit NOT NULL,
-Description text not null,
+	Description text not null,
 	ID_Personage Int NOT NULL,
 	PRIMARY KEY (ID_Goal)
 );
@@ -101,3 +101,24 @@ ALTER TABLE Message ADD FOREIGN KEY (ID_Topic) REFERENCES Topic (ID_Topic);
 
 
 ALTER TABLE Topic ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
+
+#добавление картинок 
+CREATE TABLE Image(
+	ID_Image Int UNSIGNED NOT NULL AUTO_INCREMENT, # идентификатор изображения
+	name VARCHAR(30) NOT NULL, # имя файла изображения
+	type VARCHAR(20) NOT NULL, # MIME-тип изображения
+	data MEDIUMBLOB NOT NULL, # данные изображения
+	PRIMARY KEY (ID_Image), # id и name уникальны
+	UNIQUE (name)
+);
+
+#Связующая страница что-бы у одного персонажа несколько картинок
+CREATE TABLE Personage_Image (
+	ID_Personage_Image Int AUTO_INCREMENT NOT NULL,
+	ID_Image Int NULL NULL,#Картиночка на уровне
+	Level Int NULL NULL,#на каком уровне выводить данную картинку
+	ID_Personage Int NULL NULL,#Какой-то песонаж
+	PRIMARY KEY (ID_Personage_Image)
+);
+
+#Ключи 

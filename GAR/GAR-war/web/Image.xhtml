@@ -9,7 +9,7 @@
     <h:body>
         <h:form>
             <p:fileUpload fileUploadListener="#{administratorBean.handleFileUpload}" mode="advanced" dragDropSupport="true"
-                          update="messages" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                          update="messages" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
             <p:growl id="messages" showDetail="true" />
         </h:form>
     </h:body>

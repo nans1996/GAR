@@ -36,6 +36,7 @@ public class AdministratorBean {
     @EJB
     UserFacadeLocal userFacadeLocal;
 
+    
     public void setTable(UIXTable table) {
         this.table = table;
     }
@@ -82,6 +83,7 @@ public class AdministratorBean {
     public void handleFileUpload(FileUploadEvent event) {
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
+        
     }
     
 }
