@@ -6,22 +6,21 @@
 package managedBean;
 
 import entity.User;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidad.component.UIXTable;
 import model.*;
+import entity.*;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 /**
  *
  * @author Vasilisa
  */
 @ManagedBean(name = "administratorBean")
-@RequestScoped
 public class AdministratorBean {
     public AdministratorBean() {
         //user = new User();
@@ -31,19 +30,11 @@ public class AdministratorBean {
     private UserFacadeLocal userFacade;
     private User user = new User();
     
-    //private User user;
-    protected UIXTable table;
     @EJB
     UserFacadeLocal userFacadeLocal;
-
-    
-    public void setTable(UIXTable table) {
-        this.table = table;
-    }
-
-    public UIXTable getTable() {
-        return table;
-    }
+    @EJB
+    ImageFacadeLocal imageFacadeLocal;
+    Image image = new Image() ;
     
 //    Администрирование пользователей
     public List<User> getAll() {
@@ -80,10 +71,16 @@ public class AdministratorBean {
         this.user = user;
     }
     
-    public void handleFileUpload(FileUploadEvent event) {
+        public void handleFileUpload(FileUploadEvent event) {
+        UploadedFile uploadedFile = event.getFile();
+        image.setName(uploadedFile.getFileName());
+        image.setPersonageImageCollection(null);
+        image.setType(uploadedFile.getContentType());
+        image.setData(uploadedFile.getContents());
+        imageFacadeLocal.create(image);
+        
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
-        
-    }
-    
+       
+    }    
 }
