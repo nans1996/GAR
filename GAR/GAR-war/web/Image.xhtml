@@ -8,7 +8,7 @@
     </h:head>
     <h:body>
         <h:form>
-            <p:fileUpload fileUploadListener="#{fileUploadView.handleFileUpload}" mode="advanced" dragDropSupport="true"
+            <p:fileUpload fileUploadListener="#{administratorBean.handleFileUpload}" mode="advanced" dragDropSupport="true"
                           update="messages" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
             <p:growl id="messages" showDetail="true" />
         </h:form>
