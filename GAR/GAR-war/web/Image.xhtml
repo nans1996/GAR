@@ -7,13 +7,18 @@
         <title>Редактирование персонажа</title>
     </h:head>
     <h:body>
-        <h:form>
-        <h:form>
+        <h:form enctype="multipart/form-data">
             <p:fileUpload fileUploadListener="#{administratorBean.handleFileUpload}" mode="advanced" dragDropSupport="true"
                           update="messages" sizeLimit="600000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
             <p:growl id="messages" showDetail="true" />
         </h:form>
+        <h:form enctype="multipart/form-data">
+            <p:growl id="messages" showDetail="true" />
+
+            <p:fileUpload value="#{administratorBean.file}" mode="simple" />
+
+            <p:commandButton value="Submit" ajax="false" actionListener="#{administratorBean.upload}" disabled="false" />
         </h:form>
     </h:body>
 </html>
