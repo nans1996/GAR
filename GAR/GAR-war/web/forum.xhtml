@@ -65,7 +65,7 @@
                                 <td class="forumNameTd"> 
                                     <a class="forum" href="faces/comment.xhtml">${t.name}</a> 
                                 </td> 
-                                <td class="forumPostTd" align="center"><h:outputText value="#{forumBean.countMessage(t.IDTopic)}"></h:outputText></td> 
+                                <td class="forumPostTd" align="center"><h:outputText value="#{t.messageCollection.size()}"></h:outputText></td> 
                                 <td class="forumLastPostTd"> 
 
 

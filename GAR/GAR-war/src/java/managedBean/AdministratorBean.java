@@ -13,6 +13,7 @@ import model.*;
 import entity.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
@@ -25,7 +26,7 @@ import org.primefaces.model.UploadedFile;
  */
 @ManagedBean(name = "administratorBean")
 @RequestScoped
-public class AdministratorBean {
+public class AdministratorBean implements Serializable{
     public AdministratorBean() {
         //user = new User();
     }
@@ -72,12 +73,16 @@ public class AdministratorBean {
         this.user = user;
     }
     
-    public void handleFileUpload(FileUploadEvent event) {
+    public void handleFileUpload(FileUploadEvent event) throws IOException {
         UploadedFile uploadedFile = event.getFile();
         image.setName(uploadedFile.getFileName());
-        image.setPersonageImageCollection(null);
         image.setType(uploadedFile.getContentType());
-        image.setData(uploadedFile.getContents());
+        InputStream in = uploadedFile.getInputstream();
+        byte[] mass = new byte[in.available()];
+        for (int i = 0; i < in.available(); i++) {
+            mass[i] = (byte) in.read();
+        }
+        image.setData(mass);
         imageFacadeLocal.create(image);
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
@@ -93,12 +98,13 @@ public class AdministratorBean {
         this.file = file;
     }
 
+    public Image image1(){
+    return imageFacadeLocal.find(1);
+    }
     public void upload() throws IOException {
         if (file != null) {
             image.setName(file.getFileName());
-            image.setPersonageImageCollection(null);
             image.setType(file.getContentType());
-            InputStream in = file.getInputstream();
             image.setData(file.getContents());
             imageFacadeLocal.create(image);
             FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");

@@ -14,7 +14,21 @@ import model.*;
 import entity.*;
 import java.util.Date;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
+
+import java.awt.event.ActionEvent;
+import org.primefaces.model.ScheduleEvent;
+import org.primefaces.model.ScheduleModel;
+import org.primefaces.event.ScheduleEntryMoveEvent;
+import org.primefaces.event.ScheduleEntryResizeEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.LazyScheduleModel;
+import java.util.Calendar;
+import javax.faces.application.FacesMessage;
+
 
 /**
  *
@@ -227,5 +241,72 @@ public class ClientBean implements Serializable {
        //после добавления перебрасывает на index
         return "index";
    }
+    
+     
+    private ScheduleModel eventModel;
+     
+    private ScheduleModel lazyEventModel;
+ 
+    private ScheduleEvent event = new DefaultScheduleEvent();
+ 
+    @PostConstruct
+    public void init() {
+        eventModel = new DefaultScheduleModel();
+        //установка события
+        eventModel.addEvent(new DefaultScheduleEvent("Выполнено", previousDay8Pm(), previousDay8Pm()));
+        eventModel.addEvent(new DefaultScheduleEvent("Выполнено", previousDay7Pm(), previousDay8Pm()));
+        lazyEventModel = new LazyScheduleModel() {
+        };
+    }
+        
+    //пока дефолтные методы забора дат!
+    private Date previousDay8Pm() {
+        Calendar t = (Calendar) today().clone(); 
+        t.set(Calendar.AM_PM, Calendar.PM);
+        t.set(Calendar.HOUR, 6);
+        return t.getTime();
+    }
+    private Date previousDay7Pm() {
+        Calendar t = (Calendar) today().clone(); 
+        t.set(Calendar.AM_PM, Calendar.PM);
+        t.set(Calendar.HOUR, 24);
+        return t.getTime();
+    }
+    public Date getInitialDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), Calendar.FEBRUARY, calendar.get(Calendar.DATE), 0, 0, 0);
+        return calendar.getTime();
+    }
+     
+    public ScheduleModel getEventModel() {
+        return eventModel;
+    }
+    
+ 
+    private Calendar today() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
+        return calendar;
+    }
+
+    public ScheduleEvent getEvent() {
+        return event;
+    }
+ 
+    public void setEvent(ScheduleEvent event) {
+        this.event = event;
+    }
+
+     
+    public void onEventSelect(SelectEvent selectEvent) {
+        event = (ScheduleEvent) selectEvent.getObject();
+    }
+     
+    public void onDateSelect(SelectEvent selectEvent) {
+        event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+    }
+    
+    
+    
     
 }

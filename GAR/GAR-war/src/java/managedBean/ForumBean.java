@@ -50,9 +50,9 @@ public class ForumBean implements Serializable {
         return this.messageFacade.findAll();
     }
 
-    public int countMessage(int id) {
-        return topicFacade.find(id).getMessageCollection().size();
-    }
+//    public int countMessage(int id) {
+//        return topicFacade.find(id).getMessageCollection().size();
+//    }
 
     public String createTopic() {
         this.topicFacade.create(this.getTopic());
