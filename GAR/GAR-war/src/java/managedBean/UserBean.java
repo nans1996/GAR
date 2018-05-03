@@ -15,6 +15,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import model.UserFacadeLocal;
 import model.UserRoleFacadeLocal;
 
@@ -79,5 +80,16 @@ public class UserBean {
         Map<String, Object> params = fc.getExternalContext().getSessionMap();
         String login = (String) params.get(UserBean.USER_KEY);
         return login;
+    }
+    
+    public String logout() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        session.invalidate();
+        return "index";
+    }
+    public boolean isUserLoggedIn() {
+        String login = getCurrentUser();
+        boolean result = !((login == null) || login.isEmpty());
+        return result;
     }
 }
