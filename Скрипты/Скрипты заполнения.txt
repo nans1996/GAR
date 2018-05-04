@@ -1,6 +1,6 @@
 ﻿use GAR_BD; // хи если название забыли
 
-//добавим тестовых пользователей чтобы было все круто!)
+#//добавим тестовых пользователей чтобы было все круто!)
 #//моза всех нас сюда залить,это будет круче наверное
 #//или же одну админку вообще оставить
 
@@ -21,9 +21,10 @@ Insert Into Personage(Name, Price) Values('Смурфик', 0);
 Insert Into Goal(Name,Directory,Description,ID_Personage) Values('Спать',0,'Чтобы выглядить красиво нужно высыпаться.',1);
 
 #Дефолтный Игрок 
-Insert Into Client(Date_Birth,Money,Interests,ID_User) Values('1997-07-07',0,'Люблю программировать,рисовать и спать.',2)
+Insert Into Client(Date_Birth,Money,Interests,ID_User) Values('1997-07-07',0,'Люблю программировать,рисовать и спать.',2);
 
 #Темы для форума
+Insert Into Topic(Name,Date,ID_User) Values('Персонаж','2018-05-04',1);
 
 #Сообщения пользователя
-Insert Into Client(Subject,Date,Content,ID_User,ID_Topic) Values(0,'2018-28-04','Люблю программировать,рисовать и спать.',2)
+Insert Into Message(Date,Content,ID_User,ID_Topic) Values('2018-05-04','Добавте нового персонажа.',1,1);

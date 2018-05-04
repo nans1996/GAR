@@ -2,7 +2,7 @@
 
 drop database GAR_BD; #//для особых случаев! НЕ ТОРОГАТЬ
 
-create database GAR_BD;
+create database GAR_BD CHARACTER SET utf8 COLLATE utf8_general_ci;
 use GAR_BD;
 
 #// смотри лаб_6 РПС авторизацию
@@ -27,9 +27,8 @@ CREATE TABLE User_Role (
 	#CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login)
 );
 
-CREATE TABLE Message (
+CREATE TABLE Message (#тут изменения!!
 	ID_Message Int AUTO_INCREMENT NOT NULL,
-	Subject varchar(30) NOT NULL,#наверное стоит убрать ?
 	Date Date NOT NULL,
 	Content Text NULL,
 	ID_User Int NOT NULL,
@@ -81,7 +80,7 @@ CREATE TABLE Personage (
 CREATE TABLE Level (
 	ID_Level Int AUTO_INCREMENT NOT NULL,
 	Date Date NOT NULL,
-	Level_date Int NULL,
+	Level_date Bit NULL,#тут правка
 	PRIMARY KEY (ID_Level)
 );
 

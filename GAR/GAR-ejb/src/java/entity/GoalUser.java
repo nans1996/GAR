@@ -32,12 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GoalUser.findAll", query = "SELECT g FROM GoalUser g")
-    , @NamedQuery(name = "GoalUser.findAllCurrentClient", query = "SELECT g FROM GoalUser g WHERE g.iDClient.iDClient = :iDClient")
-    , @NamedQuery(name = "GoalUser.findByIDGoaluser", query = "SELECT g FROM GoalUser g WHERE g.iDGoaluser = :iDGoaluser")})
+    , @NamedQuery(name = "GoalUser.findByIDGoaluser", query = "SELECT g FROM GoalUser g WHERE g.iDGoaluser = :iDGoaluser")
+    , @NamedQuery(name = "GoalUser.findAllCurrentClient", query = "SELECT g FROM GoalUser g WHERE g.iDClient.iDClient = :iDClient")})
 public class GoalUser implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDGoaluser")
-    private Collection<Level> levelCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,6 +48,8 @@ public class GoalUser implements Serializable {
     @JoinColumn(name = "ID_Goal", referencedColumnName = "ID_Goal")
     @ManyToOne(optional = false)
     private Goal iDGoal;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDGoaluser")
+    private Collection<Level> levelCollection;
 
     public GoalUser() {
     }
@@ -75,13 +74,21 @@ public class GoalUser implements Serializable {
         this.iDClient = iDClient;
     }
 
-
     public Goal getIDGoal() {
         return iDGoal;
     }
 
     public void setIDGoal(Goal iDGoal) {
         this.iDGoal = iDGoal;
+    }
+
+    @XmlTransient
+    public Collection<Level> getLevelCollection() {
+        return levelCollection;
+    }
+
+    public void setLevelCollection(Collection<Level> levelCollection) {
+        this.levelCollection = levelCollection;
     }
 
     @Override
@@ -107,15 +114,6 @@ public class GoalUser implements Serializable {
     @Override
     public String toString() {
         return "entity.GoalUser[ iDGoaluser=" + iDGoaluser + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Level> getLevelCollection() {
-        return levelCollection;
-    }
-
-    public void setLevelCollection(Collection<Level> levelCollection) {
-        this.levelCollection = levelCollection;
     }
     
 }

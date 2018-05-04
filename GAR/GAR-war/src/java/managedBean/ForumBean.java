@@ -62,7 +62,6 @@ public class ForumBean implements Serializable {
     public String createMessage() {
         message.setDate(new Date());
         //пока сделаем дефолд
-        message.setSubject("subject");
         message.setIDTopic(topicFacade.find(1));
         user = userFacade.findLogin(userBean.getCurrentUser());
         message.setIDUser(user);

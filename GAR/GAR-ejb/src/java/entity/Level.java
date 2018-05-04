@@ -49,7 +49,7 @@ public class Level implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date date;
     @Column(name = "Level_date")
-    private Integer leveldate;
+    private Boolean leveldate;
     @JoinColumn(name = "ID_Goal_user", referencedColumnName = "ID_Goal_user")
     @ManyToOne(optional = false)
     private GoalUser iDGoaluser;
@@ -82,11 +82,11 @@ public class Level implements Serializable {
         this.date = date;
     }
 
-    public Integer getLeveldate() {
+    public Boolean getLeveldate() {
         return leveldate;
     }
 
-    public void setLeveldate(Integer leveldate) {
+    public void setLeveldate(Boolean leveldate) {
         this.leveldate = leveldate;
     }
 

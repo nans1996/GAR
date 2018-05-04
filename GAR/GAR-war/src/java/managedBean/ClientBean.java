@@ -38,32 +38,32 @@ import javax.faces.application.FacesMessage;
 @SessionScoped
 public class ClientBean implements Serializable {
 
+    
     @EJB
     private TopicFacadeLocal topicFacade;
     Topic topic = new Topic();
     @EJB
     private MessageFacadeLocal messageFacade;
     Message message = new Message();
-    //пробуем написать контроллер
     @EJB
     private GoalUserFacadeLocal goalUserFacadeLocal;
     GoalUser goalUser = new GoalUser();
     @EJB
     private GoalFacadeLocal goalFacadeLocal;
     private Goal goal = new Goal();
-    Level level = new Level();
     @EJB
     private LevelFacadeLocal levelFacadeLocal;
-    Client client = new Client();
+    Level level = new Level();
     @EJB
     private ClientFacadeLocal clientFacade;
-    private User user = new User();
-    private UserBean userBean = new UserBean();
+    Client client = new Client();
     @EJB
     private UserFacadeLocal userFacadeLocal;
+    private User user = new User();
+    private UserBean userBean = new UserBean(); 
     @EJB 
     private PersonageFacadeLocal personageFacadeLocal;
-    private Personage personage;
+    private Personage personage = new Personage();
 
     /**
      * Creates a new instance of ClientBean
@@ -139,20 +139,21 @@ public class ClientBean implements Serializable {
     public List<Client> findAllClient() {
         return this.clientFacade.findAll();
     }
-   //создать клиента 
-   public String createClient(){
-       this.clientFacade.create(this.client);
-       //после добавления перебрасывает на index
-     return "index";
-   }
+    
+    //создать клиента 
+    public String createClient() {
+        this.clientFacade.create(this.client);
+        return "index";
+    }
+
     //удалить
-   public void deleteClient(Client client){
-       this.clientFacade.remove(client);
-   }
+    public void deleteClient(Client client) {
+        this.clientFacade.remove(client);
+    }
    
    //обновить клиента
    public String editClient(Client client){
-       client = client;
+       client = client;// Насть что это?*
        return "edit";
    }
    public String editClient(){
@@ -226,7 +227,6 @@ public class ClientBean implements Serializable {
    //создать сообщение пока так же
     public String createMessage(){
        this.messageFacade.create(this.message);
-       //после добавления перебрасывает на index
      return "index";
    }
     
@@ -236,13 +236,20 @@ public class ClientBean implements Serializable {
     }
     
     //создать новую тему на форуме
-    public String createTopic(){
-       this.topicFacade.create(this.topic);
-       //после добавления перебрасывает на index
+    public String createTopic() {
+        this.topicFacade.create(this.topic);
         return "index";
-   }
-    
-     
+    }
+
+    public String addLevel(){
+        Date date = new Date();
+        level.setDate(date);
+        level.setLeveldate(true);
+        level.setIDGoaluser(goalUser);
+        levelFacadeLocal.create(level);
+        return "index";
+    }
+    //тут часть кода отвечвющая за календарик
     private ScheduleModel eventModel;
      
     private ScheduleModel lazyEventModel;

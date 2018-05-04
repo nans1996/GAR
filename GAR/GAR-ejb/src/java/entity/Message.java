@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Message.findAll", query = "SELECT m FROM Message m")
     , @NamedQuery(name = "Message.findByIDMessage", query = "SELECT m FROM Message m WHERE m.iDMessage = :iDMessage")
-    , @NamedQuery(name = "Message.findBySubject", query = "SELECT m FROM Message m WHERE m.subject = :subject")
     , @NamedQuery(name = "Message.findByDate", query = "SELECT m FROM Message m WHERE m.date = :date")})
 public class Message implements Serializable {
 
@@ -45,11 +44,6 @@ public class Message implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_Message")
     private Integer iDMessage;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "Subject")
-    private String subject;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Date")
@@ -73,9 +67,8 @@ public class Message implements Serializable {
         this.iDMessage = iDMessage;
     }
 
-    public Message(Integer iDMessage, String subject, Date date) {
+    public Message(Integer iDMessage, Date date) {
         this.iDMessage = iDMessage;
-        this.subject = subject;
         this.date = date;
     }
 
@@ -85,14 +78,6 @@ public class Message implements Serializable {
 
     public void setIDMessage(Integer iDMessage) {
         this.iDMessage = iDMessage;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
     }
 
     public Date getDate() {

@@ -11,22 +11,28 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import model.*;
 import entity.*;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import javax.activation.MimetypesFileTypeMap;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 /**
  *
  * @author Vasilisa
  */
 @ManagedBean(name = "administratorBean")
-@RequestScoped
-public class AdministratorBean implements Serializable{
+@SessionScoped
+public class AdministratorBean {
     public AdministratorBean() {
         //user = new User();
     }
@@ -39,7 +45,7 @@ public class AdministratorBean implements Serializable{
     UserFacadeLocal userFacadeLocal;
     @EJB
     ImageFacadeLocal imageFacadeLocal;
-    Image image = new Image() ;
+    Image image = new Image();
     
 //    Администрирование пользователей
     public List<User> getAllUser() {
@@ -72,21 +78,6 @@ public class AdministratorBean implements Serializable{
     public void setUser(User user) {
         this.user = user;
     }
-    
-    public void handleFileUpload(FileUploadEvent event) throws IOException {
-        UploadedFile uploadedFile = event.getFile();
-        image.setName(uploadedFile.getFileName());
-        image.setType(uploadedFile.getContentType());
-        InputStream in = uploadedFile.getInputstream();
-        byte[] mass = new byte[in.available()];
-        for (int i = 0; i < in.available(); i++) {
-            mass[i] = (byte) in.read();
-        }
-        image.setData(mass);
-        imageFacadeLocal.create(image);
-        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
  
     private UploadedFile file;
 
@@ -98,14 +89,34 @@ public class AdministratorBean implements Serializable{
         this.file = file;
     }
 
-    public Image image1(){
-    return imageFacadeLocal.find(1);
+    private StreamedContent content;
+
+    public StreamedContent getContent() {
+        return content;
     }
+
+    public void setContent(StreamedContent content) {
+        this.content = content;
+    }
+
+    @PostConstruct
+    public void getSavedImage(){
+        Image img = imageFacadeLocal.find(1);
+        content = new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+    }
+
+    
     public void upload() throws IOException {
         if (file != null) {
             image.setName(file.getFileName());
             image.setType(file.getContentType());
-            image.setData(file.getContents());
+            image.setPersonageImageCollection(null);
+            InputStream in = file.getInputstream();
+            byte[] fileContents = new byte[in.available()];
+            for (int i = 0; i < in.available(); i++) {
+                fileContents[i] = (byte) in.read();
+            }
+            image.setData(fileContents);
             imageFacadeLocal.create(image);
             FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);

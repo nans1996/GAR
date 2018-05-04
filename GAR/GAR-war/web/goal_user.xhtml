@@ -3,8 +3,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <!-- Latest compiled and minified CSS -->
@@ -16,10 +17,10 @@
         <script src="http://bootstraptema.ru/plugins/2015/b-checkbox/bootstrap-checkbox.js"></script>
         <script src="http://bootstraptema.ru/plugins/2015/b-checkbox/bootstrap-checkbox.min.js"></script>
         <link href="css/style.css" rel="stylesheet"/>
-        
+
         <title>Цель пользователя</title>
     </h:head>
-  
+
     <h:body>
         <nav class="navbar navbar-default navbar-fixed-top navbar-static-top">
             <div class="container">
@@ -44,55 +45,54 @@
                 </div>
             </div>
         </nav>
-        
+
         <table> 
-            <th><p:chart type="line" model="#{chartView.areaModel}" style="height:400px;width:700px" /></th>
             <th>
-                <img src="http://fotovideoforum.ru/resources/image/57910"/>
+            <img src="http://fotovideoforum.ru/resources/image/57910"/>
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
                         <span class="sr-only">40% Complete (success)</span>
                     </div>
-                </div>
+                </div>                                              
+            </th>
+            <th>
+                <p class = "h1">
+                    Наименование цели:
+                    <h:outputText value="#{clientBean.goalUser.IDGoal.name}"/>
+                    <br/><br/>
+                    Описание цели:
+                    <h:outputText value="#{clientBean.goalUser.IDGoal.description}"/>
+                    <br/><br/>
+                    Развивай своего персонажа развивая себя:
+                    <br/>
+                    <h:form>
+                        <h:commandButton class="btn btn-success btn btn-secondary btn-lg btn-block" action="#{clientBean.addLevel}" value="Выполнить цель на сегодня" />
+                    </h:form> 
+                </p>
             </th>
         </table>
-     
-            <table>           
-                <thead>
-                    <tr>
-                        <th>Наименование цели</th>
-                        <th>Описание цели</th>
-                    </tr>
-                </thead>
-                <tr>
-                    <th>
-                         <h:outputText value="#{clientBean.goalUser.IDGoal.name}"/>
-                    </th> 
-                    <th>
-                        <h:outputText value="#{clientBean.goalUser.IDGoal.description}"/>
-                    </th> 
-                </tr>
-            </table>     
+        <p:chart type="line" model="#{chartView.areaModel}" style="height:400px;width:700px" />
+
         <h:form>
             <h:panelGrid columnClasses="value">
                 <h3 style="margin-top: 0">Календарик</h3>
                 <p:schedule id="schedule" value="#{clientBean.eventModel}" widgetVar="myschedule" locale="tr" styleClass=""></p:schedule>
             </h:panelGrid>
         </h:form>
-        
+
         <script type="text/javascript">
             PrimeFaces.locales['tr'] = {
                 closeText: 'kapat',
                 prevText: 'geri',
                 nextText: 'ileri',
                 currentText: 'сегодня',
-                monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
-                    'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
-                monthNamesShort: ['Янв','Фев','Март','Апр','Май','Июнь',
-                    'Июль','Авг','Сен','Окт','Нояб','Дек'],
-                dayNames: ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'],
-                dayNamesShort: ['ПН','ВТ','СР','ЧТ','ПТ','СБ','ВС'],
-                dayNamesMin: ['ПН','ВТ','СР','ЧТ','ПТ','СБ','ВС'],
+                monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                monthNamesShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь',
+                    'Июль', 'Авг', 'Сен', 'Окт', 'Нояб', 'Дек'],
+                dayNames: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+                dayNamesShort: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
+                dayNamesMin: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
                 weekHeader: 'Hf',
                 firstDay: 1,
                 isRTL: false,
@@ -101,9 +101,9 @@
                 month: 'Месяц',
                 week: 'Неделя',
                 day: 'День',
-                allDayText : 'Tüm Gün'
+                allDayText: 'Tüm Gün'
             };
-            
+
         </script>
         <style type="text/css">
             .value {
@@ -115,25 +115,29 @@
             .custom .ui-state-highlight {
                 background: greenyellow !important;
             }
-     
+            .h1{
+                color: green;
+                text-shadow: 1px 1px 1px #000;
+            }
+
         </style>
- 
-<!--        <table class="table table-bordered">-->
-<!--            <thead>
-                <tr>
-                    <th>День 1</th>
-                </tr>
-            </thead>-->
-<!--            <tbody>
-                <tr>
-                    <td><label class="btn btn-success">
-                            <input type="checkbox" autocomplete="off"/>
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </label>
-                    </td>
-                </tr>
-            </tbody>-->
-<!--        </table>-->
+
+        <!--        <table class="table table-bordered">-->
+        <!--            <thead>
+                        <tr>
+                            <th>День 1</th>
+                        </tr>
+                    </thead>-->
+        <!--            <tbody>
+                        <tr>
+                            <td><label class="btn btn-success">
+                                    <input type="checkbox" autocomplete="off"/>
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>-->
+        <!--        </table>-->
     </h:body>
 </html>
 
