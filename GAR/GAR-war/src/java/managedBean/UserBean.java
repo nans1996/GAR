@@ -85,7 +85,7 @@ public class UserBean {
     public String logout() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         session.invalidate();
-        return "index";
+        return "/index?faces-redirect=true";
     }
     public boolean isUserLoggedIn() {
         String login = getCurrentUser();
