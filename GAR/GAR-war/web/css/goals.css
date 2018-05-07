@@ -1,117 +1,42 @@
-﻿.font-face {
- font-family: 'Roboto';
- src: local('Roboto'), local('Roboto-Regular'), url('http://bootstraptema.ru/snippets/font/2016/roboto/roboto.woff2') format('woff2'), url('http://bootstraptema.ru/snippets/font/2016/roboto/roboto.woff') format('woff'), url('http://bootstraptema.ru/snippets/font/2016/roboto/roboto.ttf') format('truetype');
- font-weight: 400;
- font-style: normal;
-}
-.blog_box h3{
- font: 300 20px/25px Roboto, sans-serif; 
- text-transform:uppercase;
- margin-top:1em;
-}
-.blog_box h3 a{
- color:#000;
-}
-.blog_box h3 a:hover{
- color:#2cb149;
- text-decoration:none;
-}
-.blog_box p{
- font: 300 16px/25px Roboto, sans-serif; 
- color:#999;
- line-height:1.8em;
- margin-bottom: 2em;
-}
-.blog_box{
- margin-bottom: 2em;
-}
-.links{
- padding:0.5em 0;
-}
-.links ul{
- padding:0;
- list-style:none;
-}
-.links li{
- padding:0;
- list-style:none;
-}
-.links ul li {
- display: inline-block;
- margin-right: 20px;
- font: 300 16px/25px Roboto, sans-serif; 
- color:#999;
-}
-i.blog-icon{
- color:#2cb149;
- margin-right: 10px;
+.thumbnail {
+ margin-bottom: 20px;
+ padding: 0px;
+ -webkit-border-radius: 0px;
+ -moz-border-radius: 0px;
+ border-radius: 0px
 }
 
-a.mask {
- text-decoration: none;
- overflow: hidden;
- display: block;
+.item.list-group-item {
+ float: none;
+ width: 100%;
+ background-color: #fff;
+ margin-bottom: 10px
 }
-img.zoom-img:hover {
- -webkit-transform: scale(1.15);
- -webkit-transition-timing-function: ease-out;
- -webkit-transition-duration: 750ms;
- -moz-transform: scale(1.15);
- -moz-transition-timing-function: ease-out;
- -moz-transition-duration: 750ms;
- overflow: hidden;
+.item.list-group-item:nth-of-type(odd):hover,.item.list-group-item:hover {
+ background: rgb(244, 191, 66)
 }
-img.zoom-img {
- -webkit-transform: scale(1, 1);
- -webkit-transition-timing-function: ease-out;
- -webkit-transition-duration: 250ms;
- -moz-transform: scale(1, 1);
- -moz-transition-timing-function: ease-out;
- -moz-transition-duration: 250ms;
+.item.list-group-item .list-group-image {
+ margin-right: 10px
 }
-.btn1 {
- border: none;
- font-family: inherit;
- font-size: inherit;
- font-weight: bold;
- color: inherit;
- background: none;
- cursor: pointer;
- padding: 20px;
- text-align:center;
- display: inline-block;
- margin: 15px 0 0;
- text-transform: uppercase;
- letter-spacing: 1px;
- outline: none;
- position: relative;
- -webkit-transition: all 0.3s;
- -moz-transition: all 0.3s;
- transition: all 0.3s;
- width: 32%;
+.item.list-group-item .thumbnail {
+ margin-bottom: 0px
 }
-.btn-8c:hover {
- -webkit-transform: rotateY(15deg);
- -moz-transform: rotateY(15deg);
- -ms-transform: rotateY(15deg);
- transform: rotateY(15deg);
- text-decoration:none;
- background:#2cb149;
- color:#fff;
+.item.list-group-item .caption {
+ padding: 9px 9px 0px 9px
 }
-.btn1:after {
- content: '';
- position: absolute;
- z-index: -1;
- -webkit-transition: all 0.3s;
- -moz-transition: all 0.3s;
- transition: all 0.3s;
+.item.list-group-item:nth-of-type(odd) {
+ background: #eeeeee
 }
-.btn-8 {
- display: block;
- background:#ffde00;
- outline: 1px solid transparent;
- -webkit-transform-style: preserve-3d;
- -moz-transform-style: preserve-3d;
- transform-style: preserve-3d;
+.item.list-group-item:before, .item.list-group-item:after {
+ display: table;
+ content: " "
+}
+.item.list-group-item img {
+ float: left
+}
+.item.list-group-item:after {
+ clear: both
+}
+.list-group-item-text {
+ margin: 0 0 11px
 }

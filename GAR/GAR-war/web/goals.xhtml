@@ -1,20 +1,27 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
-            <!-- Optional theme -->
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
-            <!-- Latest compiled and minified JavaScript -->
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap-flex.min.css" rel="stylesheet"></link>
-             <link href="css/goals.css" rel="stylesheet"></link>
-            <link href="css/style.css" rel="stylesheet"></link>
-           
-            <script src="js/ism-2.2.min.js"></script>
-            <title>Цели</title>
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+        <link href="css/style.css" rel="stylesheet"></link> 
+        <link href="css/goals.css" rel="stylesheet"></link> 
+        <script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="http://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
+        <script src="http://bootstraptema.ru/_sf/3/394.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="http://bootstraptema.ru/plugins/font-awesome/4-4-0/font-awesome.min.css"></link>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link> 
+        <link href="css/addGoal.css" rel="stylesheet"></link>
     </h:head>
     <h:body>
         <nav class="navbar navbar-default navbar-fixed-top navbar-static-top">
@@ -32,13 +39,23 @@
 
                 <div id="navbarCollapse" class="collapse navbar-collapse">
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="faces/index.xhtml">Главная  </a> </li>
-                        <li class="active"><a href="#">Цели</a></li>
-                        <li><a href="faces/user.xhtml">Страница с пользователями</a></li>
-                        <li><a href="faces/rating.xhtml">Рейтинг</a></li>
-                        <p class="navbar-text"> Вы вошли как <a href="faces/profil.xhtml" class="navbar-link">Тимофей</a></p>
-                        <a href="faces/authorization.xhtml" class="btn btn-default navbar-btn">Войти</a>                         
+                    <ul class="nav navbar-nav navbar-right">                                               
+                     <li><h:link outcome="index" value="Главная"/></li>
+                        <li><h:link outcome="goals" value="Цели"/></li>                        
+                        <li><h:link outcome="user" value="Страница с пользователями"/></li>
+                        <li><h:link outcome="rating" value="Рейтинг"/></li>
+                        <li><h:link outcome="forum" value="Форум"/></li>                    
+                        <p class="navbar-text"> 
+                            Вы вошли как 
+                           <h:link outcome="profil" value="#{request.getRemoteUser()}" class="navbar-link"></h:link>                              
+                            
+                        <li><h:link outcome="authorization" value="Войти"/></li>        
+                        <li>
+                            <h:form rendered="#{userBean.userLoggedIn}">
+                                    <p:commandButton value="Выйти" id="logout" action="#{userBean.logout}" class="btn btn-link" />                                      
+                            </h:form>
+                        </li>  
+                        </p>
                     </ul>
                 </div>
             </div>
@@ -46,43 +63,153 @@
         <br/>
         <br/>
         <br/>
-        <form class="well form-search">
-            <input type="text" class="input-medium search-query"></input>
-            <button type="submit" class="btn">Поиск</button>
-        </form>
-        <h:form>
-            <div class="row">
-                <div class="col-xs">
-                    <a href="#" class="mask">
-                        <img src="https://cdn.lifehacker.ru/wp-content/uploads/2014/10/01_1441803818-1140x547.png" alt="image" class="img-responsive zoom-img"></img>
-                    </a>
-                    <h3>Бегать по утрам</h3>
-                    <div class="links">
-                        <ul>
-                            <li><i class="fa blog-icon fa-calendar"> </i><span>Март 27, 2018</span></li>
-                            <li><i class="fa blog-icon fa-user"> </i><span>Admin</span></li>
-                            <li><i class="fa blog-icon fa-comment"> </i><a href="#"><span>Без комментариев</span></a></li>
-                        </ul>
-                    </div>
-                    <p>Все еще обещаешь себе начать заниматься спортом? Утренняя пробежка – отличная привычка, благодаря которой можно решить множество проблем, с которыми все чаще сталкивается все население планеты.</p>
-                    <a href="#" class="btn1 btn-8 btn-8c">Добавить</a></div>
-                <div class="col-xs">
-                    <a href="#" class="mask">
-                        <img src="https://estet-portal.com/images/article/main/polza-yogi-6-vesomyh-argumentov-vstat-na-kovrik-1513156626.jpeg" alt="image" class="img-responsive zoom-img"></img>
-                    </a>
-                    <h3>Ходить на йогу</h3>
-                    <div class="links">
-                        <ul>
-                            <li><i class="fa blog-icon fa-calendar"> </i><span>Март 27, 2018</span></li>
-                            <li><i class="fa blog-icon fa-user"> </i><span>Admin</span></li>
-                            <li><i class="fa blog-icon fa-comment"> </i><a href="#"><span>Без комментариев</span></a></li>
-                        </ul>
-                    </div>
-                    <p>Польза йоги в первую очередь касается тела, ведь доказано — практика асан развивает гибкость, приводит мышцы в тонус, оздоравливает все системы организма. Но кроме этого, занятия йогой положительно сказываются и на когнитивных способностях и психологическом состоянии человека.</p>
-                    <a href="#" class="btn1 btn-8 btn-8c">Добавить</a></div>
-                <div class="col-xs">.col-xs</div>
+        <div class="container">
+            <div class="well well-sm">
+                <strong>Вид: </strong>
+                <div class="btn-group">
+                    <a href="#" id="list" class="btn btn-default btn-sm">
+                        <i class="fa fa-list"></i>Список</a> 
+                    <a href="#" id="grid" class="btn btn-default btn-sm">
+                        <i class="fa fa-table"></i>Сетка</a>
+                </div>
+                <input type="text" class="input-medium search-query"></input>
+                <button type="submit" class="btn">Поиск</button>
+                <button href="#myGoal" type="submit" class="btn" id="btnGoal">Добавить цель</button>
             </div>
-        </h:form>
+            <div id="products" class="row list-group">
+                <h:form>
+                    <c:forEach items="${clientBean.findAllGoalDefolt()}" var="item"> 
+                        <div class="item col-xs-4 col-lg-4">
+                            <div class="thumbnail">
+                                <img class="group list-group-image" src="http://5beautysecrets.ru/wp-content/uploads/2017/01/kak_pravilno_nachat_begat_s_nulja_1-400x250.jpg" alt="1"></img>
+                                <div class="caption">
+                                    <h4 class="group inner list-group-item-heading">
+                                        <h:outputText value="#{item.name}"></h:outputText>
+                                    </h4>
+                                    <p class="group inner list-group-item-text">
+                                        <h:outputText value="#{item.description}"></h:outputText>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <!--                                        <a href="#" class="btn btn-warning">Добавить</a>-->
+                                            <h:commandLink action="#{clientBean.createGoalDefoltUser}" value="Добавить">
+                                                <f:param name="id" value="#{item.IDGoal}"/>
+                                            </h:commandLink>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                    </c:forEach>   
+                </h:form>
+            </div>
+        </div>
+        <div id="myGoal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Заголовок модального окна -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Создание цели</h4>
+                    </div>
+                    <!-- Основное содержимое модального окна -->
+                    <h:form>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label class="control-label col-xs-3" for="NameGoal">Название цели:</label>
+                                <div class="col-xs-9">
+<!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
+                                    <h:inputText value="#{clientBean.goal.name}" class="form-control" label="Введите название цели" >  </h:inputText> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3" for="DescriptionGoal">Описание:</label>
+                                <div class="col-xs-9">
+                                    <!--<input type="text" maxlength="250" class="form-control" id="DescriptionGoal" placeholder="Введите описание цели, максимум 250 символов"></input>-->
+                                    <h:inputText value="#{clientBean.goal.description}" class="form-control" label="Введите описание цели, максимум 250 символов" >  </h:inputText> 
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div id="carousel-example-generic" class="carousel slide" data-interval="false">
+                                <!-- Indicators -->
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+                                    <div class="item active">
+
+                                        <img src="http://fotovideoforum.ru/resources/image/57910" alt="" />
+                                        <div class="main-checkbox">
+                                            <input type="checkbox" value="none" id="checkbox1" name="check"></input>
+                                            <label for="checkbox1"></label>
+                                        </div>
+                                        <a class="btn btn-warning" href="#">КУПИТЬ</a>
+                                        <h2>1000 RUB</h2>
+                                    </div>
+                                    <div class="item">
+                                        <img src="http://placehold.it/900x500/666/" alt="" />
+                                        <div class="carousel-caption">
+                                            <h3>Second slide label</h3>
+
+                                            <p>Second slide Caption.</p>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <img src="http://placehold.it/900x500/666/" alt="" />
+                                        <div class="carousel-caption">
+                                            <h3>Third slide label</h3>
+
+                                            <p>Third slide Caption.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Controls --> <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                    <span class="icon-prev"></span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                    <span class="icon-next"></span>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <!-- Футер модального окна -->
+                        <div class="modal-footer">
+                            <div class="form-group"> 
+                                <h:commandButton class="btn btn-warning" action="#{clientBean.createGoalUser}" value="ДОБАВИТЬ МНЕ ЦЕЛЬ!!" />
+                            </div>  
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                //при нажатию на любую кнопку, имеющую класс .btn
+                $("#btnGoal").click(function () {
+                    //открыть модальное окно с id="myModal"
+                    $("#myGoal").modal({
+                        backdrop: 'static'
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $('#list').click(function (event) {
+                    event.preventDefault();
+                    $('#products .item').addClass('list-group-item');
+                });
+                $('#grid').click(function (event) {
+                    event.preventDefault();
+                    $('#products .item').removeClass('list-group-item');
+                    $('#products .item').addClass('grid-group-item');
+                });
+            });
+        </script>
     </h:body>
 </html>
 
