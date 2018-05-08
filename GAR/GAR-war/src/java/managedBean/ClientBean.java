@@ -209,6 +209,7 @@ public class ClientBean implements Serializable {
         //после добавления перебрасывает на index изменить на страницу подтверждения
         return "index";
     }
+
     //удалить
    public void deleteGoalUser(GoalUser goalUser){
        this.goalUserFacadeLocal.remove(goalUser);
@@ -219,6 +220,7 @@ public class ClientBean implements Serializable {
        this.goalUser = goalUser;
        return "edit";
    }
+   
 //   public String editGoalUser(){
 //       this.goalUserFacadeLocal.edit(this.goalUser);
 //       this.goalUser = new GoalUser();
@@ -248,6 +250,12 @@ public class ClientBean implements Serializable {
         level.setIDGoaluser(goalUser);
         levelFacadeLocal.create(level);
         return "index";
+    }
+    
+    public int percentСomplianceGoalUser(){
+        goalUser = goalUserFacadeLocal.find(goalUser.getIDGoaluser());
+        int percent = (100*goalUser.getLevelCollection().size())/21;
+        return percent;
     }
     //тут часть кода отвечвющая за календарик
     private ScheduleModel eventModel;
@@ -312,8 +320,6 @@ public class ClientBean implements Serializable {
     public void onDateSelect(SelectEvent selectEvent) {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
-    
-    
     
     
 }
