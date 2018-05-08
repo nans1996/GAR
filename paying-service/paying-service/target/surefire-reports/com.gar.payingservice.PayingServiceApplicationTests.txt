@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.gar.payingservice.PayingServiceApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.322 s - in com.gar.payingservice.PayingServiceApplicationTests
