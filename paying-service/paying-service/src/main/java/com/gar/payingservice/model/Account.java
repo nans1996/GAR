@@ -7,7 +7,7 @@ import java.util.Date;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date expirationDate;
     private int codeSecurity;
@@ -17,11 +17,11 @@ public class Account {
     public Account() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
