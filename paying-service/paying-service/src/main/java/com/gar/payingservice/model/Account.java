@@ -18,6 +18,13 @@ public class Account {
     public Account() {
     }
 
+    public Account(Date expirationDate, int codeSecurity, String holder,Long codeCard) {
+        this.expirationDate = expirationDate;
+        this.codeSecurity = codeSecurity;
+        this.holder = holder;
+        this.codeCard = codeCard;
+    }
+
     public Long getCodeCard() {
         return codeCard;
     }

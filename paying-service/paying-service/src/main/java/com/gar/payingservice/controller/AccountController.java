@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -27,12 +29,13 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/purchase", method = RequestMethod.PUT)
-    public boolean purchase(@RequestParam("account") Account account) {
+    public boolean purchase(@RequestParam("account") Account account, @RequestParam("purchaseValue") float purchaseValue) {
         boolean result = false;
         Account systemAccount = accountDataAccess.getById(account.getCodeCard());
-        if (systemAccount.equals(account)) {
-            systemAccount.setBalance(systemAccount.getBalance()-account.getBalance());
+        if (systemAccount.equals(account) && systemAccount.getBalance() > purchaseValue) {
+            systemAccount.setBalance(systemAccount.getBalance() - purchaseValue);
             accountDataAccess.update(systemAccount);
+            result = true;
         }
         return result;
     }
@@ -46,4 +49,20 @@ public class AccountController {
         return result;
     }
 
+    //Пока не знаю как обьект взять*
+    @RequestMapping(value = "/purchaseTest", method = RequestMethod.PUT)
+    public boolean purchaseTest(@RequestParam("expirationDate") String expirationDate,@RequestParam("holder") String holder,@RequestParam("codeSecurity") int codeSecurity,@RequestParam("codeCard") Long codeCard, @RequestParam("purchaseValue") float purchaseValue) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat();
+        format.applyPattern("yyyy-MM-dd");
+        Date docDate= format.parse(expirationDate);
+        Account account = new Account(docDate,codeSecurity,holder,codeCard);
+        boolean result = false;
+        Account systemAccount = accountDataAccess.getById(account.getCodeCard());
+        if (systemAccount.equals(account) && systemAccount.getBalance() > purchaseValue) {
+            systemAccount.setBalance(systemAccount.getBalance() - purchaseValue);
+            accountDataAccess.update(systemAccount);
+            result = true;
+        }
+        return result;
+    }
 }
