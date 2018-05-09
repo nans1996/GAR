@@ -15,6 +15,7 @@ CREATE TABLE User (
 	Name varchar(20) NOT NULL,
 	Phone  varchar(10) NOT NULL,
 	Email  varchar(30) NULL,
+	Gender varchar(10) NULL,
 	#UNIQUE KEY `Login_UNIQUE` (`Login`), //уникальный логин
 	PRIMARY KEY (ID_User)
 );
@@ -24,7 +25,6 @@ CREATE TABLE User_Role (
 	Login varchar(10) NOT NULL,
 	PRIMARY KEY (Role,Login), #//составной первычный
 	CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login)
-	#CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login)
 );
 
 CREATE TABLE Message (#тут изменения!!
@@ -50,7 +50,10 @@ CREATE TABLE Client (
 	Money Float NOT NULL,
 	Interests Text NULL,
 	ID_User Int NOT NULL,
-	PRIMARY KEY (ID_Client)
+	ID_Image Int UNSIGNED NULL NULL,#картинка клинта новшество!
+	PRIMARY KEY (ID_Client),
+	ban Bit NOT NULL,# новшество галка стоит значит забинен!
+	UNIQUE (ID_Image)
 );
 
 CREATE TABLE Goal_user (
@@ -66,7 +69,9 @@ CREATE TABLE Goal (
 	Directory Bit NOT NULL,
 	Description text not null,
 	ID_Personage Int NOT NULL,
-	PRIMARY KEY (ID_Goal)
+	ID_Image Int UNSIGNED NULL NULL,#новшество
+	PRIMARY KEY (ID_Goal),
+	UNIQUE (ID_Image)
 );
 
 CREATE TABLE Personage (
@@ -117,7 +122,8 @@ CREATE TABLE Personage_Image (
 	ID_Image Int UNSIGNED NULL NULL,#Картиночка на уровне
 	Level Int NULL NULL,#на каком уровне выводить данную картинку
 	ID_Personage Int NULL NULL,#Какой-то песонаж
-	PRIMARY KEY (ID_Personage_Image)
+	PRIMARY KEY (ID_Personage_Image),
+	UNIQUE (ID_Image)
 );
 
 #Ключи 
