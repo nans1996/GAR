@@ -30,4 +30,5 @@ public interface PersonageFacadeLocal {
 
     int count();
     
+    public Personage findPersonageByName(String name);
 }

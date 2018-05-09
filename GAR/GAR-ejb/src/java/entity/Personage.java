@@ -134,7 +134,7 @@ public class Personage implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Personage[ iDPersonage=" + iDPersonage + " ]";
+        return name;
     }
     
 }

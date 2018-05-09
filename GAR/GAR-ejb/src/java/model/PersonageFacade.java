@@ -9,6 +9,7 @@ import entity.Personage;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +30,10 @@ public class PersonageFacade extends AbstractFacade<Personage> implements Person
         super(Personage.class);
     }
     
+    @Override
+    public Personage findPersonageByName(String name){
+        Query q = em.createNamedQuery("Personage.findByName");
+        q.setParameter("name", name);
+        return (Personage) q.getSingleResult();
+    }
 }
