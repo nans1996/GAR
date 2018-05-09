@@ -11,7 +11,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import model.*;
 import entity.*;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -22,6 +24,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import javax.imageio.ImageIO;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -91,23 +94,11 @@ public class AdministratorBean {
         this.file = file;
     }
 
-    private StreamedContent content;
-
-    public StreamedContent getContent() {
-        return content;
-    }
-
-    public void setContent(StreamedContent content) {
-        this.content = content;
-    }
-
-    @PostConstruct
-    public void getSavedImage(){
+    public StreamedContent getSavedImage(){
         Image img = imageFacadeLocal.find(1);
-        content = new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+        return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
     }
 
-    
     public void upload() throws IOException {
         if (file != null) {
             image.setName(file.getFileName());
@@ -115,13 +106,14 @@ public class AdministratorBean {
             //превязать к первонажу!
             image.setPersonageImage(null);
             InputStream in = file.getInputstream();
-            byte[] fileContents = new byte[in.available()];
-            for (int i = 0; i < in.available(); i++) {
-                fileContents[i] = (byte) in.read();
-            }
-            image.setData(fileContents);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            BufferedImage bImageFromConvert = ImageIO.read(in);
+            ImageIO.write(bImageFromConvert, "jpg", baos);
+            byte[] imageInByte = baos.toByteArray();
+            baos.close();
+            image.setData(imageInByte);
             imageFacadeLocal.create(image);
-            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+            FacesMessage message = new FacesMessage("Добавлен файл:", file.getFileName());
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
         

@@ -321,5 +321,8 @@ public class ClientBean implements Serializable {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
     
+    public List<Client> rating (){
+    return clientFacade.findAll();
+    }
     
 }

@@ -1,5 +1,3 @@
-
-
 drop database GAR_BD; #//для особых случаев! НЕ ТОРОГАТЬ
 
 create database GAR_BD CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -24,7 +22,8 @@ CREATE TABLE User_Role (
 	Role varchar(10) NOT NULL, #//типо кода_наименования
 	Login varchar(10) NOT NULL,
 	PRIMARY KEY (Role,Login), #//составной первычный
-	CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login)
+	CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login),
+	UNIQUE (Login)
 );
 
 CREATE TABLE Message (#тут изменения!!
@@ -46,14 +45,14 @@ CREATE TABLE Topic (
 
 CREATE TABLE Client (
 	ID_Client Int AUTO_INCREMENT NOT NULL,
-	Date_Birth Date NOT NULL,
-	Money Float NOT NULL,
+	Date_Birth Date NULL,
 	Interests Text NULL,
 	ID_User Int NOT NULL,
-	ID_Image Int UNSIGNED NULL NULL,#картинка клинта новшество!
+	ID_Image Int UNSIGNED NULL,#картинка клинта новшество!
 	PRIMARY KEY (ID_Client),
 	ban Bit NOT NULL,# новшество галка стоит значит забинен!
-	UNIQUE (ID_Image)
+	UNIQUE (ID_Image),
+	UNIQUE (ID_User)
 );
 
 CREATE TABLE Goal_user (
@@ -69,7 +68,7 @@ CREATE TABLE Goal (
 	Directory Bit NOT NULL,
 	Description text not null,
 	ID_Personage Int NOT NULL,
-	ID_Image Int UNSIGNED NULL NULL,#новшество
+	ID_Image Int UNSIGNED NULL,#новшество
 	PRIMARY KEY (ID_Goal),
 	UNIQUE (ID_Image)
 );
@@ -88,23 +87,6 @@ CREATE TABLE Level (
 	Level_date Bit NULL,#тут правка
 	PRIMARY KEY (ID_Level)
 );
-
-
-#//связи между таблицами
-
-ALTER TABLE Goal ADD FOREIGN KEY (ID_Personage) REFERENCES Personage (ID_Personage);
-
-ALTER TABLE Level ADD FOREIGN KEY (ID_Goal_user) REFERENCES Goal_user (ID_Goal_user);
-ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Goal) REFERENCES Goal (ID_Goal);
-ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Client) REFERENCES Client (ID_Client);
-
-ALTER TABLE Client ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
-
-ALTER TABLE Message ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
-ALTER TABLE Message ADD FOREIGN KEY (ID_Topic) REFERENCES Topic (ID_Topic);
-
-
-ALTER TABLE Topic ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
 
 #добавление картинок 
 CREATE TABLE Image(
@@ -125,6 +107,22 @@ CREATE TABLE Personage_Image (
 	PRIMARY KEY (ID_Personage_Image),
 	UNIQUE (ID_Image)
 );
+
+
+#//связи между таблицами
+
+ALTER TABLE Goal ADD FOREIGN KEY (ID_Personage) REFERENCES Personage (ID_Personage);
+
+ALTER TABLE Level ADD FOREIGN KEY (ID_Goal_user) REFERENCES Goal_user (ID_Goal_user);
+ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Goal) REFERENCES Goal (ID_Goal);
+ALTER TABLE Goal_user ADD FOREIGN KEY (ID_Client) REFERENCES Client (ID_Client);
+
+ALTER TABLE Client ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
+
+ALTER TABLE Message ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
+ALTER TABLE Message ADD FOREIGN KEY (ID_Topic) REFERENCES Topic (ID_Topic);
+
+ALTER TABLE Topic ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
 
 #Ключи 
 ALTER TABLE Personage_Image ADD FOREIGN KEY (ID_Image) REFERENCES Image (ID_Image);
