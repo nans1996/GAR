@@ -33,3 +33,38 @@ background-color: #FFFC73;
 .btn.active span.glyphicon {				
 	opacity: 1;				
 }
+.carousel .item{
+ background: #333;    
+  text-align: center;
+  height: 500px !important;
+}
+.carousel h2{
+	color: #fff;
+	margin: 0;
+  padding-top: 50px;
+  font-size: 48px;
+}
+.carousel p{
+	color: #666;
+	font-weight: bold;
+	font-size: 16px;
+	margin-top: 30px;
+	margin-bottom: 40px;
+}
+.carousel-control.left, .carousel-control.right {
+    background-image: none
+}
+
+.home-bl__head {
+    margin-bottom: 30px;
+    color: #000000;
+    text-align: center;
+    font-size: 16pt;
+}
+.home-bl__title {    
+    font-size: 50pt;
+    color: #068010;
+}
+.center { 
+    text-align: center;
+  }
