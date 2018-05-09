@@ -29,5 +29,7 @@ public interface MessageFacadeLocal {
     List<Message> findRange(int[] range);
 
     int count();
+
+    List<Message> findByIdTopic(Integer idTopic);
     
 }

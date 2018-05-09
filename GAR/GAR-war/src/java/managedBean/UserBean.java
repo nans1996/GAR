@@ -42,12 +42,7 @@ public class UserBean {
     public UserBean() {
     }
 
-//    public String editUser() {
-//        this.userFacade.edit(this.getUser());
-//        this.setUser(new User());
-//        return "index";
-//    }
-//
+
     public User getUser() {
         return user;
     }

@@ -12,6 +12,10 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+        <script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="http://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
+        <script src="http://bootstraptema.ru/_sf/3/394.js" type="text/javascript"></script>
         <link href="css/style.css" rel="stylesheet"></link>
         <link href="css/profil.css" rel="stylesheet"></link>
         <title>Профиль</title>
@@ -81,8 +85,9 @@
                         <div class="panel">
                             <div class="panel-body">
                                 <ul id="myTab" class="nav nav-pills">
-                                    <li class="active"><a href="#detail" data-toggle="tab">Мои данные</a></li>
+                                    <button type="submit" class="btn" id="btnProfile">Мои данные</button>
                                 </ul>
+                                
                                 <div id="myTabContent" class="tab-content">
                                     <hr/>
                                     <div class="tab-pane fade active in" id="detail">
@@ -94,6 +99,7 @@
                                                 <tr><td class="active">Имя:</td><td><h:outputText value="#{userBean.currentUses.name}"/></td></tr>
                                                 <tr><td class="active">Телефон:</td><td><h:outputText value="#{userBean.currentUses.phone}"/></td></tr>
                                                 <tr><td class="active">Мыло:</td><td><h:outputText value="#{userBean.currentUses.email}"/></td></tr>
+                                                <tr><td class="active">Кошелек:</td><td><h:outputText value="#{clientBean.client.money}"/></td></tr>
                                                 <tr><td class="active">Рейтинг пользователя:</td><td><i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> 4/5</td></tr>
                                                 <tr><td class="active">Плагин рейтинга:</td><td><a href="http://bootstraptema.ru/stuff/plugins_bootstrap/improvement/bootstrap_star_rating/12-1-0-73" target="_blank">http://goo.gl/bGGXuw</a></td></tr>
                                             </tbody>
@@ -106,6 +112,93 @@
                 </div>
             </div>
         </div><!-- /.main -->
+        
+        
+        <!--        Модальное окно-->
+          <div id="myProfile" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Заголовок модального окна -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Создание темы</h4>
+                    </div>
+                    <!-- Основное содержимое модального окна -->
+                    <h:form>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label class="control-label col-xs-3" for="NameGoal">Фамилия:</label>
+                                <div class="col-xs-9">
+                                    <!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
+                                    <h:inputText value="#{userBean.currentUses.surname}" class="form-control" label="Введите название цели" >  </h:inputText> 
+                                </div>
+                            </div>
+                           
+                               <div class="form-group">
+                                <label class="control-label col-xs-3" for="NameGoal">Имя:</label>
+                                <div class="col-xs-9">
+                                    <!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
+                                    <h:inputText value="#{userBean.currentUses.name}" class="form-control" label="Введите название цели" >  </h:inputText> 
+                                </div>
+                            </div>
+                           
+                             <div class="form-group">
+                                <label class="control-label col-xs-3" for="NameGoal">Телефон:</label>
+                                <div class="col-xs-9">
+                                    <!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
+                                    <h:inputText value="#{userBean.currentUses.phone}" class="form-control" label="Введите название цели" >  </h:inputText> 
+                                </div>
+                            </div>
+                            
+                             <div class="form-group">
+                                <label class="control-label col-xs-3" for="NameGoal">Дата рождения:</label>
+                                <div class="col-xs-9">
+                                    <!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
+                                    <h:inputText value="#{clientBean.client.dateBirth}" class="form-control" > 
+                                    <f:convertDateTime pattern = "dd-mm-yyyy" />
+                                    </h:inputText> 
+                                </div>
+                            </div>
+                            
+                             <div class="form-group">
+                                <label class="control-label col-xs-3" for="NameGoal">Интересы:</label>
+                                <div class="col-xs-9">
+                                    <!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
+                                    <h:inputText value="#{clientBean.client.interests}" class="form-control" label="Введите название цели" >  </h:inputText> 
+                                </div>
+                            </div>
+                            
+                            <br/>
+                            <br/>
+                            <br/>
+                           
+                        </div>
+
+                        <!-- Футер модального окна -->
+                        <div class="modal-footer">
+                            <div class="form-group"> 
+                                <h:commandButton class="btn btn-warning" action="#{forumBean.createTopic}" value="Сохранить" />
+                            </div>  
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                //при нажатию на любую кнопку, имеющую класс .btn
+                $("#btnProfile").click(function () {
+                    //открыть модальное окно с id="myModal"
+                    $("#myProfile").modal({
+                        backdrop: 'static'
+                    });
+                });
+            });
+        </script>
+        
+        
+        
 
         <div id="right">
             <p>Правая половина</p>

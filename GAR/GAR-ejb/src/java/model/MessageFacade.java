@@ -31,6 +31,7 @@ public class MessageFacade extends AbstractFacade<Message> implements MessageFac
         super(Message.class);
     }
     
+    @Override
     public List<Message> findByIdTopic(Integer idTopic){
         Query q = em.createNamedQuery("findByIDTopic");
         q.setParameter("IDTopic", idTopic);

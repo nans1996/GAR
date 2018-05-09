@@ -152,14 +152,14 @@ public class ClientBean implements Serializable {
     }
    
    //обновить клиента
-   public String editClient(Client client){
-       client = client;// Насть что это?*
-       return "edit";
-   }
+//   public String editClient(Client client){
+//       this.client = client;// Насть что это?*
+//       return "profile";
+//   }
    public String editClient(){
        clientFacade.edit(client);
        client = new Client();
-       return "index";
+       return "profile";
    }
    
     //вывести цели клиента
