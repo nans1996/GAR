@@ -18,6 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import org.primefaces.event.ScheduleEntryMoveEvent;
@@ -27,6 +28,7 @@ import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.LazyScheduleModel;
 import java.util.Calendar;
+import java.util.Comparator;
 import javax.faces.application.FacesMessage;
 
 
@@ -321,8 +323,14 @@ public class ClientBean implements Serializable {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
     
-    public List<Client> rating (){
-    return clientFacade.findAll();
+    public List<Client> rating() {
+        List<Client> list = clientFacade.findAll();
+        list.sort(new Comparator<Client>() {
+            @Override
+            public int compare(Client o1, Client o2) {
+                return o1.toString().compareTo(o2.toString());//какая-то логика*
+            }
+        });
+        return list;
     }
-    
 }
