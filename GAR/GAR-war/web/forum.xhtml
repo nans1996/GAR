@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <!-- Latest compiled and minified CSS -->
@@ -70,15 +71,20 @@
                             <td width="8%" class="gTableSubTop" align="center">Ответы</td>
                             <td width="30%" class="gTableSubTop">Обновления</td></tr>
 
-
+                        <h:form>
                         <c:forEach items="${forumBean.allTopics}" var="t">    
                             <tr> <td class="forumIcoTd" align="center"> 
                                     <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
                                 </td> 
                                 <td class="forumNameTd"> 
+<!--                                    <h:commandLink action="comment" value="${t.name}">
+                                        <f:param name="idTopic" value="#{t.IDTopic}"/>
+                                            </h:commandLink>-->
+                                    
                                     <a class="forum" href="faces/comment.xhtml">${t.name}</a> 
                                 </td> 
-                                <td class="forumPostTd" align="center"><h:outputText value="#{t.messageCollection.size()}"></h:outputText></td> 
+                                <td class="forumPostTd" align="center">
+                                    <h:outputText value="#{t.messageCollection.size()}"></h:outputText></td> 
                                 <td class="forumLastPostTd"> 
 
 
@@ -88,6 +94,7 @@
                                 </td> 
                             </tr>
                         </c:forEach>   
+                        </h:form>
                         <button type="submit" class="btn" id="btnTopic">Добавить тему</button>
                         <tr><td colspan="7"><div id="nativeroll_video_cont" style="display:none;"></div>
 
@@ -123,7 +130,7 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label class="control-label col-xs-3" for="NameGoal">Название цели:</label>
+                                <label class="control-label col-xs-3" for="NameGoal">Название темы:</label>
                                 <div class="col-xs-9">
 <!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
 <h:inputText value="#{forumBean.topic.name}" class="form-control" label="Введите название цели" >  </h:inputText> 

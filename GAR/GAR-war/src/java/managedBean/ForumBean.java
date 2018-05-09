@@ -14,6 +14,8 @@ import model.TopicFacadeLocal;
 import entity.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import javax.faces.context.FacesContext;
 import model.UserFacadeLocal;
 
 /**
@@ -49,12 +51,27 @@ public class ForumBean implements Serializable {
     public List<Message> getAllMessage() {
         return this.messageFacade.findAll();
     }
+    // тут типа пытаюсь вывести сообщения по id темы
+    public List<Message> getMessageIdTopic() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+       Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+       int id = Integer.parseInt(params.get("id"));
+       
+        return this.messageFacade.findByIdTopic(id);
+    }
+    
+    public  void deleteMessage(Message message){
+       this.messageFacade.remove(message);
+    }
 
 //    public int countMessage(int id) {
 //        return topicFacade.find(id).getMessageCollection().size();
 //    }
 
     public String createTopic() {
+        topic.setDate(new Date());
+        user = userFacade.findLogin(userBean.getCurrentUser());
+        topic.setIDUser(user);
         this.topicFacade.create(this.getTopic());
         return "forum";
     }

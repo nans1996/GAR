@@ -8,43 +8,50 @@ package managedBean;
 import entity.User;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
 import model.*;
 import entity.*;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
+import javax.activation.MimetypesFileTypeMap;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.imageio.ImageIO;
 /**
  *
  * @author Vasilisa
  */
 @ManagedBean(name = "administratorBean")
+@SessionScoped
 public class AdministratorBean {
+
+   
     public AdministratorBean() {
         //user = new User();
     }
 
-    @EJB
-    private UserFacadeLocal userFacade;
+
     private User user = new User();
     
-    @EJB
-    UserFacadeLocal userFacadeLocal;
+     @EJB
+    private UserFacadeLocal userFacade;
+   
     @EJB
     ImageFacadeLocal imageFacadeLocal;
     Image image = new Image();
     
 //    Администрирование пользователей
     public List<User> getAllUser() {
-        return  userFacadeLocal.findAll();
+        return  userFacade.findAll();
     }
     
     //создать  
@@ -83,10 +90,21 @@ public class AdministratorBean {
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-    
-    public StreamedContent getSavedImage(){
-        Image img = imageFacadeLocal.find(3);
-        return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+
+    private StreamedContent content;
+
+    public StreamedContent getContent() {
+        return content;
+    }
+
+    public void setContent(StreamedContent content) {
+        this.content = content;
+    }
+
+    @PostConstruct
+    public void getSavedImage(){
+        Image img = imageFacadeLocal.find(1);
+        content = new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
     }
 
     
@@ -95,35 +113,16 @@ public class AdministratorBean {
             image.setName(file.getFileName());
             image.setType(file.getContentType());
             image.setPersonageImageCollection(null);
-            byte[] imageInByte;
             InputStream in = file.getInputstream();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            BufferedImage bImageFromConvert = ImageIO.read(in);
-            ImageIO.write(bImageFromConvert, "jpg", baos);
-            imageInByte = baos.toByteArray();
-            baos.close();
-            image.setData(imageInByte);
+            byte[] fileContents = new byte[in.available()];
+            for (int i = 0; i < in.available(); i++) {
+                fileContents[i] = (byte) in.read();
+            }
+            image.setData(fileContents);
             imageFacadeLocal.create(image);
             FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
+        
     }
-
-//    public void handleFileUpload(FileUploadEvent event) throws IOException {
-//        UploadedFile uploadedFile = event.getFile();
-//        image.setName(uploadedFile.getFileName());
-//        image.setType(uploadedFile.getContentType());
-//        InputStream in = uploadedFile.getInputstream();
-//        byte[] mass = new byte[in.available()];
-//        for (int i = 0; i < in.available(); i++) {
-//            mass[i] = (byte) in.read();
-//        }
-//        image.setData(mass);
-//        imageFacadeLocal.create(image);
-//        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-//        FacesContext.getCurrentInstance().addMessage(null, message);
-//
-//    } 
-         
-
 }

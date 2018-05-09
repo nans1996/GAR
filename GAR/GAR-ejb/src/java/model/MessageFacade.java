@@ -6,6 +6,7 @@
 package model;
 
 import entity.Message;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,4 +31,9 @@ public class MessageFacade extends AbstractFacade<Message> implements MessageFac
         super(Message.class);
     }
     
+    public List<Message> findByIdTopic(Integer idTopic){
+        Query q = em.createNamedQuery("findByIDTopic");
+        q.setParameter("IDTopic", idTopic);
+        return q.getResultList();
+    }
 }
