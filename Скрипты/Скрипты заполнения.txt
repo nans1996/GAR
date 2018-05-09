@@ -4,8 +4,8 @@
 #//моза всех нас сюда залить,это будет круче наверное
 #//или же одну админку вообще оставить
 
-Insert Into User(Login, Pass, Surname, Name, Phone, Email) Values('Boss', 'password', 'Boss','Boss','0000000000','adman@inbox.ru');
-Insert Into User(Login, Pass, Surname, Name, Phone, Email) Values('gambler', 'password', 'Ivanov','Ivan','1111111111','gambler@inbox.ru');
+Insert Into User(Login, Pass, Surname, Name, Phone, Email,Gender) Values('Boss', 'password', 'Boss','Boss','0000000000','adman@inbox.ru','женщина');
+Insert Into User(Login, Pass, Surname, Name, Phone, Email,Gender) Values('gambler', 'password', 'Ivanov','Ivan','1111111111','gambler@inbox.ru','мужчина');
 
 #//и бахнем им роли
 Insert Into User_Role(Login, Role) Values('Boss', 'admin');
@@ -21,7 +21,7 @@ Insert Into Personage(Name, Price) Values('Смурфик', 0);
 Insert Into Goal(Name,Directory,Description,ID_Personage) Values('Спать',0,'Чтобы выглядить красиво нужно высыпаться.',1);
 
 #Дефолтный Игрок 
-Insert Into Client(Date_Birth,Money,Interests,ID_User) Values('1997-07-07',0,'Люблю программировать,рисовать и спать.',2);
+Insert Into Client(Date_Birth,Interests,ID_User,ban) Values('1997-07-07','Люблю программировать,рисовать и спать.',2,0);
 
 #Темы для форума
 Insert Into Topic(Name,Date,ID_User) Values('Персонаж','2018-05-04',1);

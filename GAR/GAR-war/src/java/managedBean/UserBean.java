@@ -54,8 +54,9 @@ public class UserBean {
     public String createUser(){
         user.setMessageCollection(null);
         user.setTopicCollection(null);
-        user.setUserRoleCollection(null);
-        user.setClientCollection(null);
+        user.setUserRole(userRole);
+        //клиента по id в стидиюы
+        user.setClient(null);
         userFacade.create(user);
         
         rolePK.setLogin(user.getLogin());

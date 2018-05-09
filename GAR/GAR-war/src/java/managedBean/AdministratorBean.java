@@ -112,7 +112,8 @@ public class AdministratorBean {
         if (file != null) {
             image.setName(file.getFileName());
             image.setType(file.getContentType());
-            image.setPersonageImageCollection(null);
+            //превязать к первонажу!
+            image.setPersonageImage(null);
             InputStream in = file.getInputstream();
             byte[] fileContents = new byte[in.available()];
             for (int i = 0; i < in.available(); i++) {

@@ -17,10 +17,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c")
     , @NamedQuery(name = "Client.findByIDClient", query = "SELECT c FROM Client c WHERE c.iDClient = :iDClient")
     , @NamedQuery(name = "Client.findByDateBirth", query = "SELECT c FROM Client c WHERE c.dateBirth = :dateBirth")
-    , @NamedQuery(name = "Client.findByMoney", query = "SELECT c FROM Client c WHERE c.money = :money")
+    , @NamedQuery(name = "Client.findByIDImage", query = "SELECT c FROM Client c WHERE c.iDImage = :iDImage")
+    , @NamedQuery(name = "Client.findByBan", query = "SELECT c FROM Client c WHERE c.ban = :ban")
     , @NamedQuery(name = "findByIDUser", query = "SELECT c FROM Client c WHERE c.iDUser.iDUser = :idUser")})
 public class Client implements Serializable {
 
@@ -50,23 +51,23 @@ public class Client implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_Client")
     private Integer iDClient;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Date_Birth")
     @Temporal(TemporalType.DATE)
     private Date dateBirth;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "Money")
-    private float money;
     @Lob
     @Size(max = 65535)
     @Column(name = "Interests")
     private String interests;
+    @Column(name = "ID_Image")
+    private Integer iDImage;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ban")
+    private boolean ban;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDClient")
     private Collection<GoalUser> goalUserCollection;
     @JoinColumn(name = "ID_User", referencedColumnName = "ID_User")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private User iDUser;
 
     public Client() {
@@ -76,10 +77,9 @@ public class Client implements Serializable {
         this.iDClient = iDClient;
     }
 
-    public Client(Integer iDClient, Date dateBirth, float money) {
+    public Client(Integer iDClient, boolean ban) {
         this.iDClient = iDClient;
-        this.dateBirth = dateBirth;
-        this.money = money;
+        this.ban = ban;
     }
 
     public Integer getIDClient() {
@@ -98,20 +98,28 @@ public class Client implements Serializable {
         this.dateBirth = dateBirth;
     }
 
-    public float getMoney() {
-        return money;
-    }
-
-    public void setMoney(float money) {
-        this.money = money;
-    }
-
     public String getInterests() {
         return interests;
     }
 
     public void setInterests(String interests) {
         this.interests = interests;
+    }
+
+    public Integer getIDImage() {
+        return iDImage;
+    }
+
+    public void setIDImage(Integer iDImage) {
+        this.iDImage = iDImage;
+    }
+
+    public boolean getBan() {
+        return ban;
+    }
+
+    public void setBan(boolean ban) {
+        this.ban = ban;
     }
 
     @XmlTransient

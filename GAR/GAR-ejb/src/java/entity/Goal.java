@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -36,14 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Goal.findAll", query = "SELECT g FROM Goal g")
     , @NamedQuery(name = "Goal.findByIDGoal", query = "SELECT g FROM Goal g WHERE g.iDGoal = :iDGoal")
     , @NamedQuery(name = "Goal.findByName", query = "SELECT g FROM Goal g WHERE g.name = :name")
-    , @NamedQuery(name = "Goal.findByDirectory", query = "SELECT g FROM Goal g WHERE g.directory = :directory")})
+    , @NamedQuery(name = "Goal.findByDirectory", query = "SELECT g FROM Goal g WHERE g.directory = :directory")
+    , @NamedQuery(name = "Goal.findByIDImage", query = "SELECT g FROM Goal g WHERE g.iDImage = :iDImage")})
 public class Goal implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "Description")
-    private String description;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +56,14 @@ public class Goal implements Serializable {
     @NotNull
     @Column(name = "Directory")
     private boolean directory;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "Description")
+    private String description;
+    @Column(name = "ID_Image")
+    private Integer iDImage;
     @JoinColumn(name = "ID_Personage", referencedColumnName = "ID_Personage")
     @ManyToOne(optional = false)
     private Personage iDPersonage;
@@ -72,10 +77,11 @@ public class Goal implements Serializable {
         this.iDGoal = iDGoal;
     }
 
-    public Goal(Integer iDGoal, String name, boolean directory) {
+    public Goal(Integer iDGoal, String name, boolean directory, String description) {
         this.iDGoal = iDGoal;
         this.name = name;
         this.directory = directory;
+        this.description = description;
     }
 
     public Integer getIDGoal() {
@@ -100,6 +106,22 @@ public class Goal implements Serializable {
 
     public void setDirectory(boolean directory) {
         this.directory = directory;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getIDImage() {
+        return iDImage;
+    }
+
+    public void setIDImage(Integer iDImage) {
+        this.iDImage = iDImage;
     }
 
     public Personage getIDPersonage() {
@@ -142,14 +164,6 @@ public class Goal implements Serializable {
     @Override
     public String toString() {
         return "entity.Goal[ iDGoal=" + iDGoal + " ]";
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
     
 }

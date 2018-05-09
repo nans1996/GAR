@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -44,7 +45,7 @@ public class PersonageImage implements Serializable {
     @ManyToOne
     private Personage iDPersonage;
     @JoinColumn(name = "ID_Image", referencedColumnName = "ID_Image")
-    @ManyToOne
+    @OneToOne
     private Image iDImage;
 
     public PersonageImage() {

@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -38,7 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findBySurname", query = "SELECT u FROM User u WHERE u.surname = :surname")
     , @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name")
     , @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone")
-    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")})
+    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
+    , @NamedQuery(name = "User.findByGender", query = "SELECT u FROM User u WHERE u.gender = :gender")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -77,10 +79,13 @@ public class User implements Serializable {
     @Size(max = 30)
     @Column(name = "Email")
     private String email;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Collection<UserRole> userRoleCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDUser")
-    private Collection<Client> clientCollection;
+    @Size(max = 10)
+    @Column(name = "Gender")
+    private String gender;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private UserRole userRole;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "iDUser")
+    private Client client;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDUser")
     private Collection<Topic> topicCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDUser")
@@ -158,22 +163,28 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    @XmlTransient
-    public Collection<UserRole> getUserRoleCollection() {
-        return userRoleCollection;
+    public String getGender() {
+        return gender;
     }
 
-    public void setUserRoleCollection(Collection<UserRole> userRoleCollection) {
-        this.userRoleCollection = userRoleCollection;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    @XmlTransient
-    public Collection<Client> getClientCollection() {
-        return clientCollection;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setClientCollection(Collection<Client> clientCollection) {
-        this.clientCollection = clientCollection;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @XmlTransient

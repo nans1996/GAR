@@ -9,9 +9,9 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -32,7 +32,7 @@ public class UserRole implements Serializable {
     @EmbeddedId
     protected UserRolePK userRolePK;
     @JoinColumn(name = "Login", referencedColumnName = "Login", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private User user;
 
     public UserRole() {
