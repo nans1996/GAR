@@ -11,7 +11,9 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/my-slider.css" rel="stylesheet"></link>
-        <link href="css/style.css" rel="stylesheet"></link>        
+        <link href="css/style.css" rel="stylesheet"></link>     
+        <link href="css/reset1.css" rel="stylesheet"></link>  
+        <link href="css/reset.css" rel="stylesheet"></link>  
         <script src="js/ism-2.2.min.js"></script> 
         <script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="http://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
@@ -60,83 +62,147 @@
             </div>
         </nav>  
         <br/>
-        <div class="ism-slider" data-play_type="loop" data-interval="3000" id="my-slider">
-            <ol>
-                <li>
-                    <img src="img\1523467540090_341.jpg"></img>
-                    <div class="ism-caption ism-caption-0" data-delay='300'>У тебя есть цель?</div>
-                </li>
-                <li>
-                    <img src="img\1523469490236_260593.jpg"></img>
-                    <div class="ism-caption ism-caption-0" data-delay='300'>Сделай шаг ей навстречу</div>
-                </li>
-                <li>
-                    <img src="img\1523469577691_621046.jpg"></img>
-                    <div class="ism-caption ism-caption-0" data-delay='300'>Сразу почувствуешь результат</div>
-                </li>
-            </ol>
-        </div>
+ <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="5000" data-pause="false">
+      <!-- Индикаторы -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel" data-slide-to="1"></li>
+    <li data-target="#carousel" data-slide-to="2"></li>
+  </ol>
+	<!-- Слайды карусели -->
+	<div class="carousel-inner">
+		<!-- Слайд 1 -->
+		<div class="item active">
+                    <img class="img-fluid" src="img\1523467540090_341.jpg" alt="..."/>
+                    <div class="carousel-caption">
+                        <h2>Заголовок 1</h2>
+			<p>Дополнительная информация слайда 1</p>
+                    </div>
+
+		</div>
+		<!-- Слайд 2 -->
+		<div class="item">
+			<h2>Заголовок 2</h2>
+			<p>Дополнительная информация слайда 2</p>
+			<button class="btn btn-success btn-lg">Какая-то кнопка</button>
+		</div>
+		<!-- Слайд 3 -->
+		<div class="item">
+			<h2>Заголовок 3</h2>
+			<p>Дополнительная информация слайда 3</p>
+			<button class="btn btn-default btn-lg">Какая-то кнопка</button>
+		</div>
+	</div>
+
+	<!-- Навигация карусели (следующий или предыдущий слайд) -->
+	<!-- Кнопка, переход на предыдущий слайд с помощью атрибута data-slide="prev" -->
+        <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+<!--        <a class="left carousel-control" href="#testCarousel" role="button" data-slide="prev">-->
+		<span class="glyphicon glyphicon-chevron-left"></span>
+	</a>
+	<!-- Кнопка, переход на следующий слайд с помощью атрибута data-slide="next" -->
+	<a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+		<span class="glyphicon glyphicon-chevron-right"></span>
+	</a>
+</div>
         <br/>
-        <br/>         
+        <br/> 
+        <header class="home-bl__head">
+                <p class="home-bl__lbl">создаем будущее вместе</p>
+                <h1 class="home-bl__title">
+                    СЕРВИС<br/>
+                    ДОСТИЖЕНИЯ ЦЕЛЕЙ
+                </h1>
+                <p class="home-bl__intro">
+                    Рассказывайте о своих целях и шагах к их достижению,<br/>
+                    обменивайтесь опытом и идеями с единомышленниками.
+                </p>
+            </header>       
+        <div class = "center">
+  <button id = "button_reg">Присоединиться</button>
+</div>
+        <br/>
+        <br/>
+        <header class="home-bl__head">
+                <p class="home-bl__lbl">философия проекта</p>
+                <h1 class="home-bl__title">
+                    ЧЕЛОВЕК<br/>
+                    БУДУЩЕГО
+                </h1>
+                <p class="home-bl__intro">
+                    Он берет ответственность на себя. Он предпочитает действовать, а не ждать.<br/>
+                    Он знает, что ошибки закаляют и делают сильней.
+                </p>
+            </header>
+<h1>Rotating Image Slider</h1>
+			<div class="rm_wrapper">
+				<div id="rm_container" class="rm_container">
+					<ul>
+						<li data-images="rm_container_1" data-rotation="-15"><img src="img/1.jpg"/></li>
+						<li data-images="rm_container_2" data-rotation="-5"><img src="img/2.jpg"/></li>
+						<li data-images="rm_container_3" data-rotation="5"><img src="img/3.jpg"/></li>
+						<li data-images="rm_container_4" data-rotation="15"><img src="img/4.jpg"/></li>
+					</ul>
+					<div id="rm_mask_left" class="rm_mask_left"></div>
+					<div id="rm_mask_right" class="rm_mask_right"></div>
+					<div id="rm_corner_left" class="rm_corner_left"></div>
+					<div id="rm_corner_right" class="rm_corner_right"></div>
+					<h2>Fashion Explosion 2012</h2>
+					<div style="display:none;">
+						<div id="rm_container_1">
+							<img src="img\1.jpg"/>
+							<img src="img/5.jpg"/>
+							<img src="img/6.jpg"/>
+							<img src="img/7.jpg"/>
+						</div>
+						<div id="rm_container_2">
+							<img src="img/2.jpg"/>
+							<img src="img/8.jpg"/>
+							<img src="img/9.jpg"/>
+							<img src="img/10.jpg"/>
+						</div>
+						<div id="rm_container_3">
+							<img src="img/3.jpg"/>
+							<img src="img/11.jpg"/>
+							<img src="img/12.jpg"/>
+							<img src="img/13.jpg"/>
+						</div>
+						<div id="rm_container_4">
+							<img src="img/4.jpg"/>
+							<img src="img/14.jpg"/>
+							<img src="img/15.jpg"/>
+							<img src="img/16.jpg"/>
+						</div>
+					</div>
+				</div>
+				<div class="rm_nav">
+					<a id="rm_next" href="#" class="rm_next"></a>
+					<a id="rm_prev" href="#" class="rm_prev"></a>
+				</div>
+				<div class="rm_controls">
+					<a id="rm_play" href="#" class="rm_play">Play</a>
+					<a id="rm_pause" href="#" class="rm_pause">Pause</a>
+				</div>
+			</div>
         <footer class="page-footer font-small unique-color-dark pt-0">
 
             <div style="background-color: #6351ce;">
                 <div class="container">
-                    <!--Grid row-->
                     <div class="row py-4 d-flex align-items-center">
-
-                        <!--Grid column-->
-                        <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-                            <h6 class="mb-0 white-text">Get connected with us on social networks!</h6>
-                        </div>
-                        <!--Grid column-->
-
-                        <!--Grid column-->
-                        <div class="col-md-6 col-lg-7 text-center text-md-right">
-                            <!--Facebook-->
-                            <a class="fb-ic ml-0">
-                                <i class="fa fa-facebook white-text mr-lg-4"> </i>
-                            </a>
-                            <!--Twitter-->
-                            <a class="tw-ic">
-                                <i class="fa fa-twitter white-text mr-lg-4"> </i>
-                            </a>
-                            <!--Google +-->
-                            <a class="gplus-ic">
-                                <i class="fa fa-google-plus white-text mr-lg-4"> </i>
-                            </a>
-                            <!--Linkedin-->
-                            <a class="li-ic">
-                                <i class="fa fa-linkedin white-text mr-lg-4"> </i>
-                            </a>
-                            <!--Instagram-->
-                            <a class="ins-ic">
-                                <i class="fa fa-instagram white-text mr-lg-4"> </i>
-                            </a>
-                        </div>
-                        <!--Grid column-->
-
+                         GAR Inc                
                     </div>
-                    <!--Grid row-->
                 </div>
             </div>
-
-            <!--Footer Links-->
             <div class="container mt-5 mb-4 text-center text-md-left">
                 <div class="row mt-3">
-
-                    <!--First column-->
                     <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
                         <h6 class="text-uppercase font-weight-bold">
-                            <strong>Company name</strong>
+                            <strong>GAR</strong>
                         </h6>
                         <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>
-                        <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit
-                            amet, consectetur adipisicing elit.</p>
+                        <p>Создаем будущее вместе. Сервис достижения целей. Рассказывайте о своих целях и шагах к их достижению,
+                        обменивайтесь опытом и идеями с единомышленниками.</p>
                     </div>
-                    <!--/.First column-->
-
-                    <!--Second column-->
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                         <h6 class="text-uppercase font-weight-bold">
                             <strong>Products</strong>
@@ -155,9 +221,6 @@
                             <a href="#!">Bootstrap Angular</a>
                         </p>
                     </div>
-                    <!--/.Second column-->
-
-                    <!--Third column-->
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                         <h6 class="text-uppercase font-weight-bold">
                             <strong>Useful links</strong>
@@ -176,9 +239,6 @@
                             <a href="#!">Help</a>
                         </p>
                     </div>
-                    <!--/.Third column-->
-
-                    <!--Fourth column-->
                     <div class="col-md-4 col-lg-3 col-xl-3">
                         <h6 class="text-uppercase font-weight-bold">
                             <strong>Contact</strong>
@@ -193,22 +253,16 @@
                         <p>
                             <i class="fa fa-print mr-3"></i> + 01 234 567 89</p>
                     </div>
-                    <!--/.Fourth column-->
-
                 </div>
             </div>
-            <!--/.Footer Links-->
-
-            <!-- Copyright-->
             <div class="footer-copyright py-3 text-center">
                 © 2018 Copyright:
                 <a href="https://mdbootstrap.com/material-design-for-bootstrap/">
                     <strong> MDBootstrap.com</strong>
                 </a>
             </div>
-            <!--/.Copyright -->
 
-        </footer>    
+        </footer> 
         <div id="myModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -257,6 +311,10 @@
                 });
             });
         </script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.transform-0.9.3.min_.js"></script>
+		<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+		<script type="text/javascript" src="js/jquery.RotateImageMenu.js"></script>
     </h:body>
 </html>
 
