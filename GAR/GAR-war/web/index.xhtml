@@ -11,9 +11,11 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/my-slider.css" rel="stylesheet"></link>
-        <link href="css/style.css" rel="stylesheet"></link>     
-        <link href="css/reset1.css" rel="stylesheet"></link>  
-        <link href="css/reset.css" rel="stylesheet"></link>  
+        <link href="css/style.css" rel="stylesheet"></link> 
+         <link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/slicebox.css" />
+		<link rel="stylesheet" type="text/css" href="css/custom.css" />
+		<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
         <script src="js/ism-2.2.min.js"></script> 
         <script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="http://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
@@ -134,56 +136,62 @@
                     Он знает, что ошибки закаляют и делают сильней.
                 </p>
             </header>
-<h1>Rotating Image Slider</h1>
-			<div class="rm_wrapper">
-				<div id="rm_container" class="rm_container">
-					<ul>
-						<li data-images="rm_container_1" data-rotation="-15"><img src="img/1.jpg"/></li>
-						<li data-images="rm_container_2" data-rotation="-5"><img src="img/2.jpg"/></li>
-						<li data-images="rm_container_3" data-rotation="5"><img src="img/3.jpg"/></li>
-						<li data-images="rm_container_4" data-rotation="15"><img src="img/4.jpg"/></li>
-					</ul>
-					<div id="rm_mask_left" class="rm_mask_left"></div>
-					<div id="rm_mask_right" class="rm_mask_right"></div>
-					<div id="rm_corner_left" class="rm_corner_left"></div>
-					<div id="rm_corner_right" class="rm_corner_right"></div>
-					<h2>Fashion Explosion 2012</h2>
-					<div style="display:none;">
-						<div id="rm_container_1">
-							<img src="img\1.jpg"/>
-							<img src="img/5.jpg"/>
-							<img src="img/6.jpg"/>
-							<img src="img/7.jpg"/>
+        <div class="wrapper">
+
+				<ul id="sb-slider" class="sb-slider">
+					<li>
+						<img src="img/1.jpg" alt="image1"/>
+						<div class="sb-description">
+							<h3>Creative Lifesaver</h3>
 						</div>
-						<div id="rm_container_2">
-							<img src="img/2.jpg"/>
-							<img src="img/8.jpg"/>
-							<img src="img/9.jpg"/>
-							<img src="img/10.jpg"/>
+					</li>
+					<li>
+						<img src="img/2.jpg" alt="image2"/>
+						<div class="sb-description">
+							<h3>Honest Entertainer</h3>
 						</div>
-						<div id="rm_container_3">
-							<img src="img/3.jpg"/>
-							<img src="img/11.jpg"/>
-							<img src="img/12.jpg"/>
-							<img src="img/13.jpg"/>
+					</li>
+					<li>
+						<img src="img/3.jpg" alt="image1"/>
+						<div class="sb-description">
+							<h3>Brave Astronaut</h3>
 						</div>
-						<div id="rm_container_4">
-							<img src="img/4.jpg"/>
-							<img src="img/14.jpg"/>
-							<img src="img/15.jpg"/>
-							<img src="img/16.jpg"/>
+					</li>
+					<li>
+						<img src="img/4.jpg" alt="image1"/>
+						<div class="sb-description">
+							<h3>Affectionate Decision Maker</h3>
 						</div>
-					</div>
+					</li>
+					<li>
+						<img src="img/5.jpg" alt="image1"/>
+						<div class="sb-description">
+							<h3>Faithful Investor</h3>
+						</div>
+					</li>
+					<li>
+						<img src="img/6.jpg" alt="image1"/>
+						<div class="sb-description">
+							<h3>Groundbreaking Artist</h3>
+						</div>
+					</li>
+					<li>
+						<img src="img/7.jpg" alt="image1"/>
+						<div class="sb-description">
+							<h3>Selfless Philantropist</h3>
+						</div>
+					</li>
+				</ul>
+
+				<div id="shadow" class="shadow"></div>
+
+				<div id="nav-arrows" class="nav-arrows">
+					<a href="#">Next</a>
+					<a href="#">Previous</a>
 				</div>
-				<div class="rm_nav">
-					<a id="rm_next" href="#" class="rm_next"></a>
-					<a id="rm_prev" href="#" class="rm_prev"></a>
-				</div>
-				<div class="rm_controls">
-					<a id="rm_play" href="#" class="rm_play">Play</a>
-					<a id="rm_pause" href="#" class="rm_pause">Pause</a>
-				</div>
+
 			</div>
+        
         <footer class="page-footer font-small unique-color-dark pt-0">
 
             <div style="background-color: #6351ce;">
@@ -311,10 +319,60 @@
                 });
             });
         </script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-		<script type="text/javascript" src="js/jquery.transform-0.9.3.min_.js"></script>
-		<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
-		<script type="text/javascript" src="js/jquery.RotateImageMenu.js"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.slicebox.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				
+				var Page = (function() {
+
+					var $navArrows = $( '#nav-arrows' ).hide(),
+						$shadow = $( '#shadow' ).hide(),
+						slicebox = $( '#sb-slider' ).slicebox( {
+							onReady : function() {
+
+								$navArrows.show();
+								$shadow.show();
+
+							},
+							orientation : 'r',
+							cuboidsRandom : true,
+							disperseFactor : 30
+						} ),
+						
+						init = function() {
+
+							initEvents();
+							
+						},
+						initEvents = function() {
+
+							// add navigation events
+							$navArrows.children( ':first' ).on( 'click', function() {
+
+								slicebox.next();
+								return false;
+
+							} );
+
+							$navArrows.children( ':last' ).on( 'click', function() {
+								
+								slicebox.previous();
+								return false;
+
+							} );
+
+						};
+
+						return { init : init };
+
+				})();
+
+				Page.init();
+
+			});
+		</script>
     </h:body>
 </html>
 
