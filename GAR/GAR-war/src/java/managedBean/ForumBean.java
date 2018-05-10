@@ -26,6 +26,7 @@ import model.UserFacadeLocal;
 @SessionScoped//может стоит на запрос?
 public class ForumBean implements Serializable {
 
+    private  List<Message> messageTopic;
     @EJB
     private UserFacadeLocal userFacade;
 
@@ -52,12 +53,12 @@ public class ForumBean implements Serializable {
         return this.messageFacade.findAll();
     }
     // тут типа пытаюсь вывести сообщения по id темы
-    public List<Message> getMessageIdTopic() {
+    public String messageIdTopic() {
         FacesContext fc = FacesContext.getCurrentInstance();
        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
        int id = Integer.parseInt(params.get("id"));
-       
-        return this.messageFacade.findByIdTopic(id);
+        setMessageTopic(messageFacade.findByIdTopic(id));
+       return "comment";
     }
     
     public  void deleteMessage(Message message){
@@ -76,10 +77,10 @@ public class ForumBean implements Serializable {
         return "forum";
     }
 
-    public String createMessage() {
+    public String createMessage(Message message) {
         message.setDate(new Date());
         //пока сделаем дефолд
-        message.setIDTopic(topicFacade.find(1));
+        message.setIDTopic(topicFacade.find(message.getIDTopic()));
         user = userFacade.findLogin(userBean.getCurrentUser());
         message.setIDUser(user);
         this.messageFacade.create(this.message);
@@ -113,6 +114,20 @@ public class ForumBean implements Serializable {
      */
     public void setMessage(Message message) {
         this.message = message;
+    }
+
+    /**
+     * @return the messageTopic
+     */
+    public List<Message> getMessageTopic() {
+        return messageTopic;
+    }
+
+    /**
+     * @param messageTopic the messageTopic to set
+     */
+    public void setMessageTopic(List<Message> messageTopic) {
+        this.messageTopic = messageTopic;
     }
 
 }

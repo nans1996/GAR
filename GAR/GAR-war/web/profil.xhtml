@@ -130,7 +130,9 @@
                                 <label class="control-label col-xs-3" for="NameGoal">Фамилия:</label>
                                 <div class="col-xs-9">
                                     <!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
-                                    <h:inputText value="#{userBean.currentUses.surname}" class="form-control" label="Введите название цели" >  </h:inputText> 
+                                    <h:inputText value="#{clientBean.user.surname}" class="form-control" validatorMessage="Только буквы!" >
+                                    <f:validateRegex pattern="[a-zA-ZА-Яа-я]"/>
+                                    </h:inputText> 
                                 </div>
                             </div>
                            
@@ -138,7 +140,9 @@
                                 <label class="control-label col-xs-3" for="NameGoal">Имя:</label>
                                 <div class="col-xs-9">
                                     <!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
-                                    <h:inputText value="#{userBean.currentUses.name}" class="form-control" label="Введите название цели" >  </h:inputText> 
+                                    <h:inputText value="#{clientBean.user.name}" class="form-control"  > 
+                                   
+                                    </h:inputText> 
                                 </div>
                             </div>
                            
@@ -146,7 +150,9 @@
                                 <label class="control-label col-xs-3" for="NameGoal">Телефон:</label>
                                 <div class="col-xs-9">
                                     <!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
-                                    <h:inputText value="#{userBean.currentUses.phone}" class="form-control" label="Введите название цели" >  </h:inputText> 
+                                    <h:inputText value="#{clientBean.user.phone}" class="form-control" validatorMessage="Только цифры без 8" > 
+                                     <f:validateLength maximum="10" />
+                                    </h:inputText> 
                                 </div>
                             </div>
                             
@@ -177,7 +183,7 @@
                         <!-- Футер модального окна -->
                         <div class="modal-footer">
                             <div class="form-group"> 
-                                <h:commandButton class="btn btn-warning" action="#{forumBean.createTopic}" value="Сохранить" />
+                                <h:commandButton class="btn btn-warning" action="#{clientBean.editClient()}" value="Сохранить" />
                             </div>  
                         </div>
                     </h:form>
