@@ -77,11 +77,11 @@
                                     <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
                                 </td> 
                                 <td class="forumNameTd"> 
-<!--                                    <h:commandLink action="comment" value="${t.name}">
-                                        <f:param name="idTopic" value="#{t.IDTopic}"/>
-                                            </h:commandLink>-->
+                                    <h:commandLink  action="#{forumBean.messageIdTopic()}" value="#{t.name}">
+                                        <f:param name="id" value="#{t.IDTopic}"/>
+                                    </h:commandLink>
                                     
-                                    <a class="forum" href="faces/comment.xhtml">${t.name}</a> 
+                                   
                                 </td> 
                                 <td class="forumPostTd" align="center">
                                     <h:outputText value="#{t.messageCollection.size()}"></h:outputText></td> 

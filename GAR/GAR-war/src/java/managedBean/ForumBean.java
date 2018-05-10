@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.faces.context.FacesContext;
+import model.ClientFacadeLocal;
 import model.UserFacadeLocal;
 
 /**
@@ -27,6 +28,10 @@ import model.UserFacadeLocal;
 public class ForumBean implements Serializable {
 
     @EJB
+    private ClientFacadeLocal clientFacade;
+private Client client = new  Client();
+    private  List<Message> messageTopic;
+    @EJB
     private UserFacadeLocal userFacade;
 
     @EJB
@@ -37,6 +42,8 @@ public class ForumBean implements Serializable {
     private Topic topic = new Topic();
     private User user = new User();
     private UserBean userBean = new UserBean();
+    
+    
     /**
      * Creates a new instance of ForumBean
      */
@@ -52,12 +59,12 @@ public class ForumBean implements Serializable {
         return this.messageFacade.findAll();
     }
     // тут типа пытаюсь вывести сообщения по id темы
-    public List<Message> getMessageIdTopic() {
+    public String messageIdTopic() {
         FacesContext fc = FacesContext.getCurrentInstance();
        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
        int id = Integer.parseInt(params.get("id"));
-       
-        return this.messageFacade.findByIdTopic(id);
+        setMessageTopic(messageFacade.findByIdTopic(id));
+       return "comment";
     }
     
     public  void deleteMessage(Message message){
@@ -76,14 +83,17 @@ public class ForumBean implements Serializable {
         return "forum";
     }
 
-    public String createMessage() {
+    public String createMessage(Message message) {
+        user = userFacade.findLogin(userBean.getCurrentUser());
+        client = clientFacade.findIdUser(user.getIDUser());
+        if (!client.getBan()){
         message.setDate(new Date());
         //пока сделаем дефолд
-        message.setIDTopic(topicFacade.find(1));
-        user = userFacade.findLogin(userBean.getCurrentUser());
+        message.setIDTopic(topicFacade.find(message.getIDTopic()));
         message.setIDUser(user);
         this.messageFacade.create(this.message);
         message.setContent("");
+        }
         return "comment";
     }
 
@@ -113,6 +123,20 @@ public class ForumBean implements Serializable {
      */
     public void setMessage(Message message) {
         this.message = message;
+    }
+
+    /**
+     * @return the messageTopic
+     */
+    public List<Message> getMessageTopic() {
+        return messageTopic;
+    }
+
+    /**
+     * @param messageTopic the messageTopic to set
+     */
+    public void setMessageTopic(List<Message> messageTopic) {
+        this.messageTopic = messageTopic;
     }
 
 }
