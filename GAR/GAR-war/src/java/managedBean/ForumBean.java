@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.faces.context.FacesContext;
+import model.ClientFacadeLocal;
 import model.UserFacadeLocal;
 
 /**
@@ -26,6 +27,9 @@ import model.UserFacadeLocal;
 @SessionScoped//может стоит на запрос?
 public class ForumBean implements Serializable {
 
+    @EJB
+    private ClientFacadeLocal clientFacade;
+private Client client = new  Client();
     private  List<Message> messageTopic;
     @EJB
     private UserFacadeLocal userFacade;
@@ -38,6 +42,8 @@ public class ForumBean implements Serializable {
     private Topic topic = new Topic();
     private User user = new User();
     private UserBean userBean = new UserBean();
+    
+    
     /**
      * Creates a new instance of ForumBean
      */
@@ -78,13 +84,16 @@ public class ForumBean implements Serializable {
     }
 
     public String createMessage(Message message) {
+        user = userFacade.findLogin(userBean.getCurrentUser());
+        client = clientFacade.findIdUser(user.getIDUser());
+        if (!client.getBan()){
         message.setDate(new Date());
         //пока сделаем дефолд
         message.setIDTopic(topicFacade.find(message.getIDTopic()));
-        user = userFacade.findLogin(userBean.getCurrentUser());
         message.setIDUser(user);
         this.messageFacade.create(this.message);
         message.setContent("");
+        }
         return "comment";
     }
 
