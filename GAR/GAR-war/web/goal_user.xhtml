@@ -43,10 +43,12 @@
                         <p class="navbar-text"> 
                             Вы вошли как 
                            <h:link outcome="profil" value="#{request.getRemoteUser()}" class="navbar-link"></h:link>                              
-                            
-                        <li><h:link outcome="authorization" value="Войти"/></li>        
+
+                           <h:form rendered="#{!userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
+                               <li><h:link outcome="authorization" value="Войти"/></li>                                     
+                           </h:form>     
                         <li>
-                            <h:form rendered="#{userBean.userLoggedIn}">
+                            <h:form rendered="#{userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
                                     <p:commandButton value="Выйти" id="logout" action="#{userBean.logout}" class="btn btn-link" />                                      
                             </h:form>
                         </li>  

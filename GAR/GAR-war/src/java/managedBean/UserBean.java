@@ -88,4 +88,5 @@ public class UserBean {
         boolean result = !((login == null) || login.isEmpty());
         return result;
     }
+    
 }

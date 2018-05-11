@@ -50,14 +50,15 @@
                         <li><h:link outcome="forum" value="Форум"/></li>
                         <p class="navbar-text"> 
                             Вы вошли как 
-                           <h:link outcome="profil" value="#{request.getRemoteUser()}" class="navbar-link"></h:link>                               
-                            
-                        <li><h:link outcome="authorization" value="Войти"/></li>        
-                        <li>
-                            <h:form rendered="#{userBean.userLoggedIn}">
-                                    <p:commandButton value="Выйти" id="logout" action="#{userBean.logout}" class="btn btn-link" />                                      
+                            <h:link outcome="profil" value="#{request.getRemoteUser()}" class="navbar-link"></h:link>         
+                            <h:form rendered="#{!userBean.userLoggedIn}">
+                                <li><h:link outcome="authorization" value="Войти"/></li>                                     
                             </h:form>
-                        </li>  
+                            <li>
+                                <h:form rendered="#{userBean.userLoggedIn}">
+                                    <p:commandButton value="Выйти" id="logout" action="#{userBean.logout}" class="btn btn-link" />                                      
+                                </h:form>
+                            </li>  
                         </p>
                     </ul>
                 </div>

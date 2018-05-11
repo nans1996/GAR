@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Message.findAll", query = "SELECT m FROM Message m")
     , @NamedQuery(name = "Message.findByIDMessage", query = "SELECT m FROM Message m WHERE m.iDMessage = :iDMessage")
     , @NamedQuery(name = "Message.findByDate", query = "SELECT m FROM Message m WHERE m.date = :date")
-    , @NamedQuery(name = "Message.findByIDTopic", query = "SELECT m FROM Message m WHERE m.iDTopic = :iDTopic")})
+    , @NamedQuery(name = "Message.findByIDTopic", query = "SELECT m FROM Message m WHERE m.iDTopic.iDTopic = :iDTopic")})
 public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;
