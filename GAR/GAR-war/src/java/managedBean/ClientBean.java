@@ -30,7 +30,11 @@ import org.primefaces.model.LazyScheduleModel;
 import java.util.Calendar;
 import java.util.Comparator;
 import javax.faces.application.FacesMessage;
-
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.CategoryAxis;
+import org.primefaces.model.chart.LineChartModel;
+import org.primefaces.model.chart.LineChartSeries;
 
 /**
  *
@@ -40,7 +44,6 @@ import javax.faces.application.FacesMessage;
 @SessionScoped
 public class ClientBean implements Serializable {
 
-    
     @EJB
     private TopicFacadeLocal topicFacade;
     Topic topic = new Topic();
@@ -62,8 +65,8 @@ public class ClientBean implements Serializable {
     @EJB
     private UserFacadeLocal userFacadeLocal;
     private User user = new User();
-    private UserBean userBean = new UserBean(); 
-    @EJB 
+    private UserBean userBean = new UserBean();
+    @EJB
     private PersonageFacadeLocal personageFacadeLocal;
     private Personage personage = new Personage();
 
@@ -136,12 +139,12 @@ public class ClientBean implements Serializable {
     public void setClient(Client client) {
         this.client = client;
     }
-    
+
     //вывести всех клиентов
     public List<Client> findAllClient() {
         return this.clientFacade.findAll();
     }
-    
+
     //создать клиента 
     public String createClient() {
         this.clientFacade.create(this.client);
@@ -152,42 +155,42 @@ public class ClientBean implements Serializable {
     public void deleteClient(Client client) {
         this.clientFacade.remove(client);
     }
-   
-   //обновить клиента
+
+    //обновить клиента
 //   public String editClient(User user){
 //       this.user = user;// Насть что это?*
 //       return "profile";
 //   }
-   public String editClient(){
-       userFacadeLocal.edit(user);
-       clientFacade.edit(client);
-      // client = new Client();
-       return "profile";
-   }
-   
+    public String editClient() {
+        userFacadeLocal.edit(user);
+        clientFacade.edit(client);
+        // client = new Client();
+        return "profile";
+    }
+
     //вывести цели клиента
-   public List<GoalUser> findAllGoalCurrentClient(){
-       user = userFacadeLocal.findLogin(userBean.getCurrentUser());
-       client = clientFacade.findIdUser(user.getIDUser());
-       return goalUserFacadeLocal.findGoalCurrentClient(client.getIDClient());
-   }
-   
-   //Добавление пользователю дефолтной цели 
-   public String createGoalDefoltUser() {
-       FacesContext fc = FacesContext.getCurrentInstance();
-       Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-       int id = Integer.parseInt(params.get("id"));
-       goal = goalFacadeLocal.find(id);
-       goalUser.setIDGoal(goal);
-       user = userFacadeLocal.findLogin(userBean.getCurrentUser());
-       client = clientFacade.findIdUser(user.getIDUser());
-       goalUser.setIDClient(client);
-       goalUser.setLevelCollection(null);   
+    public List<GoalUser> findAllGoalCurrentClient() {
+        user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+        client = clientFacade.findIdUser(user.getIDUser());
+        return goalUserFacadeLocal.findGoalCurrentClient(client.getIDClient());
+    }
+
+    //Добавление пользователю дефолтной цели 
+    public String createGoalDefoltUser() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        int id = Integer.parseInt(params.get("id"));
+        goal = goalFacadeLocal.find(id);
+        goalUser.setIDGoal(goal);
+        user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+        client = clientFacade.findIdUser(user.getIDUser());
+        goalUser.setIDClient(client);
+        goalUser.setLevelCollection(null);
         this.goalUserFacadeLocal.create(this.goalUser);
         //после добавления перебрасывает на index
         return "index";
     }
-   
+
     public String editGoalUser() {
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
@@ -195,58 +198,58 @@ public class ClientBean implements Serializable {
         goalUser = goalUserFacadeLocal.find(id);
         return "goal_user";
     }
-   
+
     public String createGoalUser() {
-       user = userFacadeLocal.findLogin(userBean.getCurrentUser());
-       client = clientFacade.findIdUser(user.getIDUser());
-       goal.setDirectory(true);
-       goal.setGoalUserCollection(null);
-       //пока с дефолтным персонажем
-       personage = personageFacadeLocal.find(1);
-       goal.setIDPersonage(personage);
-       goalFacadeLocal.create(goal);
-       goalUser.setIDGoal(goal);
-       goalUser.setIDClient(client);
-       goalUser.setLevelCollection(null);   
+        user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+        client = clientFacade.findIdUser(user.getIDUser());
+        goal.setDirectory(true);
+        goal.setGoalUserCollection(null);
+        //пока с дефолтным персонажем
+        personage = personageFacadeLocal.find(1);
+        goal.setIDPersonage(personage);
+        goalFacadeLocal.create(goal);
+        goalUser.setIDGoal(goal);
+        goalUser.setIDClient(client);
+        goalUser.setLevelCollection(null);
         this.goalUserFacadeLocal.create(this.goalUser);
         //после добавления перебрасывает на index изменить на страницу подтверждения
         return "index";
     }
 
     //удалить
-   public void deleteGoalUser(GoalUser goalUser){
-       this.goalUserFacadeLocal.remove(goalUser);
-   }
-   
-   //обновить 
-   public String editGoalUser(GoalUser goalUser){
-       this.goalUser = goalUser;
-       return "edit";
-   }
-   
+    public void deleteGoalUser(GoalUser goalUser) {
+        this.goalUserFacadeLocal.remove(goalUser);
+    }
+
+    //обновить 
+    public String editGoalUser(GoalUser goalUser) {
+        this.goalUser = goalUser;
+        return "edit";
+    }
+
 //   public String editGoalUser(){
 //       this.goalUserFacadeLocal.edit(this.goalUser);
 //       this.goalUser = new GoalUser();
 //       return "index";
 //   }
-   //создать сообщение пока так же
-    public String createMessage(){
-       this.messageFacade.create(this.message);
-     return "index";
-   }
-    
-   //вывод дефолтных целей 
-    public List<Goal> findAllGoalDefolt(){
-    return goalFacadeLocal.findGoalDefolt();
+    //создать сообщение пока так же
+    public String createMessage() {
+        this.messageFacade.create(this.message);
+        return "index";
     }
-    
+
+    //вывод дефолтных целей 
+    public List<Goal> findAllGoalDefolt() {
+        return goalFacadeLocal.findGoalDefolt();
+    }
+
     //создать новую тему на форуме
     public String createTopic() {
         this.topicFacade.create(this.topic);
         return "index";
     }
 
-    public String addLevel(){
+    public String addLevel() {
         Date date = new Date();
         level.setDate(date);
         level.setLeveldate(true);
@@ -254,19 +257,19 @@ public class ClientBean implements Serializable {
         levelFacadeLocal.create(level);
         return "index";
     }
-    
-    public int percentСomplianceGoalUser(){
-        goalUser = goalUserFacadeLocal.find(goalUser.getIDGoaluser());
-        int percent = (100*goalUser.getLevelCollection().size())/21;
+
+    public int percentСomplianceGoalUser() {
+        //goalUser = goalUserFacadeLocal.find(goalUser.getIDGoaluser());
+        int percent = (100 * goalUser.getLevelCollection().size()) / 21;
         return percent;
     }
     //тут часть кода отвечвющая за календарик
     private ScheduleModel eventModel;
-     
+
     private ScheduleModel lazyEventModel;
- 
+
     private ScheduleEvent event = new DefaultScheduleEvent();
- 
+
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();
@@ -276,31 +279,32 @@ public class ClientBean implements Serializable {
         lazyEventModel = new LazyScheduleModel() {
         };
     }
-        
+
     //пока дефолтные методы забора дат!
     private Date previousDay8Pm() {
-        Calendar t = (Calendar) today().clone(); 
+        Calendar t = (Calendar) today().clone();
         t.set(Calendar.AM_PM, Calendar.PM);
         t.set(Calendar.HOUR, 6);
         return t.getTime();
     }
+
     private Date previousDay7Pm() {
-        Calendar t = (Calendar) today().clone(); 
+        Calendar t = (Calendar) today().clone();
         t.set(Calendar.AM_PM, Calendar.PM);
         t.set(Calendar.HOUR, 24);
         return t.getTime();
     }
+
     public Date getInitialDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR), Calendar.FEBRUARY, calendar.get(Calendar.DATE), 0, 0, 0);
         return calendar.getTime();
     }
-     
+
     public ScheduleModel getEventModel() {
         return eventModel;
     }
-    
- 
+
     private Calendar today() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
@@ -310,20 +314,19 @@ public class ClientBean implements Serializable {
     public ScheduleEvent getEvent() {
         return event;
     }
- 
+
     public void setEvent(ScheduleEvent event) {
         this.event = event;
     }
 
-     
     public void onEventSelect(SelectEvent selectEvent) {
         event = (ScheduleEvent) selectEvent.getObject();
     }
-     
+
     public void onDateSelect(SelectEvent selectEvent) {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
-    
+
     public List<Client> rating() {
         List<Client> list = clientFacade.findAll();
         list.sort(new Comparator<Client>() {
@@ -333,5 +336,59 @@ public class ClientBean implements Serializable {
             }
         });
         return list;
+    }
+
+    private LineChartModel areaModel;
+
+
+    public LineChartModel getAreaModel() {
+        createAreaModel();
+        return areaModel;
+    }
+
+    private void createAreaModel() {
+        areaModel = new LineChartModel();
+
+        LineChartSeries target = new LineChartSeries();
+        target.setFill(true);
+
+        target.setLabel(goalUser.getIDGoal().getName());
+        
+        int namberLevel = 0;
+        for (Level item : goalUser.getLevelCollection()) {
+            if (item.getLeveldate()) {
+                namberLevel++;
+            }
+            target.set(item.getDate().toString(),namberLevel);
+        }
+
+        
+//        target.set("1", 1);
+//        target.set("2", 2);
+//        target.set("3", 3);
+//        target.set("4", 3);
+//        target.set("5", 3);
+//        target.set("6", 4);
+//        target.set("7", 4);
+//        target.set("8", 4);
+//        target.set("9", 4);
+//        target.set("10", 5);
+//        target.set("11", 6);
+//        target.set("12", 7);
+//        target.set("13", 1);
+//        target.set("14", 9);
+        areaModel.addSeries(target);
+
+        areaModel.setTitle("Достижение цели");
+        areaModel.setLegendPosition("ne");
+        areaModel.setStacked(true);
+        areaModel.setShowPointLabels(true);
+
+        Axis xAxis = new CategoryAxis("Дни");
+        areaModel.getAxes().put(AxisType.X, xAxis);
+        Axis yAxis = areaModel.getAxis(AxisType.Y);
+        yAxis.setLabel("Шкала выполнения");
+        yAxis.setMin(0);
+        yAxis.setMax(10);
     }
 }
