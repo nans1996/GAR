@@ -14,7 +14,7 @@
             <div class="row">
 
                 <div class="col-md-12">
-                  
+                   <h:form>  
                     <div class="panel">
                         <div class="panel-body">
                             <!-- Содержание Новостей -->
@@ -37,24 +37,25 @@
                                             <a class="btn btn-sm btn-default btn-hover-danger" href="#"><i class="fa fa-thumbs-down"></i></a>
                                         </div>
                                         <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
-                                        <h:commandButton value="Удалить" action="#{forumBean.deleteMessage(u)}"/>
+                                        <h:commandButton value="Удалить" action="#{forumBean.deleteMessage(u)}" onclick="return confirm('Вы уверенны?')" />
                                     </div>
                                     
                                     <!-- Комментарий -->
 
                                 </div>
                             </div>
+                              
                             </c:forEach>
                          
                         </div>
                     </div>
-                    <h:form>   
+                    
                       <div class="panel">
                         <div class="panel-body">
 <!--                            <textarea class="form-control" rows="2" placeholder="Добавьте Ваш комментарий"></textarea>-->
 <h:inputText class="form-control"  value="#{forumBean.message.content}"></h:inputText>
                             <div class="mar-top clearfix">
-                                <h:commandButton action="#{forumBean.createMessage(u)}" value="Добавить"><i class="fa fa-pencil fa-fw"></i></h:commandButton>
+                                <h:commandButton action="#{forumBean.createMessage()}" value="Добавить"><i class="fa fa-pencil fa-fw"></i></h:commandButton>
 <!--                                <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Добавить</button>-->
                                 <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
                                 <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>

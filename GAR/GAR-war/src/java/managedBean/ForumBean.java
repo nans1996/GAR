@@ -42,7 +42,7 @@ private Client client = new  Client();
     private Topic topic = new Topic();
     private User user = new User();
     private UserBean userBean = new UserBean();
-    
+    private int id;
     
     /**
      * Creates a new instance of ForumBean
@@ -62,13 +62,14 @@ private Client client = new  Client();
     public String messageIdTopic() {
         FacesContext fc = FacesContext.getCurrentInstance();
        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-       int id = Integer.parseInt(params.get("id"));
-        setMessageTopic(messageFacade.findByIdTopic(id));
+        setId(Integer.parseInt(params.get("id")));
+        setMessageTopic(messageFacade.findByIdTopic(getId()));
        return "comment";
     }
     
-    public  void deleteMessage(Message message){
+    public  String deleteMessage(Message message){
        this.messageFacade.remove(message);
+       return "comment";
     }
 
 //    public int countMessage(int id) {
@@ -83,13 +84,13 @@ private Client client = new  Client();
         return "forum";
     }
 
-    public String createMessage(Message message) {
+    public String createMessage() {
         user = userFacade.findLogin(userBean.getCurrentUser());
         client = clientFacade.findIdUser(user.getIDUser());
         if (!client.getBan()){
         message.setDate(new Date());
         //пока сделаем дефолд
-        message.setIDTopic(topicFacade.find(message.getIDTopic()));
+        message.setIDTopic(topicFacade.find(getId()));
         message.setIDUser(user);
         this.messageFacade.create(this.message);
         message.setContent("");
@@ -137,6 +138,20 @@ private Client client = new  Client();
      */
     public void setMessageTopic(List<Message> messageTopic) {
         this.messageTopic = messageTopic;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
