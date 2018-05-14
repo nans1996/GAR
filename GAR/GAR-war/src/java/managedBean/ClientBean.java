@@ -401,10 +401,11 @@ public class ClientBean implements Serializable {
     //рейтинг одного пользователя 
     public Client calculateClientReiting(Client client){
         int rating = 0;
-        for (GoalUser gu : client.getGoalUserCollection()) {
-            if (gu.getLevelCollection().size() == 21)
-                rating++;
-        }
+        if (client.getGoalUserCollection() != null )
+            for (GoalUser gu : client.getGoalUserCollection()) {
+                if (gu.getLevelCollection().size()-1 == 21)
+                    rating++;
+            } 
         client.setRating(rating);
         return client;
     }
@@ -413,7 +414,7 @@ public class ClientBean implements Serializable {
         List<Client> clients = clientFacade.findAll();
         List<Client> ratingList = new ArrayList<>();
         for(Client c : clients) {
-            ratingList.add(calculateClientReiting(client));
+            ratingList.add(calculateClientReiting(c));
         }
         Collections.sort(ratingList, (c1, c2) -> compaeInts(c1.getRating(), c2.getRating()));
         return ratingList;
