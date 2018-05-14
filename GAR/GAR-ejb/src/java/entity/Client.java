@@ -24,6 +24,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -69,7 +70,8 @@ public class Client implements Serializable {
     @JoinColumn(name = "ID_User", referencedColumnName = "ID_User")
     @OneToOne(optional = false)
     private User iDUser;
-
+    @Transient
+    private int rating;
     public Client() {
     }
 
@@ -80,6 +82,14 @@ public class Client implements Serializable {
     public Client(Integer iDClient, boolean ban) {
         this.iDClient = iDClient;
         this.ban = ban;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public Integer getIDClient() {

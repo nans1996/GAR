@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import model.ClientFacadeLocal;
 import model.UserFacadeLocal;
 import model.UserRoleFacadeLocal;
 
@@ -36,9 +37,12 @@ public class UserBean {
     private User user = new User();
     private UserRole userRole = new  UserRole();
     private UserRolePK rolePK = new UserRolePK();
-    private String USER_ROLE = "gambler";
+    private String USER_ROLE = "client";
     @EJB
     private UserRoleFacadeLocal userRoleFacadeLocal;
+    @EJB
+    private ClientFacadeLocal clientFacadeLocal;
+    private Client client = new Client();
     public UserBean() {
     }
 
@@ -54,7 +58,6 @@ public class UserBean {
     public String createUser(){
         user.setMessageCollection(null);
         user.setTopicCollection(null);
-        user.setUserRole(userRole);
         //клиента по id в стидиюы
         user.setClient(null);
         userFacade.create(user);
@@ -64,6 +67,11 @@ public class UserBean {
         userRole.setUserRolePK(rolePK);
         userRole.setUser(user);
         userRoleFacadeLocal.create(userRole);
+
+        client.setBan(false);
+        client.setIDUser(user);
+        client.setGoalUserCollection(null);
+        clientFacadeLocal.create(client);
         return "authorization";
     }
     

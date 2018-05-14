@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import org.primefaces.event.ScheduleEntryMoveEvent;
@@ -28,6 +29,7 @@ import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.LazyScheduleModel;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import javax.faces.application.FacesMessage;
 import org.primefaces.model.chart.Axis;
@@ -327,16 +329,16 @@ public class ClientBean implements Serializable {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
-    public List<Client> rating() {
-        List<Client> list = clientFacade.findAll();
-        list.sort(new Comparator<Client>() {
-            @Override
-            public int compare(Client o1, Client o2) {
-                return o1.toString().compareTo(o2.toString());//какая-то логика*
-            }
-        });
-        return list;
-    }
+//    public List<Client> rating() {
+//        List<Client> list = clientFacade.findAll();
+//        list.sort(new Comparator<Client>() {
+//            @Override
+//            public int compare(Client o1, Client o2) {
+//                return o1.toString().compareTo(o2.toString());//какая-то логика*
+//            }
+//        });
+//        return list;
+//    }
 
     private LineChartModel areaModel;
 
@@ -394,5 +396,35 @@ public class ClientBean implements Serializable {
             result = true;
         }
         return result;
+    }
+    
+    //рейтинг одного пользователя 
+    public Client calculateClientReiting(Client client){
+        int rating = 0;
+        for (GoalUser gu : client.getGoalUserCollection()) {
+            if (gu.getLevelCollection().size() == 21)
+                rating++;
+        }
+        client.setRating(rating);
+        return client;
+    }
+    //метод который считает рейтинг для всех
+    public List<Client> calculateClientsRating() {
+        List<Client> clients = clientFacade.findAll();
+        List<Client> ratingList = new ArrayList<>();
+        for(Client c : clients) {
+            ratingList.add(calculateClientReiting(client));
+        }
+        Collections.sort(ratingList, (c1, c2) -> compaeInts(c1.getRating(), c2.getRating()));
+        return ratingList;
+    }
+    
+    private int compaeInts(int a, int b) {
+        if(a < b)
+            return -1;
+        else if (a == b)
+            return 0;
+        else return 1;
+            
     }
 }

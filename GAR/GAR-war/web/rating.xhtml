@@ -60,9 +60,10 @@
                     <th>Имя</th>
                     <th>Фамилия</th>
                     <th>Логин</th>
+                    <th>Кол-во выполненых целей</th>
                 </tr>
             </thead>   
-            <c:forEach items="${clientBean.rating()}" var="u"> 
+            <c:forEach items="${clientBean.calculateClientsRating()}" var="u"> 
 
                 <tbody>
                     <tr>
@@ -70,6 +71,7 @@
                         <td>${u.IDUser.name}</td>
                         <td>${u.IDUser.surname}</td>
                         <td>${u.IDUser.login}</td>
+                        <td>${u.rating}</td>
                     </tr>
                 </tbody>
             </c:forEach>          
