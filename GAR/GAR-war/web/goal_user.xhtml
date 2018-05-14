@@ -78,7 +78,7 @@
                     Развивай своего персонажа развивая себя:
                     <br/>
                     <h:form>
-                        <h:commandButton class="btn btn-success btn btn-secondary btn-lg btn-block" action="#{clientBean.addLevel}" value="Выполнить цель на сегодня" />
+                        <h:commandButton class="btn btn-success btn btn-secondary btn-lg btn-block" action="#{clientBean.addLevel}" value="Выполнить цель на сегодня" disabled="#{clientBean.checkDate()}" />
                     </h:form> 
                 </p>
             </th>

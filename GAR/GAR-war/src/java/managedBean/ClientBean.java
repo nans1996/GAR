@@ -196,7 +196,7 @@ public class ClientBean implements Serializable {
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         int id = Integer.parseInt(params.get("id"));
         goalUser = goalUserFacadeLocal.find(id);
-        return "goal_user";
+        return "/goal_user?faces-redirect=true";
     }
 
     public String createGoalUser() {
@@ -340,7 +340,6 @@ public class ClientBean implements Serializable {
 
     private LineChartModel areaModel;
 
-
     public LineChartModel getAreaModel() {
         createAreaModel();
         return areaModel;
@@ -353,30 +352,15 @@ public class ClientBean implements Serializable {
         target.setFill(true);
 
         target.setLabel(goalUser.getIDGoal().getName());
-        
+
         int namberLevel = 0;
         for (Level item : goalUser.getLevelCollection()) {
             if (item.getLeveldate()) {
                 namberLevel++;
             }
-            target.set(item.getDate().toString(),namberLevel);
+            target.set(item.getDate().toString(), namberLevel);
         }
 
-        
-//        target.set("1", 1);
-//        target.set("2", 2);
-//        target.set("3", 3);
-//        target.set("4", 3);
-//        target.set("5", 3);
-//        target.set("6", 4);
-//        target.set("7", 4);
-//        target.set("8", 4);
-//        target.set("9", 4);
-//        target.set("10", 5);
-//        target.set("11", 6);
-//        target.set("12", 7);
-//        target.set("13", 1);
-//        target.set("14", 9);
         areaModel.addSeries(target);
 
         areaModel.setTitle("Достижение цели");
@@ -388,7 +372,27 @@ public class ClientBean implements Serializable {
         areaModel.getAxes().put(AxisType.X, xAxis);
         Axis yAxis = areaModel.getAxis(AxisType.Y);
         yAxis.setLabel("Шкала выполнения");
-        yAxis.setMin(0);
-        yAxis.setMax(10);
+        yAxis.setMin(1);
+        yAxis.setMax(goalUser.getLevelCollection().size());
+    }
+
+    public boolean checkDate() {
+        boolean result;
+        List<Level> levels = (List<Level>) goalUser.getLevelCollection();
+        if (!levels.isEmpty()) {
+            result = isDateEqual(levels.get(levels.size() - 1).getDate());
+        } else {
+            result = false;
+        }
+        return result;
+    }
+
+    public boolean isDateEqual(Date dateLevel) {
+        boolean result = false;
+        Date currentDate = new Date();
+        if (dateLevel.getYear() == currentDate.getYear() && dateLevel.getMonth() == currentDate.getMonth() && dateLevel.getDay() == currentDate.getDay()) {
+            result = true;
+        }
+        return result;
     }
 }
