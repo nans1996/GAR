@@ -17,26 +17,31 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
-import org.primefaces.event.ScheduleEntryMoveEvent;
-import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.LazyScheduleModel;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
-import javax.faces.application.FacesMessage;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+
 
 /**
  *
@@ -63,7 +68,7 @@ public class ClientBean implements Serializable {
     Level level = new Level();
     @EJB
     private ClientFacadeLocal clientFacade;
-    Client client = new Client();
+    entity.Client client = new entity.Client();
     @EJB
     private UserFacadeLocal userFacadeLocal;
     private User user = new User();
@@ -134,16 +139,16 @@ public class ClientBean implements Serializable {
         this.goalUser = goalUser;
     }
 
-    public Client getClient() {
+    public entity.Client getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(entity.Client client) {
         this.client = client;
     }
 
     //вывести всех клиентов
-    public List<Client> findAllClient() {
+    public List<entity.Client> findAllClient() {
         return this.clientFacade.findAll();
     }
 
@@ -154,7 +159,7 @@ public class ClientBean implements Serializable {
     }
 
     //удалить
-    public void deleteClient(Client client) {
+    public void deleteClient(entity.Client client) {
         this.clientFacade.remove(client);
     }
 
@@ -399,7 +404,7 @@ public class ClientBean implements Serializable {
     }
     
     //рейтинг одного пользователя 
-    public Client calculateClientReiting(Client client){
+    public entity.Client calculateClientReiting(entity.Client client){
         int rating = 0;
         if (client.getGoalUserCollection() != null )
             for (GoalUser gu : client.getGoalUserCollection()) {
@@ -410,10 +415,10 @@ public class ClientBean implements Serializable {
         return client;
     }
     //метод который считает рейтинг для всех
-    public List<Client> calculateClientsRating() {
-        List<Client> clients = clientFacade.findAll();
-        List<Client> ratingList = new ArrayList<>();
-        for(Client c : clients) {
+    public List<entity.Client> calculateClientsRating() {
+        List<entity.Client> clients = clientFacade.findAll();
+        List<entity.Client> ratingList = new ArrayList<>();
+        for(entity.Client c : clients) {
             ratingList.add(calculateClientReiting(c));
         }
         Collections.sort(ratingList, (c1, c2) -> compaeInts(c1.getRating(), c2.getRating()));
@@ -427,5 +432,35 @@ public class ClientBean implements Serializable {
             return 0;
         else return 1;
             
+    }
+    
+    //оплата персонажа
+    public void payment() throws IOException {
+        //получение jason вдруг пригодиться
+//        HttpClient client = new DefaultHttpClient();
+//        HttpGet request = new HttpGet("http://localhost:8081/account/all");
+//        HttpResponse response = client.execute(request);
+//        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+//        String line = "";
+//        while ((line = rd.readLine()) != null) {
+//            System.out.println(line);
+//        }
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost("http://localhost:8081/account/purchase");
+        List nameValuePairs = new ArrayList(1);
+        nameValuePairs.add(new BasicNameValuePair("name", "value")); //you can as many name value pair as you want in the list.
+        nameValuePairs.add(new BasicNameValuePair("expirationDate", "2018-05-31"));
+        nameValuePairs.add(new BasicNameValuePair("holder", "Lapygina Vasilisa"));
+        nameValuePairs.add(new BasicNameValuePair("codeSecurity", "321"));
+        nameValuePairs.add(new BasicNameValuePair("codeCard", "1232353424"));
+        nameValuePairs.add(new BasicNameValuePair("purchaseValue", "100"));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+        HttpResponse response = client.execute(post);
+        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        String line = "";
+        while ((line = rd.readLine()) != null) {
+            System.out.println(line);
+        }
+          
     }
 }

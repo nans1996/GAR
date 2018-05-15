@@ -23,34 +23,25 @@ public class AccountController {
     @Autowired
     private AccountDataAccess accountDataAccess;
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public List<Account> getAll() {
-        return accountDataAccess.getAll();
-    }
-
-    @RequestMapping(value = "/purchase", method = RequestMethod.PUT)
-    public boolean purchase(@RequestParam("account") Account account, @RequestParam("purchaseValue") float purchaseValue) {
-        boolean result = false;
-        Account systemAccount = accountDataAccess.getById(account.getCodeCard());
-        if (systemAccount.equals(account) && systemAccount.getBalance() > purchaseValue) {
-            systemAccount.setBalance(systemAccount.getBalance() - purchaseValue);
-            accountDataAccess.update(systemAccount);
-            result = true;
-        }
-        return result;
-    }
-
-    @RequestMapping(value = "/cardValidity", method = RequestMethod.PUT)
-    public boolean cardValidity(@RequestParam("account") Account account) {
-        boolean result = true;
-        //заполненность полей
-        //Алгоритм Луна
-        //что-то еще ...соответствие
-        return result;
-    }
+//    @RequestMapping(value = "/all", method = RequestMethod.GET)
+//    public List<Account> getAll() {
+//        return accountDataAccess.getAll();
+//    }
+//
+//    @RequestMapping(value = "/purchase", method = RequestMethod.PUT)
+//    public boolean purchase(@RequestParam("account") Account account, @RequestParam("purchaseValue") float purchaseValue) {
+//        boolean result = false;
+//        Account systemAccount = accountDataAccess.getById(account.getCodeCard());
+//        if (systemAccount.equals(account) && systemAccount.getBalance() > purchaseValue) {
+//            systemAccount.setBalance(systemAccount.getBalance() - purchaseValue);
+//            accountDataAccess.update(systemAccount);
+//            result = true;
+//        }
+//        return result;
+//    }
 
     //Пока не знаю как обьект взять*
-    @RequestMapping(value = "/purchaseTest", method = RequestMethod.PUT)
+    @RequestMapping(value = "/purchase", method = RequestMethod.POST)
     public boolean purchaseTest(@RequestParam("expirationDate") String expirationDate,@RequestParam("holder") String holder,@RequestParam("codeSecurity") int codeSecurity,@RequestParam("codeCard") Long codeCard, @RequestParam("purchaseValue") float purchaseValue) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat();
         format.applyPattern("yyyy-MM-dd");
