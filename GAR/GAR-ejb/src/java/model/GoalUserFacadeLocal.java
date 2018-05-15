@@ -31,4 +31,5 @@ public interface GoalUserFacadeLocal {
     int count();
     
     public List<GoalUser> findGoalCurrentClient(Integer iDClient);
+
 }

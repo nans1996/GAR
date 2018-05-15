@@ -66,6 +66,7 @@
         <br/>
         <br/>
         <div class="container">
+            <h:form>
             <div class="well well-sm">
                 <strong>Вид: </strong>
                 <div class="btn-group">
@@ -74,13 +75,15 @@
                     <a href="#" id="grid" class="btn btn-default btn-sm">
                         <i class="fa fa-table"></i>Сетка</a>
                 </div>
-                <input type="text" class="input-medium search-query"></input>
-                <button type="submit" class="btn">Поиск</button>
+<!--                <input type="text" class="input-medium search-query" ></input>
+                <button type="submit" class="btn">Поиск</button>-->
+<h:inputText value="#{clientBean.search}" />
+<h:commandButton action="#{clientBean.findAllGoalDefolt()}" value="Поиск"/>
                 <button href="#myGoal" type="submit" class="btn" id="btnGoal">Добавить цель</button>
             </div>
             <div id="products" class="row list-group">
-                <h:form>
-                    <c:forEach items="${clientBean.findAllGoalDefolt()}" var="item"> 
+                
+                    <c:forEach items="${clientBean.listGoals}" var="item"> 
                         <div class="item col-xs-4 col-lg-4">
                             <div class="thumbnail">
                                 <img class="group list-group-image" src="http://5beautysecrets.ru/wp-content/uploads/2017/01/kak_pravilno_nachat_begat_s_nulja_1-400x250.jpg" alt="1"></img>
@@ -103,8 +106,9 @@
                             </div>
                         </div>    
                     </c:forEach>   
-                </h:form>
-            </div>
+              
+            </div> 
+            </h:form>
         </div>
         <div id="myGoal" class="modal fade">
             <div class="modal-dialog">

@@ -76,6 +76,9 @@ public class ClientBean implements Serializable {
     @EJB
     private PersonageFacadeLocal personageFacadeLocal;
     private Personage personage = new Personage();
+    
+    private String search;
+    private List<Goal> listGoals;
 
     /**
      * Creates a new instance of ClientBean
@@ -246,8 +249,11 @@ public class ClientBean implements Serializable {
     }
 
     //вывод дефолтных целей 
-    public List<Goal> findAllGoalDefolt() {
-        return goalFacadeLocal.findGoalDefolt();
+    public void findAllGoalDefolt() {
+        if ((search.isEmpty()) || (search.trim().length()== 0) || (search == null))
+        setListGoals(goalFacadeLocal.findGoalDefolt());
+        else setListGoals(goalFacadeLocal.findGoalSearch(search.trim()));
+            
     }
 
     //создать новую тему на форуме
@@ -462,5 +468,33 @@ public class ClientBean implements Serializable {
             System.out.println(line);
         }
           
+    }
+
+    /**
+     * @return the search
+     */
+    public String getSearch() {
+        return search;
+    }
+
+    /**
+     * @param search the search to set
+     */
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
+    /**
+     * @return the listGoals
+     */
+    public List<Goal> getListGoals() {
+        return listGoals;
+    }
+
+    /**
+     * @param listGoals the listGoals to set
+     */
+    public void setListGoals(List<Goal> listGoals) {
+        this.listGoals = listGoals;
     }
 }

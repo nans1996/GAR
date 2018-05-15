@@ -38,4 +38,11 @@ public class GoalFacade extends AbstractFacade<Goal> implements GoalFacadeLocal 
         return (List<Goal>) q.getResultList();
     }
     
+    @Override
+      public List<Goal> findGoalSearch(String name){
+        Query q = em.createNamedQuery("Goal.findByName");
+        q.setParameter("name", name);
+        return (List<Goal>) q.getResultList();
+    }
+    
 }

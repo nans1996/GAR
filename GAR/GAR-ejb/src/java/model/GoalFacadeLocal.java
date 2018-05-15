@@ -31,5 +31,7 @@ public interface GoalFacadeLocal {
     int count();
         
     public List<Goal> findGoalDefolt();
+
+    public List<Goal> findGoalSearch(String name);
     
 }

@@ -37,4 +37,6 @@ public class GoalUserFacade extends AbstractFacade<GoalUser> implements GoalUser
         q.setParameter("iDClient", iDClient);
         return (List<GoalUser>) q.getResultList();
     }
+    
+  
 }
