@@ -34,6 +34,7 @@ import org.primefaces.model.chart.LineChartSeries;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Collection;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -197,6 +198,19 @@ public class ClientBean implements Serializable {
         goalUser.setIDClient(client);
         goalUser.setLevelCollection(null);
         this.goalUserFacadeLocal.create(this.goalUser);
+        //заполняем 21 день как не выполненые что-бы было подряд
+        Date date = new Date();
+        for (int i = 0; i < 21; i++) {
+            level.setIDGoaluser(goalUser);
+            level.setDate(date);
+            Calendar instance = Calendar.getInstance();
+            instance.setTime(date); //устанавливаем дату, с которой будет производить операции
+            instance.add(Calendar.DAY_OF_MONTH, 1);// прибавляем день
+            date = instance.getTime(); // получаем измененную дату
+            level.setLeveldate(false);
+            levelFacadeLocal.create(level);
+        }
+
         //после добавления перебрасывает на index
         return "index";
     }
@@ -222,6 +236,18 @@ public class ClientBean implements Serializable {
         goalUser.setIDClient(client);
         goalUser.setLevelCollection(null);
         this.goalUserFacadeLocal.create(this.goalUser);
+        //заполняем 21 день как не выполненые что-бы было подряд
+        Date date = new Date();
+        for (int i = 0; i < 21; i++) {
+            level.setIDGoaluser(goalUser);
+            level.setDate(date);
+            Calendar instance = Calendar.getInstance();
+            instance.setTime(date); //устанавливаем дату, с которой будет производить операции
+            instance.add(Calendar.DAY_OF_MONTH, 1);// прибавляем день
+            date = instance.getTime(); // получаем измененную дату
+            level.setLeveldate(false);
+            levelFacadeLocal.create(level);
+        }
         //после добавления перебрасывает на index изменить на страницу подтверждения
         return "index";
     }
