@@ -189,6 +189,25 @@ public class ClientBean implements Serializable {
         return "profile";
     }
 
+     //забанить/разбанить пользователя
+    public String banClient(User u, boolean flag){
+    //            user = userFacadeLocal.find(m.getIDUser());
+        client = clientFacade.findIdUser(u.getIDUser());
+        if (flag) 
+        client.setBan(true);
+        else client.setBan(false);
+        clientFacade.edit(this.client);
+        
+        return "comment";
+    }
+    
+    //проверить бан пользователя
+    public boolean isBanClient(User u){
+        //user = userFacadeLocal.find(m.getIDUser());
+        client = clientFacade.findIdUser(u.getIDUser());
+        return client.getBan();
+    }
+    
     //вывести цели клиента
     public List<GoalUser> findAllGoalCurrentClient() {
         user = userFacadeLocal.findLogin(userBean.getCurrentUser());

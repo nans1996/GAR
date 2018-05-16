@@ -59,12 +59,13 @@ private Client client = new  Client();
         return this.messageFacade.findAll();
     }
     // тут типа пытаюсь вывести сообщения по id темы
-    public String messageIdTopic() {
+    public String getMessageIdTopic() {
         FacesContext fc = FacesContext.getCurrentInstance();
        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
         setId(Integer.parseInt(params.get("id")));
-        setMessageTopic(messageFacade.findByIdTopic(getId()));
-       return "comment";
+       messageTopic= messageFacade.findByIdTopic(getId());
+      return "comment";
+       
     }
     
     public  String deleteMessage(Message message){

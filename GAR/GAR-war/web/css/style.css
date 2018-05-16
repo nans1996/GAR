@@ -138,6 +138,10 @@ background-color: #FFFC73;
     27% { opacity: 0; width: 100%; }
     100% { opacity: 0; }
 }
-.footer { 
-flex: 0 0 auto; 
+#footer { 
+height: 150px; 
+background: #F4FA58; 
+position: absolute; 
+bottom: 0; 
+width: 100%; 
 }

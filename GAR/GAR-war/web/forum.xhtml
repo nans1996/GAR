@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="http://bootstraptema.ru/plugins/font-awesome/4-4-0/font-awesome.min.css"></link>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link> 
         <link rel="stylesheet" href="css/forum.css"/> 
+        <link href="css/modal.css" rel="stylesheet"></link>
 
         <title>Форум</title>
     </h:head>
@@ -157,8 +158,10 @@
         </div>
 
   
+<!--
+<footer class="page-footer font-small unique-color-dark pt-0">-->
 
-<footer class="page-footer font-small unique-color-dark pt-0">
+<div id="footer">
 
     <!--            <div style="background-color: #6351ce;">
                     <div class="container">
@@ -167,67 +170,67 @@
                         </div>
                     </div>
                 </div>-->
-    <div style="background-color: #F4FA58;">
-        <div class="container mt-5 mb-4 text-center text-md-left">
-            <br/>
-            <br/>               
-            <div class="row mt-3">
-                <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
-                    <!--                        <h6 class="text-uppercase font-weight-bold">
-                                                <strong>GAR</strong>
-                                            </h6>-->
-                    <!--                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;"></hr>-->
-                    <!--                         <h6 class="text-uppercase font-weight-bold">-->
-                    <strong>GAR</strong>
-                    <!--                        </h6>-->
-                    <p>Сервис достижения целей.</p>
-                </div>
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <!--                        <h6 class="text-uppercase font-weight-bold">
-                                               <strong></strong>
-                                            </h6>
-                                           <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>-->
-                    <p>
-                        <a href="#!">Цели</a>
-                    </p>
-                    <p>
-                        <a href="#!">Рейтинг</a>
-                    </p>
-                </div>
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <!--                        <h6 class="text-uppercase font-weight-bold">
-                                                <strong>Useful links</strong>
-                                            </h6>
-                                            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>-->
-                    <p>
-                        <a href="#!">Форум</a>
-                    </p>
-                    <p>
-                        <a href="#!">О нас</a>
-                    </p>
-                </div>
-                <div class="col-md-4 col-lg-3 col-xl-3">
-                    <!--                        <h6 class="text-uppercase font-weight-bold">
-                                                <strong>Contact</strong>
-                                            </h6>
-                                            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>-->
-                    <p>
-                        <i class="fa fa-home mr-3"></i> Владимир</p>
-                    <p>
-                        <i class="fa fa-envelope mr-3"></i> gar@gar.com</p>
-                    <p>
-                        <i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
-                </div>
+    <!--    <div style="background-color: #F4FA58;">-->
+    <div class="container mt-5 mb-4 text-center text-md-left">
+        <br/>
+        <br/>               
+        <div class="row mt-3">
+            <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+                <!--                        <h6 class="text-uppercase font-weight-bold">
+                                            <strong>GAR</strong>
+                                        </h6>-->
+                <!--                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;"></hr>-->
+                <!--                         <h6 class="text-uppercase font-weight-bold">-->
+                <strong>GAR</strong>
+                <!--                        </h6>-->
+                <p>Сервис достижения целей.</p>
+            </div>
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                <!--                        <h6 class="text-uppercase font-weight-bold">
+                                           <strong></strong>
+                                        </h6>
+                                       <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>-->
+                <p>
+                    <a href="#!">Цели</a>
+                </p>
+                <p>
+                    <a href="#!">Рейтинг</a>
+                </p>
+            </div>
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                <!--                        <h6 class="text-uppercase font-weight-bold">
+                                            <strong>Useful links</strong>
+                                        </h6>
+                                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>-->
+                <p>
+                    <a href="#!">Форум</a>
+                </p>
+                <p>
+                    <a href="#!">О нас</a>
+                </p>
+            </div>
+            <div class="col-md-4 col-lg-3 col-xl-3">
+                <!--                        <h6 class="text-uppercase font-weight-bold">
+                                            <strong>Contact</strong>
+                                        </h6>
+                                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>-->
+                <p>
+                    <i class="fa fa-home mr-3"></i> Владимир</p>
+                <p>
+                    <i class="fa fa-envelope mr-3"></i> gar@gar.com</p>
+                <p>
+                    <i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
             </div>
         </div>
-        <div class="footer-copyright py-3 text-center">
-            © CAR Inc., 2018 г. Все права защищены.
-            <!--                <a href="#">
-                                <strong> CAR.com</strong>
-                            </a>-->
-        </div>
     </div>
-</footer> 
+    <div class="footer-copyright py-3 text-center">
+        © CAR Inc., 2018 г. Все права защищены.
+        <!--                <a href="#">
+                            <strong> CAR.com</strong>
+                        </a>-->
+    </div>
+</div>
+<!--</div> -->
         <script>
             $(document).ready(function () {
                 //при нажатию на любую кнопку, имеющую класс .btn
