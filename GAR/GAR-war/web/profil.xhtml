@@ -58,8 +58,8 @@
             </div>
         </nav>  
         <br/>
-<!--        <div id="left">
-            <p>Левая половина</p>-->
+        <div id="left">
+            <p>Левая половина</p>
             <div id="main">
                 <div class="row" id="real-estates-detail">
                     <div class="col-lg-4 col-md-4 col-xs-12">
@@ -110,9 +110,27 @@
                     </div>
                 </div>
             </div>
-<!--        </div> /.main -->
+        </div> 
         
-        
+              <div id="right">
+            <p>Правая половина</p>
+            <br/>
+
+            <ul class="nav">      
+                <h:form>
+                    <li class="nav-header">Мои цели</li>
+                    <c:forEach items="${clientBean.findAllGoalCurrentClient()}" var="item"> 
+                        <i class="icon-search">
+                            <h:commandLink styleClass="btn btn-default" action="#{clientBean.editGoalUser}" value="#{item.IDGoal.name}">
+                                <f:param name="id" value="#{item.IDGoaluser}"/>
+                            </h:commandLink>
+                        </i>
+                        <br/>
+                    </c:forEach>
+                </h:form>
+            </ul>
+
+        </div>
         <!--        Модальное окно-->
           <div id="myProfile" class="modal fade">
             <div class="modal-dialog">
@@ -190,6 +208,9 @@
                 </div>
             </div>
         </div>
+        
+   
+        
         <script>
             $(document).ready(function () {
                 //при нажатию на любую кнопку, имеющую класс .btn
@@ -205,26 +226,9 @@
         
         
 
-        <div id="right">
-            <p>Правая половина</p>
-            <br/>
-
-            <ul class="nav">      
-                <h:form>
-                    <li class="nav-header">Мои цели</li>
-                    <c:forEach items="${clientBean.findAllGoalCurrentClient()}" var="item"> 
-                        <i class="icon-search">
-                            <h:commandLink styleClass="btn btn-default" action="#{clientBean.editGoalUser}" value="#{item.IDGoal.name}">
-                                <f:param name="id" value="#{item.IDGoaluser}"/>
-                            </h:commandLink>
-                        </i>
-                        <br/>
-                    </c:forEach>
-                </h:form>
-            </ul>
-
-        </div>
+       
         
+       
     </h:body>
 </html>
 
