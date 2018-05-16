@@ -307,10 +307,11 @@ public class ClientBean implements Serializable {
         return "index";
     }
 
+    //выполненость
     public int percentСomplianceGoalUser() {
         //goalUser = goalUserFacadeLocal.find(goalUser.getIDGoaluser());
         int caunt = 0;
-        Collection<Level> levels = goalUser.getLevelCollection();
+        Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
         for (Level level : levels) {
             if (level.getLeveldate()) {
                 caunt++;
@@ -391,6 +392,7 @@ public class ClientBean implements Serializable {
         return areaModel;
     }
 
+    //график
     private void createAreaModel() {
         areaModel = new LineChartModel();
 
@@ -424,7 +426,6 @@ public class ClientBean implements Serializable {
     }
 
     public boolean checkDate() {
-        boolean result;
         Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
         if (!levels.isEmpty()) {
             for (Level level : levels) {
