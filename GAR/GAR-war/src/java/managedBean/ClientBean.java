@@ -33,6 +33,7 @@ import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.time.Instant;
@@ -46,6 +47,8 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 
 
@@ -82,6 +85,8 @@ public class ClientBean implements Serializable {
     @EJB
     private PersonageFacadeLocal personageFacadeLocal;
     private Personage personage = new Personage();
+    @EJB
+    ImageFacadeLocal imageFacadeLocal;
     
     private String search;
     private List<Goal> listGoals;
@@ -532,5 +537,17 @@ public class ClientBean implements Serializable {
      */
     public void setListGoals(List<Goal> listGoals) {
         this.listGoals = listGoals;
+    }
+    
+    //вывод картинки персонажу
+    public StreamedContent getImageGoal(int id) throws IOException {
+        Personage personage = personageFacadeLocal.find(id);
+        List<PersonageImage> personageImages = (List<PersonageImage>) personage.getPersonageImageCollection();
+        Image img = imageFacadeLocal.find(personageImages.get(1).getIDImage());//допустим будем выводить картинку на 1 уровне 
+        return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+    }
+
+    public List<Personage> getAllPersonages() {
+        return personageFacadeLocal.findAll();
     }
 }
