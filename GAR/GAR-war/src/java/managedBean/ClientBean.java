@@ -547,7 +547,7 @@ public class ClientBean implements Serializable {
         return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
     }
 
-    public List<Personage> getAllPersonages() {
+    public List<Personage> AllPersonages() {
         return personageFacadeLocal.findAll();
     }
 }

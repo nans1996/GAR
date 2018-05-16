@@ -145,36 +145,20 @@
                             <br/>
                             <br/>
                             <div id="carousel-example-generic" class="carousel slide" data-interval="false">
-                                <!-- Indicators -->
-
-                                <!-- Wrapper for slides -->
+                         
+                                
                                 <div class="carousel-inner">
-                                    <div class="item active">
-
+                                          <div class="item active">
+                                    <h2>Сделай выбор</h2>
+                                    <h2>ВЫРОСТИ МИЛОЕ СУЩЕСТВО</h2>
+                                </div> 
+                                    <c:forEach items="${clientBean.AllPersonages()}" var="item"> 
+                                    <div class="item">
                                         <img src="http://fotovideoforum.ru/resources/image/57910" alt="" />
-                                        <div class="main-checkbox">
-                                            <input type="checkbox" value="none" id="checkbox1" name="check"></input>
-                                            <label for="checkbox1"></label>
-                                        </div>
-
-                                        <h2>1000 RUB</h2>
+                                        <h2>Имя: #{item.name}</h2>
+                                        <h2>#{item.price} RUB</h2>
                                     </div>
-                                    <div class="item">
-                                        <img src="http://placehold.it/900x500/666/" alt="" />
-                                        <div class="carousel-caption">
-                                            <h3>Second slide label</h3>
-
-                                            <p>Second slide Caption.</p>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <img src="http://placehold.it/900x500/666/" alt="" />
-                                        <div class="carousel-caption">
-                                            <h3>Third slide label</h3>
-
-                                            <p>Third slide Caption.</p>
-                                        </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
                                 <!-- Controls --> <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                                     <span class="icon-prev"></span>
