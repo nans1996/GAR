@@ -64,9 +64,13 @@
         </nav>   
         <br/>
         <br/>
-        <br/>
+        <br/> 
+
         <div class="container">
-            <h:form>
+                    <h:form class="well well-sm">
+                    <h:inputText value="#{clientBean.search}" />
+                    <h:commandButton action="#{clientBean.findAllGoalDefolt()}" value="Поиск"/>
+                    </h:form>
                 <div class="well well-sm">
                     <strong>Вид: </strong>
                     <div class="btn-group">
@@ -77,11 +81,11 @@
                     </div>
                     <!--                <input type="text" class="input-medium search-query" ></input>
                                     <button type="submit" class="btn">Поиск</button>-->
-                 <h:form>   
-                    <h:inputText value="#{clientBean.search}" />
-                    <h:commandButton action="#{clientBean.findAllGoalDefolt()}" value="Поиск"/></h:form>
+                    
                     <button href="#myGoal" type="submit" class="btn" id="btnGoal">Добавить цель</button>
                 </div>
+                   
+            <h:form>
                 <div id="products" class="row list-group">
 
                     <c:forEach items="${clientBean.AllGoalDefolt()}" var="item"> 
