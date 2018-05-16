@@ -36,7 +36,7 @@ background-color: #FFFC73;
 .carousel .item{
  background: #333;    
   text-align: center;
-  height: 500px !important;
+  height: 750px !important;
 }
 .carousel h2{
 	color: #fff;
@@ -63,7 +63,7 @@ background-color: #FFFC73;
 }
 .home-bl__title {    
     font-size: 50pt;
-    color: #068010;
+    color: #068010;    
 }
 .center { 
     text-align: center;
