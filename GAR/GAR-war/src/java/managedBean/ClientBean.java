@@ -250,12 +250,15 @@ public class ClientBean implements Serializable {
 
     //вывод дефолтных целей 
     public void findAllGoalDefolt() {
-        if ((search.isEmpty()) || (search.trim().length()== 0) || (search == null))
+        if (search.trim().length() == 0)//возможно просто длину достаточно проверить
         setListGoals(goalFacadeLocal.findGoalDefolt());
-        else setListGoals(goalFacadeLocal.findGoalSearch(search.trim()));
-            
+        else setListGoals(goalFacadeLocal.findGoalSearch(search.trim()));    
     }
 
+    public List<Goal> AllGoalDefolt(){
+        if (listGoals == null) setListGoals(goalFacadeLocal.findGoalDefolt());
+        return listGoals;
+    }
     //создать новую тему на форуме
     public String createTopic() {
         this.topicFacade.create(this.topic);

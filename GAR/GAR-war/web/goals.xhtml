@@ -40,23 +40,23 @@
                 <div id="navbarCollapse" class="collapse navbar-collapse">
 
                     <ul class="nav navbar-nav navbar-right">                                               
-                     <li><h:link outcome="index" value="Главная"/></li>
+                        <li><h:link outcome="index" value="Главная"/></li>
                         <li class="active"><a href="#">Цели</a></li>                        
                         <li><h:link outcome="user" value="Страница с пользователями"/></li>
                         <li><h:link outcome="rating" value="Рейтинг"/></li>
                         <li><h:link outcome="forum" value="Форум"/></li>                    
                         <p class="navbar-text"> 
                             Вы вошли как 
-                           <h:link outcome="profil" value="#{request.getRemoteUser()}" class="navbar-link"></h:link>                              
+                            <h:link outcome="profil" value="#{request.getRemoteUser()}" class="navbar-link"></h:link>                              
 
-                           <h:form rendered="#{!userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
-                               <li><h:link outcome="authorization" value="Войти"/></li>                                     
-                           </h:form>       
-                        
+                            <h:form rendered="#{!userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
+                                <li><h:link outcome="authorization" value="Войти"/></li>                                     
+                            </h:form>       
+
                             <h:form rendered="#{userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
-                                 <p:commandButton value="Выйти" id="logout" action="#{userBean.logout}" class="btn btn-link" />                                      
+                                <p:commandButton value="Выйти" id="logout" action="#{userBean.logout}" class="btn btn-link" />                                      
                             </h:form>
-                        
+
                         </p>
                     </ul>
                 </div>
@@ -67,23 +67,24 @@
         <br/>
         <div class="container">
             <h:form>
-            <div class="well well-sm">
-                <strong>Вид: </strong>
-                <div class="btn-group">
-                    <a href="#" id="list" class="btn btn-default btn-sm">
-                        <i class="fa fa-list"></i>Список</a> 
-                    <a href="#" id="grid" class="btn btn-default btn-sm">
-                        <i class="fa fa-table"></i>Сетка</a>
+                <div class="well well-sm">
+                    <strong>Вид: </strong>
+                    <div class="btn-group">
+                        <a href="#" id="list" class="btn btn-default btn-sm">
+                            <i class="fa fa-list"></i>Список</a> 
+                        <a href="#" id="grid" class="btn btn-default btn-sm">
+                            <i class="fa fa-table"></i>Сетка</a>
+                    </div>
+                    <!--                <input type="text" class="input-medium search-query" ></input>
+                                    <button type="submit" class="btn">Поиск</button>-->
+                 <h:form>   
+                    <h:inputText value="#{clientBean.search}" />
+                    <h:commandButton action="#{clientBean.findAllGoalDefolt()}" value="Поиск"/></h:form>
+                    <button href="#myGoal" type="submit" class="btn" id="btnGoal">Добавить цель</button>
                 </div>
-<!--                <input type="text" class="input-medium search-query" ></input>
-                <button type="submit" class="btn">Поиск</button>-->
-<h:inputText value="#{clientBean.search}" />
-<h:commandButton action="#{clientBean.findAllGoalDefolt()}" value="Поиск"/>
-                <button href="#myGoal" type="submit" class="btn" id="btnGoal">Добавить цель</button>
-            </div>
-            <div id="products" class="row list-group">
-                
-                    <c:forEach items="${clientBean.listGoals}" var="item"> 
+                <div id="products" class="row list-group">
+
+                    <c:forEach items="${clientBean.AllGoalDefolt()}" var="item"> 
                         <div class="item col-xs-4 col-lg-4">
                             <div class="thumbnail">
                                 <img class="group list-group-image" src="http://5beautysecrets.ru/wp-content/uploads/2017/01/kak_pravilno_nachat_begat_s_nulja_1-400x250.jpg" alt="1"></img>
@@ -106,8 +107,8 @@
                             </div>
                         </div>    
                     </c:forEach>   
-              
-            </div> 
+
+                </div> 
             </h:form>
         </div>
         <div id="myGoal" class="modal fade">
@@ -125,7 +126,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3" for="NameGoal">Название цели:</label>
                                 <div class="col-xs-9">
-<!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
+                                    <!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
                                     <h:inputText value="#{clientBean.goal.name}" class="form-control" label="Введите название цели" >  </h:inputText> 
                                 </div>
                             </div>
@@ -151,7 +152,7 @@
                                             <input type="checkbox" value="none" id="checkbox1" name="check"></input>
                                             <label for="checkbox1"></label>
                                         </div>
-                                        
+
                                         <h2>1000 RUB</h2>
                                     </div>
                                     <div class="item">
