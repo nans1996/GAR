@@ -34,6 +34,11 @@ import org.primefaces.model.chart.LineChartSeries;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -292,17 +297,27 @@ public class ClientBean implements Serializable {
     }
 
     public String addLevel() {
-        Date date = new Date();
-        level.setDate(date);
-        level.setLeveldate(true);
-        level.setIDGoaluser(goalUser);
-        levelFacadeLocal.create(level);
+        Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
+        for (Level level : levels) {
+            if (isDateEqual(level.getDate())) {
+                level.setLeveldate(true);
+                levelFacadeLocal.edit(level);
+            }
+        }
         return "index";
     }
 
     public int percentСomplianceGoalUser() {
         //goalUser = goalUserFacadeLocal.find(goalUser.getIDGoaluser());
-        int percent = (100 * goalUser.getLevelCollection().size()) / 21;
+        int caunt = 0;
+        Collection<Level> levels = goalUser.getLevelCollection();
+        for (Level level : levels) {
+            if (level.getLeveldate()) {
+                caunt++;
+            }
+        }
+        
+        int percent = (100 * caunt) / 21;
         return percent;
     }
     //тут часть кода отвечвющая за календарик
@@ -369,17 +384,6 @@ public class ClientBean implements Serializable {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
-//    public List<Client> rating() {
-//        List<Client> list = clientFacade.findAll();
-//        list.sort(new Comparator<Client>() {
-//            @Override
-//            public int compare(Client o1, Client o2) {
-//                return o1.toString().compareTo(o2.toString());//какая-то логика*
-//            }
-//        });
-//        return list;
-//    }
-
     private LineChartModel areaModel;
 
     public LineChartModel getAreaModel() {
@@ -401,6 +405,7 @@ public class ClientBean implements Serializable {
                 namberLevel++;
             }
             target.set(item.getDate().toString(), namberLevel);
+            if (isDateEqual(item.getDate())) break; 
         }
 
         areaModel.addSeries(target);
@@ -420,22 +425,23 @@ public class ClientBean implements Serializable {
 
     public boolean checkDate() {
         boolean result;
-        List<Level> levels = (List<Level>) goalUser.getLevelCollection();
+        Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
         if (!levels.isEmpty()) {
-            result = isDateEqual(levels.get(levels.size() - 1).getDate());
+            for (Level level : levels) {
+                if (isDateEqual(level.getDate())) {
+                    return true;
+                }
+            }
         } else {
-            result = false;
+            return false;
         }
-        return result;
+        return false;
     }
 
     public boolean isDateEqual(Date dateLevel) {
-        boolean result = false;
-        Date currentDate = new Date();
-        if (dateLevel.getYear() == currentDate.getYear() && dateLevel.getMonth() == currentDate.getMonth() && dateLevel.getDay() == currentDate.getDay()) {
-            result = true;
-        }
-        return result;
+        LocalDate current = LocalDate.now();
+        LocalDate levelLocalDate = Instant.ofEpochMilli(dateLevel.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+        return levelLocalDate.isEqual(current);
     }
     
     //рейтинг одного пользователя 

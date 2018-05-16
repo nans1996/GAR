@@ -70,6 +70,7 @@ private Client client = new  Client();
     public  String deleteMessage(Message message){
        this.messageFacade.remove(message);
        return "comment";
+      
     }
 
 //    public int countMessage(int id) {
