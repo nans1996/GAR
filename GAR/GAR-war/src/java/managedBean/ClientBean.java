@@ -323,12 +323,12 @@ public class ClientBean implements Serializable {
     public String addLevel() {
         Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
         for (Level level : levels) {
-            if (isDateEqual(level.getDate())) {
+            if (isDateEqual(level.getDate())&&!level.getLeveldate()) {
                 level.setLeveldate(true);
                 levelFacadeLocal.edit(level);
             }
         }
-        return "index";
+        return "/goal_user?faces-redirect=true";
     }
 
     //выполненость
@@ -343,7 +343,8 @@ public class ClientBean implements Serializable {
         }
         
         int percent = (100 * caunt) / 21;
-        return percent;
+         return percent;
+        //return 100;
     }
     //тут часть кода отвечвющая за календарик
     private ScheduleModel eventModel;
@@ -422,7 +423,7 @@ public class ClientBean implements Serializable {
 
         LineChartSeries target = new LineChartSeries();
         target.setFill(true);
-
+        goalUser = goalUserFacadeLocal.find(goalUser.getIDGoaluser());
         target.setLabel(goalUser.getIDGoal().getName());
 
         int namberLevel = 0;
@@ -453,7 +454,7 @@ public class ClientBean implements Serializable {
         Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
         if (!levels.isEmpty()) {
             for (Level level : levels) {
-                if (isDateEqual(level.getDate())) {
+                if (isDateEqual(level.getDate())&&level.getLeveldate()) {
                     return true;
                 }
             }
