@@ -88,14 +88,7 @@
                                         <div class="pull-right"><a class="btn btn-info" href="#">Ответить</a></div>  
                                        
                                         <h:commandButton value="Удалить" action="#{forumBean.deleteMessage(u)}" onclick="return confirm('Вы уверенны?')" />
-<!--                                          <h:form rendered="#{!clientBean.isBanClient(u.IDUser)}">
-                                            <h:commandButton value="Заблокировать"  action="#{clientBean.banClient(u, true)}" class="btn btn-link" />                                                                    
-                                        </h:form>
 
-                                        <h:form rendered="#{clientBean.isBanClient(u.IDUser)}">
-                                            <h:commandButton value="Разблокировать"  action="#{clientBean.banClient(u.IDUser, false)}" class="btn btn-link" />                                      
-                                        </h:form>
-                         -->
                                     </div>
 
                                 </div>

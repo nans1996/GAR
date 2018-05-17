@@ -59,13 +59,13 @@ private Client client = new  Client();
         return this.messageFacade.findAll();
     }
     // тут типа пытаюсь вывести сообщения по id темы
-    public String getMessageIdTopic() {
+    public String messageIdTopic() {
         FacesContext fc = FacesContext.getCurrentInstance();
-       Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-        setId(Integer.parseInt(params.get("id")));
-       messageTopic= messageFacade.findByIdTopic(getId());
-      return "comment";
-       
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        id = Integer.parseInt(params.get("id"));
+        messageTopic = messageFacade.findByIdTopic(getId());
+        return "comment";
+
     }
     
     public  String deleteMessage(Message message){
@@ -90,12 +90,12 @@ private Client client = new  Client();
         user = userFacade.findLogin(userBean.getCurrentUser());
         client = clientFacade.findIdUser(user.getIDUser());
         if (!client.getBan()){
-        message.setDate(new Date());
-        //пока сделаем дефолд
-        message.setIDTopic(topicFacade.find(getId()));
-        message.setIDUser(user);
-        this.messageFacade.create(this.message);
-        message.setContent("");
+            message.setDate(new Date());
+            //пока сделаем дефолд
+            message.setIDTopic(topicFacade.find(getId()));
+            message.setIDUser(user);
+            this.messageFacade.create(this.message);
+            message.setContent("");
         }
         return "comment";
     }
@@ -132,7 +132,7 @@ private Client client = new  Client();
      * @return the messageTopic
      */
     public List<Message> getMessageTopic() {
-        return messageTopic;
+        return  messageTopic = messageFacade.findByIdTopic(getId());
     }
 
     /**
