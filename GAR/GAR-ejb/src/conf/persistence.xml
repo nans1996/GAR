@@ -3,6 +3,7 @@
   <persistence-unit name="GAR-ejbPU" transaction-type="JTA">
     <jta-data-source>jdbc/GARperson</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
     </properties>
   </persistence-unit>

@@ -35,11 +35,9 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -49,8 +47,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-
-
 
 /**
  *
@@ -87,7 +83,7 @@ public class ClientBean implements Serializable {
     private Personage personage = new Personage();
     @EJB
     ImageFacadeLocal imageFacadeLocal;
-    
+
     private String search;
     private List<Goal> listGoals;
 
@@ -189,25 +185,27 @@ public class ClientBean implements Serializable {
         return "profile";
     }
 
-     //забанить/разбанить пользователя
-    public String banClient(User u, boolean flag){
-    //            user = userFacadeLocal.find(m.getIDUser());
+    //забанить/разбанить пользователя
+    public String banClient(User u, boolean flag) {
+        //            user = userFacadeLocal.find(m.getIDUser());
         client = clientFacade.findIdUser(u.getIDUser());
-        if (flag) 
-        client.setBan(true);
-        else client.setBan(false);
+        if (flag) {
+            client.setBan(true);
+        } else {
+            client.setBan(false);
+        }
         clientFacade.edit(this.client);
-        
+
         return "comment";
     }
-    
+
     //проверить бан пользователя
-    public boolean isBanClient(User u){
+    public boolean isBanClient(User u) {
         //user = userFacadeLocal.find(m.getIDUser());
         client = clientFacade.findIdUser(u.getIDUser());
         return client.getBan();
     }
-    
+
     //вывести цели клиента
     public List<GoalUser> findAllGoalCurrentClient() {
         user = userFacadeLocal.findLogin(userBean.getCurrentUser());
@@ -306,14 +304,20 @@ public class ClientBean implements Serializable {
     //вывод дефолтных целей 
     public void findAllGoalDefolt() {
         if (search.trim().length() == 0)//возможно просто длину достаточно проверить
-        setListGoals(goalFacadeLocal.findGoalDefolt());
-        else setListGoals(goalFacadeLocal.findGoalSearch(search.trim()));    
+        {
+            setListGoals(goalFacadeLocal.findGoalDefolt());
+        } else {
+            setListGoals(goalFacadeLocal.findGoalSearch(search.trim()));
+        }
     }
 
-    public List<Goal> AllGoalDefolt(){
-        if (listGoals == null) setListGoals(goalFacadeLocal.findGoalDefolt());
+    public List<Goal> AllGoalDefolt() {
+        if (listGoals == null) {
+            setListGoals(goalFacadeLocal.findGoalDefolt());
+        }
         return listGoals;
     }
+
     //создать новую тему на форуме
     public String createTopic() {
         this.topicFacade.create(this.topic);
@@ -322,10 +326,10 @@ public class ClientBean implements Serializable {
 
     public String addLevel() {
         Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
-        for (Level level : levels) {
-            if (isDateEqual(level.getDate())&&!level.getLeveldate()) {
-                level.setLeveldate(true);
-                levelFacadeLocal.edit(level);
+        for (Level item : levels) {
+            if (isDateEqual(item.getDate()) && !item.getLeveldate()) {
+                item.setLeveldate(true);
+                levelFacadeLocal.edit(item);
             }
         }
         return "/goal_user?faces-redirect=true";
@@ -336,14 +340,14 @@ public class ClientBean implements Serializable {
         //goalUser = goalUserFacadeLocal.find(goalUser.getIDGoaluser());
         int caunt = 0;
         Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
-        for (Level level : levels) {
-            if (level.getLeveldate()) {
+        for (Level item : levels) {
+            if (item.getLeveldate()) {
                 caunt++;
             }
         }
-        
+
         int percent = (100 * caunt) / 21;
-         return percent;
+        return percent;
         //return 100;
     }
     //тут часть кода отвечвющая за календарик
@@ -410,127 +414,6 @@ public class ClientBean implements Serializable {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
-    private LineChartModel areaModel;
-
-    public LineChartModel getAreaModel() {
-        createAreaModel();
-        return areaModel;
-    }
-
-    //график
-    private void createAreaModel() {
-        areaModel = new LineChartModel();
-
-        LineChartSeries target = new LineChartSeries();
-        target.setFill(true);
-        goalUser = goalUserFacadeLocal.find(goalUser.getIDGoaluser());
-        target.setLabel(goalUser.getIDGoal().getName());
-
-        int namberLevel = 0;
-        for (Level item : goalUser.getLevelCollection()) {
-            if (item.getLeveldate()) {
-                namberLevel++;
-            }
-            target.set(item.getDate().toString(), namberLevel);
-            if (isDateEqual(item.getDate())) break; 
-        }
-
-        areaModel.addSeries(target);
-
-        areaModel.setTitle("Достижение цели");
-        areaModel.setLegendPosition("ne");
-        areaModel.setStacked(true);
-        areaModel.setShowPointLabels(true);
-
-        Axis xAxis = new CategoryAxis("Дни");
-        areaModel.getAxes().put(AxisType.X, xAxis);
-        Axis yAxis = areaModel.getAxis(AxisType.Y);
-        yAxis.setLabel("Шкала выполнения");
-        yAxis.setMin(1);
-        yAxis.setMax(goalUser.getLevelCollection().size());
-    }
-
-    public boolean checkDate() {
-        Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
-        if (!levels.isEmpty()) {
-            for (Level level : levels) {
-                if (isDateEqual(level.getDate())&&level.getLeveldate()) {
-                    return true;
-                }
-            }
-        } else {
-            return false;
-        }
-        return false;
-    }
-
-    public boolean isDateEqual(Date dateLevel) {
-        LocalDate current = LocalDate.now();
-        LocalDate levelLocalDate = Instant.ofEpochMilli(dateLevel.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-        return levelLocalDate.isEqual(current);
-    }
-    
-    //рейтинг одного пользователя 
-    public entity.Client calculateClientReiting(entity.Client client){
-        int rating = 0;
-        if (client.getGoalUserCollection() != null )
-            for (GoalUser gu : client.getGoalUserCollection()) {
-                if (gu.getLevelCollection().size()-1 == 21)
-                    rating++;
-            } 
-        client.setRating(rating);
-        return client;
-    }
-    //метод который считает рейтинг для всех
-    public List<entity.Client> calculateClientsRating() {
-        List<entity.Client> clients = clientFacade.findAll();
-        List<entity.Client> ratingList = new ArrayList<>();
-        for(entity.Client c : clients) {
-            ratingList.add(calculateClientReiting(c));
-        }
-        Collections.sort(ratingList, (c1, c2) -> compaeInts(c1.getRating(), c2.getRating()));
-        return ratingList;
-    }
-    
-    private int compaeInts(int a, int b) {
-        if(a < b)
-            return -1;
-        else if (a == b)
-            return 0;
-        else return 1;
-            
-    }
-    
-    //оплата персонажа
-    public void payment() throws IOException {
-        //получение jason вдруг пригодиться
-//        HttpClient client = new DefaultHttpClient();
-//        HttpGet request = new HttpGet("http://localhost:8081/account/all");
-//        HttpResponse response = client.execute(request);
-//        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-//        String line = "";
-//        while ((line = rd.readLine()) != null) {
-//            System.out.println(line);
-//        }
-        HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost("http://localhost:8081/account/purchase");
-        List nameValuePairs = new ArrayList(1);
-        nameValuePairs.add(new BasicNameValuePair("name", "value")); //you can as many name value pair as you want in the list.
-        nameValuePairs.add(new BasicNameValuePair("expirationDate", "2018-05-31"));
-        nameValuePairs.add(new BasicNameValuePair("holder", "Lapygina Vasilisa"));
-        nameValuePairs.add(new BasicNameValuePair("codeSecurity", "321"));
-        nameValuePairs.add(new BasicNameValuePair("codeCard", "1232353424"));
-        nameValuePairs.add(new BasicNameValuePair("purchaseValue", "100"));
-        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-        HttpResponse response = client.execute(post);
-        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-        String line = "";
-        while ((line = rd.readLine()) != null) {
-            System.out.println(line);
-        }
-          
-    }
-
     /**
      * @return the search
      */
@@ -558,7 +441,135 @@ public class ClientBean implements Serializable {
     public void setListGoals(List<Goal> listGoals) {
         this.listGoals = listGoals;
     }
-    
+
+    private LineChartModel areaModel;
+
+    public LineChartModel getAreaModel() {
+        createAreaModel();
+        return areaModel;
+    }
+
+    //график
+    private void createAreaModel() {
+        areaModel = new LineChartModel();
+
+        LineChartSeries target = new LineChartSeries();
+        target.setFill(true);
+        goalUser = goalUserFacadeLocal.find(goalUser.getIDGoaluser());
+        target.setLabel(goalUser.getIDGoal().getName());
+
+        int namberLevel = 0;
+        for (Level item : goalUser.getLevelCollection()) {
+            if (item.getLeveldate()) {
+                namberLevel++;
+            }
+            target.set(item.getDate().toString(), namberLevel);
+            if (isDateEqual(item.getDate())) {
+                break;
+            }
+        }
+
+        areaModel.addSeries(target);
+
+        areaModel.setTitle("Достижение цели");
+        areaModel.setLegendPosition("ne");
+        areaModel.setStacked(true);
+        areaModel.setShowPointLabels(true);
+
+        Axis xAxis = new CategoryAxis("Дни");
+        areaModel.getAxes().put(AxisType.X, xAxis);
+        Axis yAxis = areaModel.getAxis(AxisType.Y);
+        yAxis.setLabel("Шкала выполнения");
+        yAxis.setMin(1);
+        yAxis.setMax(goalUser.getLevelCollection().size());
+    }
+
+    public boolean checkDate() {
+        Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
+        if (!levels.isEmpty()) {
+            for (Level level : levels) {
+                if (isDateEqual(level.getDate()) && level.getLeveldate()) {
+                    return true;
+                }
+            }
+        } else {
+            return false;
+        }
+        return false;
+    }
+
+    public boolean isDateEqual(Date dateLevel) {
+        LocalDate current = LocalDate.now();
+        LocalDate levelLocalDate = Instant.ofEpochMilli(dateLevel.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+        return levelLocalDate.isEqual(current);
+    }
+
+    //рейтинг одного пользователя 
+    public entity.Client calculateClientReiting(entity.Client client) {
+        int rating = 0;
+        if (client.getGoalUserCollection() != null) {
+            for (GoalUser gu : client.getGoalUserCollection()) {
+                if (gu.getLevelCollection().size() - 1 == 21) {
+                    rating++;
+                }
+            }
+        }
+        client.setRating(rating);
+        return client;
+    }
+
+    //метод который считает рейтинг для всех
+    public List<entity.Client> calculateClientsRating() {
+        List<entity.Client> clients = clientFacade.findAll();
+        List<entity.Client> ratingList = new ArrayList<>();
+        for (entity.Client c : clients) {
+            ratingList.add(calculateClientReiting(c));
+        }
+        Collections.sort(ratingList, (c1, c2) -> compaeInts(c1.getRating(), c2.getRating()));
+        return ratingList;
+    }
+
+    private int compaeInts(int a, int b) {
+        if (a < b) {
+            return -1;
+        } else if (a == b) {
+            return 0;
+        } else {
+            return 1;
+        }
+
+    }
+
+    //оплата персонажа
+    public void payment() throws IOException {
+        //получение jason вдруг пригодиться
+//        HttpClient client = new DefaultHttpClient();
+//        HttpGet request = new HttpGet("http://localhost:8081/account/all");
+//        HttpResponse response = client.execute(request);
+//        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+//        String line = "";
+//        while ((line = rd.readLine()) != null) {
+//            System.out.println(line);
+//        }
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost("http://localhost:8081/account/purchase");
+        List nameValuePairs = new ArrayList(1);
+        nameValuePairs.add(new BasicNameValuePair("name", "value")); //you can as many name value pair as you want in the list.
+        nameValuePairs.add(new BasicNameValuePair("expirationDate", "2018-05-31"));
+        nameValuePairs.add(new BasicNameValuePair("holder", "Lapygina Vasilisa"));
+        nameValuePairs.add(new BasicNameValuePair("codeSecurity", "321"));
+        nameValuePairs.add(new BasicNameValuePair("codeCard", "1232353424"));
+        nameValuePairs.add(new BasicNameValuePair("purchaseValue", "100"));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+        HttpResponse response = client.execute(post);
+        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        String line = "";
+        while ((line = rd.readLine()) != null) {
+            System.out.println(line);
+        }
+
+    }
+
     //вывод картинки персонажу
     public StreamedContent getImageGoal(int id) throws IOException {
         Personage personage = personageFacadeLocal.find(id);
