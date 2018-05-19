@@ -39,6 +39,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Collection;
+import javax.faces.event.PhaseId;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -571,14 +572,37 @@ public class ClientBean implements Serializable {
     }
 
     //вывод картинки персонажу
-    public StreamedContent getImageGoal(int id) throws IOException {
-        Personage personage = personageFacadeLocal.find(id);
-        List<PersonageImage> personageImages = (List<PersonageImage>) personage.getPersonageImageCollection();
-        Image img = imageFacadeLocal.find(personageImages.get(1).getIDImage());//допустим будем выводить картинку на 1 уровне 
-        return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
-    }
+//    public StreamedContent getImageGoal(int id) throws IOException {
+//        Personage personage = personageFacadeLocal.find(id);
+//        List<PersonageImage> personageImages = (List<PersonageImage>) personage.getPersonageImageCollection();
+//        Image img = imageFacadeLocal.find(personageImages.get(1).getIDImage());//допустим будем выводить картинку на 1 уровне 
+//        return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+//    }
+    public StreamedContent getStreamedImageById() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context.getRenderResponse()) {
+            // So, we're rendering the view. Return a stub StreamedContent so that it will generate right URL.
+            return new DefaultStreamedContent();
+        } else {
+            // So, browser is requesting the image. Get ID value from actual request param.
+            context = FacesContext.getCurrentInstance();
+            Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+            Long id = Long.parseLong(params.get("id"));
+            Personage personage = personageFacadeLocal.find(id);
+            List<PersonageImage> personageImages = (List<PersonageImage>) personage.getPersonageImageCollection();
+            Image img = imageFacadeLocal.find(personageImages.get(0).getIDImage().getIDImage());//допустим будем выводить картинку на 1 уровне 
+            return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+        }
 
+    }
+    
     public List<Personage> AllPersonages() {
-        return personageFacadeLocal.findAll();
+        List<Personage> personages = personageFacadeLocal.findAll();
+//        for (Personage personage : personages) {
+//            List<PersonageImage> personageImages = (List<PersonageImage>) personage.getPersonageImageCollection();
+//            Image img = imageFacadeLocal.find(personageImages.get(0).getIDImage().getIDImage());//допустим будем выводить картинку на 1 уровне 
+//            personage.setStreamedContent(new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType()));
+//        }
+        return personages;
     }
 }

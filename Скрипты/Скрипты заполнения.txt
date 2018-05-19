@@ -16,6 +16,8 @@ SELECT * FROM User_Role,User WHERE User_Role.Login = User.Login;
 
 #Заполнение дефолтного персонажа
 Insert Into Personage(Name, Price) Values('Смурфик', 0);
+#Заполнение дефолтного персонажа
+Insert Into Personage(Name, Price) Values('Смурфик2', 10);
 
 #Заполнение дефолтной цели 0-это дефолтная цель!!
 Insert Into Goal(Name,Directory,Description,ID_Personage) Values('Спать',0,'Чтобы выглядить красиво нужно высыпаться.',1);

@@ -151,10 +151,14 @@
                                           <div class="item active">
                                     <h2>Сделай выбор</h2>
                                     <h2>ВЫРАСТИ МИЛОЕ СУЩЕСТВО</h2>
+                                    <h2>КАТАЛОГ ПЕРСОНАЖЕЙ</h2>
+                                    <h2>собери полную коллекцию выроти всех персонажей</h2>
                                 </div> 
                                     <c:forEach items="${clientBean.AllPersonages()}" var="item"> 
                                     <div class="item">
-                                        <img src="http://fotovideoforum.ru/resources/image/57910" alt="" />
+                                        <p:graphicImage value="#{clientBean.streamedImageById}">
+                                            <f:param name="id" value="#{item.IDPersonage}" />
+                                        </p:graphicImage>
                                         <h2>Имя: #{item.name}</h2>
                                         <h2>#{item.price} RUB</h2>
                                     </div>
