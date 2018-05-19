@@ -17,7 +17,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import javax.activation.MimetypesFileTypeMap;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -30,6 +35,8 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 /**
  *
  * @author Vasilisa
@@ -38,15 +45,45 @@ import org.primefaces.model.UploadedFile;
 @SessionScoped
 public class AdministratorBean {
 
-   
-    public AdministratorBean() {
+    private final Logger logger = Logger.getLogger(AdministratorBean.class.getName());
+    private FileHandler fh = null;
+     
+//    public Logger log(){
+//        Logger logger = Logger.getLogger("MyLog");
+//        FileHandler fh;
+//
+//        try {
+//            // This block configure the logger with handler and formatter  
+//            fh = new FileHandler("D:/GAR.log");
+//            logger.addHandler(fh);
+//            SimpleFormatter formatter = new SimpleFormatter();
+//            fh.setFormatter(formatter);
+//        } catch (SecurityException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return logger;
+//    }
+    
+    public AdministratorBean() throws IOException {
+        SimpleDateFormat format = new SimpleDateFormat("M-d_HHmmss");
+        try {
+            fh = new FileHandler("D:/GAR.log"
+                    + format.format(Calendar.getInstance().getTime()) + ".log");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        fh.setFormatter(new SimpleFormatter());
+        logger.addHandler(fh);
         //user = new User();
     }
 
 
     private User user = new User();
     
-     @EJB
+    @EJB
     private UserFacadeLocal userFacade;
    
     @EJB
@@ -62,9 +99,12 @@ public class AdministratorBean {
     private Goal goal = new Goal();
     private PersonageImage personageImage = new PersonageImage();
     private String quantityLevel;
+    
 //    Администрирование пользователей
     public List<User> getAllUser() {
-        return  userFacade.findAll();
+        List<User> users = userFacade.findAll();
+        logger.info("Выведен список пользователей");
+        return users;
     }
 
     public String getQuantityLevel() {
@@ -108,20 +148,19 @@ public class AdministratorBean {
     }
     
     //создать  
-
-    public String createUser() {
+    public String createUser() { //?
         this.userFacade.create(this.getUser());
         //после добавления перебрасывает на index
         return "index";
     }
     
     //удалить
-    public void deleteUser(User user) {
+    public void deleteUser(User user) { //?
         this.userFacade.remove(user);
     }
 
     //обновить 
-    public String editUser(User user) {
+    public String editUser(User user) { //?
         this.setUser(user);
         return "edit";
     }
@@ -164,6 +203,7 @@ public class AdministratorBean {
             ImageIO.write(bImageFromConvert, "jpg", baos);
             imageInByte = baos.toByteArray();
         }
+        logger.info("Произведено чтение картинки за потока в байтовый формат");
         return imageInByte;
     }
     public void upload() throws IOException {
@@ -180,6 +220,8 @@ public class AdministratorBean {
             personageImageFacadeLocal.create(personageImage);
             FacesMessage message = new FacesMessage("Добавлен файл:", file.getFileName());
             FacesContext.getCurrentInstance().addMessage(null, message);   
+            logger.info("Довавнение картинки на уровень персонажу");
+        } else {
         }
         
     }

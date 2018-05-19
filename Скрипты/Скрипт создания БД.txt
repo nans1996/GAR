@@ -127,3 +127,5 @@ ALTER TABLE Topic ADD FOREIGN KEY (ID_User) REFERENCES User (ID_User);
 #Ключи 
 ALTER TABLE Personage_Image ADD FOREIGN KEY (ID_Image) REFERENCES Image (ID_Image);
 ALTER TABLE Personage_Image ADD FOREIGN KEY (ID_Personage) REFERENCES Personage (ID_Personage);
+
+# Вроде как тут 2 ключей нету!
