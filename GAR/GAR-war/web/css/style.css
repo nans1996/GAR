@@ -145,3 +145,10 @@ position: absolute;
 bottom: 0; 
 width: 100%; 
 }
+#footerNarrow { 
+height: 70px; 
+background: #F4FA58; 
+position: absolute; 
+bottom: 0; 
+width: 100%; 
+}

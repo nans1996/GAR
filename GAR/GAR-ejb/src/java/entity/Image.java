@@ -57,8 +57,11 @@ public class Image implements Serializable {
     private byte[] data;
     @OneToOne(mappedBy = "iDImage")
     private PersonageImage personageImage;
-
-
+    @OneToOne(mappedBy = "iDImage")
+    private Client client;
+    @OneToOne(mappedBy = "iDImage")
+    private Goal goal;
+    
     public Image() {
     }
 
@@ -71,6 +74,22 @@ public class Image implements Serializable {
         this.name = name;
         this.type = type;
         this.data = data;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Goal getGoal() {
+        return goal;
+    }
+
+    public void setGoal(Goal goal) {
+        this.goal = goal;
     }
     
     public Integer getIDImage() {

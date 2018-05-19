@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import model.*;
 import entity.*;
+import java.awt.image.BufferedImage;
 import java.util.Date;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -34,12 +35,16 @@ import org.primefaces.model.chart.LineChartSeries;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Collection;
+import javax.faces.application.FacesMessage;
 import javax.faces.event.PhaseId;
+import javax.imageio.ImageIO;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -48,6 +53,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -84,7 +93,7 @@ public class ClientBean implements Serializable {
     private Personage personage = new Personage();
     @EJB
     ImageFacadeLocal imageFacadeLocal;
-
+    Image image = new Image();
     private String search;
     private List<Goal> listGoals;
 
@@ -604,5 +613,46 @@ public class ClientBean implements Serializable {
 //            personage.setStreamedContent(new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType()));
 //        }
         return personages;
+    }
+    
+    //добавление авотарки пользователю
+    private UploadedFile file;
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    //читаем картиночку из потока в байтовый массив
+    public byte[] InputStreamToArryByte(InputStream in) throws IOException {
+        byte[] imageInByte;
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            BufferedImage bImageFromConvert = ImageIO.read(in);
+            ImageIO.write(bImageFromConvert, "jpg", baos);
+            imageInByte = baos.toByteArray();
+        }
+        return imageInByte;
+    }
+    
+    public void uploadProfile() throws IOException {
+        if (file != null) {
+            image.setName(file.getFileName());
+            image.setType(file.getContentType());
+            image.setPersonageImage(null);
+            image.setData(InputStreamToArryByte(file.getInputstream()));
+            imageFacadeLocal.create(image);
+            
+            user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+            client = clientFacade.findIdUser(user.getIDUser());
+            client.setiDImage(image);
+            clientFacade.edit(client);
+
+            FacesMessage message = new FacesMessage("Добавлен файл:", file.getFileName());
+            FacesContext.getCurrentInstance().addMessage(null, message);   
+        }
+        
     }
 }

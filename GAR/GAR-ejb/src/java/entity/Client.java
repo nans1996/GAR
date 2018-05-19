@@ -59,8 +59,9 @@ public class Client implements Serializable {
     @Size(max = 65535)
     @Column(name = "Interests")
     private String interests;
-    @Column(name = "ID_Image")
-    private Integer iDImage;
+    @JoinColumn(name = "ID_Image", referencedColumnName = "ID_Image")
+    @OneToOne
+    private Image iDImage;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ban")
@@ -116,11 +117,11 @@ public class Client implements Serializable {
         this.interests = interests;
     }
 
-    public Integer getIDImage() {
+    public Image getiDImage() {
         return iDImage;
     }
 
-    public void setIDImage(Integer iDImage) {
+    public void setiDImage(Image iDImage) {
         this.iDImage = iDImage;
     }
 

@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -62,8 +63,9 @@ public class Goal implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "Description")
     private String description;
-    @Column(name = "ID_Image")
-    private Integer iDImage;
+    @JoinColumn(name = "ID_Image", referencedColumnName = "ID_Image")
+    @OneToOne
+    private Image iDImage;
     @JoinColumn(name = "ID_Personage", referencedColumnName = "ID_Personage")
     @ManyToOne(optional = false)
     private Personage iDPersonage;
@@ -116,11 +118,11 @@ public class Goal implements Serializable {
         this.description = description;
     }
 
-    public Integer getIDImage() {
+    public Image getiDImage() {
         return iDImage;
     }
 
-    public void setIDImage(Integer iDImage) {
+    public void setiDImage(Image iDImage) {
         this.iDImage = iDImage;
     }
 
