@@ -622,7 +622,7 @@ public class ClientBean implements Serializable {
         return file;
     }
 
-    public void setFile(UploadedFile file) {
+    public void setFile(UploadedFile file) throws IOException {
         this.file = file;
     }
 
@@ -655,4 +655,6 @@ public class ClientBean implements Serializable {
         }
         
     }
+    
+    
 }
