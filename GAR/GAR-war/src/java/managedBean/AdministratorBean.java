@@ -47,24 +47,6 @@ public class AdministratorBean {
 
     private final Logger logger = Logger.getLogger(AdministratorBean.class.getName());
     private FileHandler fh = null;
-     
-//    public Logger log(){
-//        Logger logger = Logger.getLogger("MyLog");
-//        FileHandler fh;
-//
-//        try {
-//            // This block configure the logger with handler and formatter  
-//            fh = new FileHandler("D:/GAR.log");
-//            logger.addHandler(fh);
-//            SimpleFormatter formatter = new SimpleFormatter();
-//            fh.setFormatter(formatter);
-//        } catch (SecurityException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return logger;
-//    }
     
     public AdministratorBean() throws IOException {
         SimpleDateFormat format = new SimpleDateFormat("M-d_HHmmss");
