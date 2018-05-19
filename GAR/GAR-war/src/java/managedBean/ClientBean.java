@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package managedBean;
-
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;

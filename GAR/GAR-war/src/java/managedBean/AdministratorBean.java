@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -81,7 +82,8 @@ public class AdministratorBean {
     private Goal goal = new Goal();
     private PersonageImage personageImage = new PersonageImage();
     private String quantityLevel;
-    
+    @EJB
+    private ClientFacadeLocal clientFacadeLocal;
 //    Администрирование пользователей
     public List<User> getAllUser() {
         List<User> users = userFacade.findAll();
@@ -204,6 +206,7 @@ public class AdministratorBean {
             FacesContext.getCurrentInstance().addMessage(null, message);   
             logger.info("Довавнение картинки на уровень персонажу");
         } else {
+            logger.severe("Error file = null");
         }
         
     }
@@ -216,5 +219,17 @@ public class AdministratorBean {
             results.add(""+i);
         }
         return results;
+    }
+    
+    //Назначить бан/снять бан
+    public String ban() { 
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        int id = Integer.parseInt(params.get("id"));
+        Client client = clientFacadeLocal.find(id);
+        client.setBan(!client.getBan());
+        clientFacadeLocal.edit(client);
+        //
+        return "/user?faces-redirect=true";
     }
 }
