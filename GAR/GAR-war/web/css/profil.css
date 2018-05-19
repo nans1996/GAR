@@ -16,6 +16,8 @@
  border-radius: 100%;
  border: 5px solid #ecf0f1;
  margin-bottom: 10px;
+ width: 250px;
+ height: 250px;
 }
 #real-estates-detail .sosmed-author i.fa {
  width: 30px;

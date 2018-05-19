@@ -17,6 +17,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import model.ClientFacadeLocal;
+import model.ImageFacadeLocal;
 import model.UserFacadeLocal;
 import model.UserRoleFacadeLocal;
 
@@ -43,6 +44,8 @@ public class UserBean {
     @EJB
     private ClientFacadeLocal clientFacadeLocal;
     private Client client = new Client();
+    @EJB
+    private ImageFacadeLocal facadeLocal;
     public UserBean() {
     }
 
@@ -71,6 +74,7 @@ public class UserBean {
         client.setBan(false);
         client.setIDUser(user);
         client.setGoalUserCollection(null);
+        client.setiDImage(facadeLocal.find(1));
         clientFacadeLocal.create(client);
         return "authorization";
     }

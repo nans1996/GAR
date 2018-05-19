@@ -656,5 +656,10 @@ public class ClientBean implements Serializable {
         
     }
     
-    
+    public StreamedContent getAvatar(){
+        user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+        client = clientFacade.findIdUser(user.getIDUser());
+        Image img = client.getiDImage();
+        return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+    }
 }
