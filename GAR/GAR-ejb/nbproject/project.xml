@@ -6,6 +6,7 @@
             <name>GAR-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">libs.MySQLDriver.classpath</included-library>
+            <included-library dirs="200">file.reference.primefaces-5.0.jar</included-library>
             <source-roots>
                 <root id="src.dir" name="Пакеты исходных кодов"/>
             </source-roots>

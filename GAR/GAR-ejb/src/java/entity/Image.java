@@ -17,9 +17,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -59,6 +61,8 @@ public class Image implements Serializable {
     @OneToOne(mappedBy = "iDImage")
     private PersonageImage personageImage;
 
+    @Transient
+    private StreamedContent streamedContent;
     public Image() {
     }
 
@@ -72,7 +76,14 @@ public class Image implements Serializable {
         this.type = type;
         this.data = data;
     }
+    
+    public StreamedContent getStreamedContent() {
+        return streamedContent;
+    }
 
+    public void setStreamedContent(StreamedContent streamedContent) {
+        this.streamedContent = streamedContent;
+    }
     public Integer getIDImage() {
         return iDImage;
     }
