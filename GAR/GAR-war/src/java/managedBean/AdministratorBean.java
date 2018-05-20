@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Map;
+import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -59,13 +60,11 @@ public class AdministratorBean {
     private String quantityLevel;
     @EJB
     private ClientFacadeLocal clientFacadeLocal;
-//    Администрирование пользователей
+    
+    //Вывод списка пользователей для администратора
     public List<User> getAllUser() {
         List<User> users = userFacade.findAll();
-        LOGGER.info("Выведен список пользователей");
-        LOGGER.debug("This is debug");
-        LOGGER.fatal("This is fatal : ");
-        //logger.info("Выведен список пользователей");
+        if (users == null) LOGGER.error("Пустой список пользователей.");
         return users;
     }
 
@@ -108,24 +107,6 @@ public class AdministratorBean {
     public void setGoal(Goal goal) {
         this.goal = goal;
     }
-    
-    //создать  
-    public String createUser() { //?
-        this.userFacade.create(this.getUser());
-        //после добавления перебрасывает на index
-        return "index";
-    }
-    
-    //удалить
-    public void deleteUser(User user) { //?
-        this.userFacade.remove(user);
-    }
-
-    //обновить 
-    public String editUser(User user) { //?
-        this.setUser(user);
-        return "edit";
-    }
 
     public User getUser() {
         return user;
@@ -135,6 +116,7 @@ public class AdministratorBean {
         this.user = user;
     }
  
+    //Добавление и вывод картинок персонажей
     private UploadedFile file;
 
     public UploadedFile getFile() {
@@ -145,46 +127,52 @@ public class AdministratorBean {
         this.file = file;
     }
 
-    public StreamedContent getSavedImage(){
-        Image img = imageFacadeLocal.find(1);
-        return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
-    }
-
     public StreamedContent getImageCreate() throws IOException {
         if (file != null) {
             return new DefaultStreamedContent(file.getInputstream(), file.getContentType());
+        } else {
+            LOGGER.error("Картинка при добавлении пустая и не может быть выведена.");
         }
         return null;
     }
         
     //читаем картиночку из потока в байтовый массив
-    public byte[] InputStreamToArryByte(InputStream in) throws IOException {
-        byte[] imageInByte;
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+    public byte[] InputStreamToArryByte(InputStream in) {
+        byte[] imageInByte = null;
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
             BufferedImage bImageFromConvert = ImageIO.read(in);
             ImageIO.write(bImageFromConvert, "jpg", baos);
             imageInByte = baos.toByteArray();
+        } catch (IOException ex) {
+            LOGGER.error("Ошибка при чтении картинки из потока в байтовый массив.", ex);
         }
-        //logger.info("Произведено чтение картинки за потока в байтовый формат");
         return imageInByte;
     }
     public void upload() throws IOException {
         if (file != null) {
-            image.setName(file.getFileName());
-            image.setType(file.getContentType());
-            image.setPersonageImage(null);
-            image.setData(InputStreamToArryByte(file.getInputstream()));
-            imageFacadeLocal.create(image);
-            personage = personageFacadeLocal.findPersonageByName(personage.getName());
-            personageImage.setIDImage(image);
-            personageImage.setIDPersonage(personage);
-            personageImage.setLevel(1);
-            personageImageFacadeLocal.create(personageImage);
-            FacesMessage message = new FacesMessage("Добавлен файл:", file.getFileName());
-            FacesContext.getCurrentInstance().addMessage(null, message);   
-            //logger.info("Довавнение картинки на уровень персонажу");
+            try {
+                image.setName(file.getFileName());
+                image.setType(file.getContentType());
+                image.setPersonageImage(null);
+                image.setData(InputStreamToArryByte(file.getInputstream()));
+                imageFacadeLocal.create(image);
+                personage = personageFacadeLocal.findPersonageByName(personage.getName());
+                personageImage.setIDImage(image);
+                personageImage.setIDPersonage(personage);
+                personageImage.setLevel(Integer.parseInt(quantityLevel));
+                personageImageFacadeLocal.create(personageImage);
+                FacesMessage message = new FacesMessage("Добавлен файл:", file.getFileName());
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            } catch (EJBException ex) {
+                LOGGER.error("Ошибка при добавлении картинки.", ex);
+                FacesMessage message = new FacesMessage("Не добавлен файл:", file.getFileName());
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
         } else {
-            //logger.severe("Error file = null");
+            LOGGER.error("Файл пуст и не может быть добавлен.");
+            FacesMessage message = new FacesMessage("Файл пуст и не может быть добавлен.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
         
     }
@@ -201,13 +189,18 @@ public class AdministratorBean {
     
     //Назначить бан/снять бан
     public String ban() { 
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        int id = Integer.parseInt(params.get("id"));
-        Client client = clientFacadeLocal.find(id);
-        client.setBan(!client.getBan());
-        clientFacadeLocal.edit(client);
-        //
+        try {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+            int id = Integer.parseInt(params.get("id"));
+            Client client = clientFacadeLocal.find(id);
+            client.setBan(!client.getBan());
+            clientFacadeLocal.edit(client); 
+        } catch (EJBException ex) {
+            LOGGER.error("Ошибка при установки/снятии бана на пользователя.", ex);
+            FacesMessage message = new FacesMessage("Ошибка при установки/снятии бана на пользователя.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
         return "/user?faces-redirect=true";
     }
 }
