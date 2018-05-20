@@ -16,28 +16,16 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Map;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-import javax.activation.MimetypesFileTypeMap;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
 import javax.imageio.ImageIO;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 /**
  *
  * @author Vasilisa
@@ -45,24 +33,11 @@ import org.apache.commons.logging.LogFactory;
 @ManagedBean(name = "administratorBean")
 @SessionScoped
 public class AdministratorBean {
-
-    private final Logger logger = Logger.getLogger(AdministratorBean.class.getName());
-    private FileHandler fh = null;
     
     public AdministratorBean() throws IOException {
-        SimpleDateFormat format = new SimpleDateFormat("M-d_HHmmss");
-        try {
-            fh = new FileHandler("D:/GAR.log"
-                    + format.format(Calendar.getInstance().getTime()) + ".log");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        fh.setFormatter(new SimpleFormatter());
-        logger.addHandler(fh);
-        //user = new User();
+        
     }
-
+    static final Logger LOGGER = Logger.getLogger(AdministratorBean.class);
 
     private User user = new User();
     
@@ -87,7 +62,10 @@ public class AdministratorBean {
 //    Администрирование пользователей
     public List<User> getAllUser() {
         List<User> users = userFacade.findAll();
-        logger.info("Выведен список пользователей");
+        LOGGER.info("Выведен список пользователей");
+        LOGGER.debug("This is debug");
+        LOGGER.fatal("This is fatal : ");
+        //logger.info("Выведен список пользователей");
         return users;
     }
 
@@ -187,7 +165,7 @@ public class AdministratorBean {
             ImageIO.write(bImageFromConvert, "jpg", baos);
             imageInByte = baos.toByteArray();
         }
-        logger.info("Произведено чтение картинки за потока в байтовый формат");
+        //logger.info("Произведено чтение картинки за потока в байтовый формат");
         return imageInByte;
     }
     public void upload() throws IOException {
@@ -204,9 +182,9 @@ public class AdministratorBean {
             personageImageFacadeLocal.create(personageImage);
             FacesMessage message = new FacesMessage("Добавлен файл:", file.getFileName());
             FacesContext.getCurrentInstance().addMessage(null, message);   
-            logger.info("Довавнение картинки на уровень персонажу");
+            //logger.info("Довавнение картинки на уровень персонажу");
         } else {
-            logger.severe("Error file = null");
+            //logger.severe("Error file = null");
         }
         
     }
