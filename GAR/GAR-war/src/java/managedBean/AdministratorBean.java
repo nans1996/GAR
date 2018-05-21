@@ -12,7 +12,6 @@ import javax.faces.bean.ManagedBean;
 import model.*;
 import entity.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,8 +52,6 @@ public class AdministratorBean {
     @EJB
     PersonageFacadeLocal personageFacadeLocal;
     Personage personage = new Personage();
-    @EJB
-    private GoalFacadeLocal goalFacadeLocal;
     private Goal goal = new Goal();
     private PersonageImage personageImage = new PersonageImage();
     private String quantityLevel;

@@ -98,6 +98,16 @@ public class ClientBean implements Serializable {
     private List<Goal> listGoals;
     @EJB
     private PersonageImageFacadeLocal personageImageFacadeLocal;
+    //Галочка на оплату*
+    private String console; 
+
+    public String getConsole() {
+        return console;
+    }
+
+    public void setConsole(String console) {
+        this.console = console;
+    }
     /**
      * Creates a new instance of ClientBean
      */
@@ -551,6 +561,44 @@ public class ClientBean implements Serializable {
 
     }
 
+    //не уверена что это правильно 
+    private String expirationDate;
+    private String holder;
+    private String codeSecurity;
+    private String codeCard;
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public String getHolder() {
+        return holder;
+    }
+
+    public void setHolder(String holder) {
+        this.holder = holder;
+    }
+
+    public String getCodeSecurity() {
+        return codeSecurity;
+    }
+
+    public void setCodeSecurity(String codeSecurity) {
+        this.codeSecurity = codeSecurity;
+    }
+
+    public String getCodeCard() {
+        return codeCard;
+    }
+
+    public void setCodeCard(String codeCard) {
+        this.codeCard = codeCard;
+    }
+    
     //оплата персонажа
     public void payment() throws IOException {
         //получение jason вдруг пригодиться
@@ -581,6 +629,9 @@ public class ClientBean implements Serializable {
 
     }
 
+    public boolean isPaymentIn() {
+        return "paymentTrue".equals(console);
+    }
     //вывод картинки персонажу
 //    public StreamedContent getImageGoal(int id) throws IOException {
 //        Personage personage = personageFacadeLocal.find(id);
@@ -615,11 +666,6 @@ public class ClientBean implements Serializable {
 
     public List<Personage> AllPersonages() {
         List<Personage> personages = personageFacadeLocal.findAll();
-//        for (Personage personage : personages) {
-//            List<PersonageImage> personageImages = (List<PersonageImage>) personage.getPersonageImageCollection();
-//            Image img = imageFacadeLocal.find(personageImages.get(0).getIDImage().getIDImage());//допустим будем выводить картинку на 1 уровне 
-//            personage.setStreamedContent(new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType()));
-//        }
         return personages;
     }
     
@@ -669,5 +715,9 @@ public class ClientBean implements Serializable {
         client = clientFacade.findIdUser(user.getIDUser());
         Image img = client.getiDImage();
         return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+    }
+    
+    public List<Personage> personagesFild() {
+        return personageFacadeLocal.findAll();
     }
 }
