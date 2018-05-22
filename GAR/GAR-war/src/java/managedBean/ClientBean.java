@@ -261,19 +261,23 @@ public class ClientBean implements Serializable {
         if (personage.getPrice() > 0){
             String purchaseValue = String.valueOf(personage.getPrice());
             try {
-                if (holder.isEmpty()&&codeCard.isEmpty()&&codeSecurity.isEmpty()&&expirationDate.isEmpty()){//ну хоть что-то проверим
+                if (!holder.isEmpty()&&!codeCard.isEmpty()&&!codeSecurity.isEmpty()&&!expirationDate.isEmpty()){//ну хоть что-то проверим
                     paymentFlag  = payment(holder, codeCard, codeSecurity, expirationDate, purchaseValue);
                     if (paymentFlag) {  
-                        //Прошла оплата персонажа.
+                        FacesMessage message = new FacesMessage("Прошла оплата персонажа.");
+                        FacesContext.getCurrentInstance().addMessage(null, message);
                     }else {
-                        //Оплата не прошла. Проверьте корректность и аклуальность введенных данных.
+                        FacesMessage message = new FacesMessage("Оплата не прошла. Проверьте корректность и аклуальность введенных данных.");
+                        FacesContext.getCurrentInstance().addMessage(null, message);
                     }
                 }else {
-                    //Данные оплаты не заполнены.
+                    FacesMessage message = new FacesMessage("Данные оплаты не заполнены.");
+                    FacesContext.getCurrentInstance().addMessage(null, message);
                 }
             } catch (IOException ex) {
                 LOGGER.error("Оплата персонажа не прошла. Ошибка подключения к сервису.",ex);
-                //Оплата персонажа не прошла. Ошибка с серсвисом.
+                FacesMessage message = new FacesMessage("Оплата персонажа не прошла. Ошибка с серсвисом.");
+                FacesContext.getCurrentInstance().addMessage(null, message);
             }
         } else {
             paymentFlag  = true;
@@ -302,14 +306,16 @@ public class ClientBean implements Serializable {
                     level.setLeveldate(false);
                     levelFacadeLocal.create(level);
                 }
-                //Цель успешно добавлена.
+                FacesMessage message = new FacesMessage("Цель успешно добавлена.");
+                FacesContext.getCurrentInstance().addMessage(null, message);
             }
         } catch (EJBException ex) {
             LOGGER.error("Персонаж не добавлен. Ошибка: ",ex);
-            //Персонаж не добавлен. Обратитесь к администратору.
+            FacesMessage message = new FacesMessage("Персонаж не добавлен. Обратитесь к администратору.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
         //после добавления перебрасывает на index изменить на страницу подтверждения
-        return "goals";
+        return "goal?faces-redirect=true";
     }
 
     //удалить
