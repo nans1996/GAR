@@ -78,6 +78,10 @@
 		<servlet-name>AdministratorBean</servlet-name>
 		<servlet-class>managedBean.AdministratorBean</servlet-class>
 	</servlet>
+        <servlet>
+		<servlet-name>ClientBean</servlet-name>
+		<servlet-class>managedBean.ClientBean</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>Log4jInit</servlet-name>
 		<servlet-class>apigw.Log4jInit</servlet-class>

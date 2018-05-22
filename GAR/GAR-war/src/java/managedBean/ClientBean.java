@@ -41,7 +41,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Collection;
-import java.util.Objects;
+import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
 import javax.faces.event.PhaseId;
 import javax.imageio.ImageIO;
@@ -51,8 +51,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
+import org.apache.log4j.Logger;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -66,6 +65,8 @@ import org.primefaces.model.UploadedFile;
 @SessionScoped
 public class ClientBean implements Serializable {
 
+    static final Logger LOGGER = Logger.getLogger(ClientBean.class);
+    
     @EJB
     private TopicFacadeLocal topicFacade;
     Topic topic = new Topic();
@@ -182,11 +183,6 @@ public class ClientBean implements Serializable {
         this.clientFacade.remove(client);
     }
 
-    //обновить клиента
-//   public String editClient(User user){
-//       this.user = user;// Насть что это?*
-//       return "profile";
-//   }
     public String editClient() {
         userFacadeLocal.edit(user);
         clientFacade.edit(client);
@@ -260,32 +256,60 @@ public class ClientBean implements Serializable {
     }
 
     public String createGoalUser() {
-        user = userFacadeLocal.findLogin(userBean.getCurrentUser());
-        client = clientFacade.findIdUser(user.getIDUser());
-        goal.setDirectory(true);
-        goal.setGoalUserCollection(null);
-        //пока с дефолтным персонажем
-        personage = personageFacadeLocal.find(1);
-        goal.setIDPersonage(personage);
-        goalFacadeLocal.create(goal);
-        goalUser.setIDGoal(goal);
-        goalUser.setIDClient(client);
-        goalUser.setLevelCollection(null);
-        this.goalUserFacadeLocal.create(this.goalUser);
-        //заполняем 21 день как не выполненые что-бы было подряд
-        Date date = new Date();
-        for (int i = 0; i < 21; i++) {
-            level.setIDGoaluser(goalUser);
-            level.setDate(date);
-            Calendar instance = Calendar.getInstance();
-            instance.setTime(date); //устанавливаем дату, с которой будет производить операции
-            instance.add(Calendar.DAY_OF_MONTH, 1);// прибавляем день
-            date = instance.getTime(); // получаем измененную дату
-            level.setLeveldate(false);
-            levelFacadeLocal.create(level);
+        personage = personageFacadeLocal.find(personage.getIDPersonage());
+        boolean paymentFlag = false;
+        if (personage.getPrice() > 0){
+            String purchaseValue = String.valueOf(personage.getPrice());
+            try {
+                if (holder.isEmpty()&&codeCard.isEmpty()&&codeSecurity.isEmpty()&&expirationDate.isEmpty()){//ну хоть что-то проверим
+                    paymentFlag  = payment(holder, codeCard, codeSecurity, expirationDate, purchaseValue);
+                    if (paymentFlag) {  
+                        //Прошла оплата персонажа.
+                    }else {
+                        //Оплата не прошла. Проверьте корректность и аклуальность введенных данных.
+                    }
+                }else {
+                    //Данные оплаты не заполнены.
+                }
+            } catch (IOException ex) {
+                LOGGER.error("Оплата персонажа не прошла. Ошибка подключения к сервису.",ex);
+                //Оплата персонажа не прошла. Ошибка с серсвисом.
+            }
+        } else {
+            paymentFlag  = true;
+        }
+        try {
+            if (paymentFlag) {
+                user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+                client = clientFacade.findIdUser(user.getIDUser());
+                goal.setDirectory(true);
+                goal.setGoalUserCollection(null);
+                goal.setIDPersonage(personage);
+                goalFacadeLocal.create(goal);
+                goalUser.setIDGoal(goal);
+                goalUser.setIDClient(client);
+                goalUser.setLevelCollection(null);
+                this.goalUserFacadeLocal.create(this.goalUser);
+                //заполняем 21 день как не выполненые что-бы было подряд
+                Date date = new Date();
+                for (int i = 0; i < 21; i++) {
+                    level.setIDGoaluser(goalUser);
+                    level.setDate(date);
+                    Calendar instance = Calendar.getInstance();
+                    instance.setTime(date); //устанавливаем дату, с которой будет производить операции
+                    instance.add(Calendar.DAY_OF_MONTH, 1);// прибавляем день
+                    date = instance.getTime(); // получаем измененную дату
+                    level.setLeveldate(false);
+                    levelFacadeLocal.create(level);
+                }
+                //Цель успешно добавлена.
+            }
+        } catch (EJBException ex) {
+            LOGGER.error("Персонаж не добавлен. Ошибка: ",ex);
+            //Персонаж не добавлен. Обратитесь к администратору.
         }
         //после добавления перебрасывает на index изменить на страницу подтверждения
-        return "index";
+        return "goals";
     }
 
     //удалить
@@ -423,30 +447,19 @@ public class ClientBean implements Serializable {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
-    /**
-     * @return the search
-     */
+   
     public String getSearch() {
         return search;
     }
 
-    /**
-     * @param search the search to set
-     */
     public void setSearch(String search) {
         this.search = search;
     }
 
-    /**
-     * @return the listGoals
-     */
     public List<Goal> getListGoals() {
         return listGoals;
     }
 
-    /**
-     * @param listGoals the listGoals to set
-     */
     public void setListGoals(List<Goal> listGoals) {
         this.listGoals = listGoals;
     }
@@ -588,33 +601,25 @@ public class ClientBean implements Serializable {
     }
     
     //оплата персонажа
-    public void payment() throws IOException {
-        //получение jason вдруг пригодиться
-//        HttpClient client = new DefaultHttpClient();
-//        HttpGet request = new HttpGet("http://localhost:8081/account/all");
-//        HttpResponse response = client.execute(request);
-//        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-//        String line = "";
-//        while ((line = rd.readLine()) != null) {
-//            System.out.println(line);
-//        }
+    public boolean payment(String holder,String codeCard,String codeSecurity,String expirationDate,String purchaseValue) throws IOException {
+        boolean result = false;
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost("http://localhost:8081/account/purchase");
         List nameValuePairs = new ArrayList(1);
         nameValuePairs.add(new BasicNameValuePair("name", "value")); //you can as many name value pair as you want in the list.
-        nameValuePairs.add(new BasicNameValuePair("expirationDate", "2018-05-31"));
-        nameValuePairs.add(new BasicNameValuePair("holder", "Lapygina Vasilisa"));
-        nameValuePairs.add(new BasicNameValuePair("codeSecurity", "321"));
-        nameValuePairs.add(new BasicNameValuePair("codeCard", "1232353424"));
-        nameValuePairs.add(new BasicNameValuePair("purchaseValue", "100"));
+        nameValuePairs.add(new BasicNameValuePair("expirationDate", expirationDate));//2018-05-31
+        nameValuePairs.add(new BasicNameValuePair("holder", holder));//Lapygina Vasilisa
+        nameValuePairs.add(new BasicNameValuePair("codeSecurity", codeSecurity));//321
+        nameValuePairs.add(new BasicNameValuePair("codeCard", codeCard));//1232353424
+        nameValuePairs.add(new BasicNameValuePair("purchaseValue",purchaseValue));//
         post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
         HttpResponse response = client.execute(post);
         BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         String line = "";
         while ((line = rd.readLine()) != null) {
-            System.out.println(line);
+            result = line.equals("true");
         }
-
+        return result;
     }
     //вывод картинки персонажу
 //    public StreamedContent getImageGoal(int id) throws IOException {
