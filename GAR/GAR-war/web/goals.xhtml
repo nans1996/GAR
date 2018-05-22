@@ -142,22 +142,15 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3" for="DescriptionPersonag">Персонаж:</label>
                                 <div class="col-xs-9">
-                                    <p:selectOneMenu id="personage" value="#{clientBean.personage.name}" effect="fold" editable="true">
-                                        <f:selectItems value="#{clientBean.personagesFild()}" />
-                                    </p:selectOneMenu>
+                                    <h:selectOneMenu value="#{clientBean.personage.IDPersonage}" class="form-control">
+                                        <f:selectItems value="#{clientBean.personagesFild()}" var="pers" itemValue="${pers.IDPersonage}" itemLabel="#{pers.name}"  />
+                                    </h:selectOneMenu>
                                 </div>
                             </div>
                             <br/>
-                            <div class="form-group">
-                                <label class="control-label col-xs-3" for="DescriptionPayment">          </label>
-                                <div class="col-xs-9">
-                                    <p:selectOneRadio id="console" value="#{clientBean.console}"  >
-                                        <f:selectItem itemLabel="С оплатой" itemValue="paymentTrue"  />
-                                        <f:selectItem itemLabel="Без оплаты" itemValue="paymentFalse" />
-                                    </p:selectOneRadio>
-                                </div>
-                            </div>
-                            <h:form rendered="#{clientBean.paymentIn}">                                
+                            <br/>
+                            <br/>
+                            <h:form rendered="true">                                
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="DescriptionHolder">Владелец карты:</label>
                                     <div class="col-xs-9">
@@ -193,7 +186,7 @@
                                         <h2>Сделай выбор</h2>
                                         <h2>ВЫРАСТИ МИЛОЕ СУЩЕСТВО</h2>
                                         <h2>КАТАЛОГ ПЕРСОНАЖЕЙ</h2>
-                                        <h2>собери полную коллекцию выроти всех персонажей</h2>
+                                        <h2>Собери полную коллекцию вырости всех персонажей</h2>
                                     </div> 
                                     <c:forEach items="${clientBean.AllPersonages()}" var="item"> 
                                         <div class="item">

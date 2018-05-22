@@ -98,19 +98,7 @@ public class ClientBean implements Serializable {
     private List<Goal> listGoals;
     @EJB
     private PersonageImageFacadeLocal personageImageFacadeLocal;
-    //Галочка на оплату*
-    private String console; 
-
-    public String getConsole() {
-        return console;
-    }
-
-    public void setConsole(String console) {
-        this.console = console;
-    }
-    /**
-     * Creates a new instance of ClientBean
-     */
+    
     public ClientBean() {
     }
 
@@ -627,10 +615,6 @@ public class ClientBean implements Serializable {
             System.out.println(line);
         }
 
-    }
-
-    public boolean isPaymentIn() {
-        return "paymentTrue".equals(console);
     }
     //вывод картинки персонажу
 //    public StreamedContent getImageGoal(int id) throws IOException {
