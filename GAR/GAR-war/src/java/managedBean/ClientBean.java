@@ -265,19 +265,19 @@ public class ClientBean implements Serializable {
                 if (!holder.isEmpty() && !codeCard.isEmpty() && !codeSecurity.isEmpty() && !expirationDate.isEmpty()) {//ну хоть что-то проверим
                     paymentFlag = payment(holder, codeCard, codeSecurity, expirationDate, purchaseValue);
                     if (paymentFlag) {
-                        FacesMessage message = new FacesMessage("Успех","Прошла оплата персонажа.");
+                        FacesMessage message = new FacesMessage("Успех", "Прошла оплата персонажа.");
                         FacesContext.getCurrentInstance().addMessage(null, message);
                     } else {
-                        FacesMessage message = new FacesMessage("Ошибка","Оплата не прошла. Проверьте корректность и аклуальность введенных данных.");
+                        FacesMessage message = new FacesMessage("Ошибка", "Оплата не прошла. Проверьте корректность и аклуальность введенных данных.");
                         FacesContext.getCurrentInstance().addMessage(null, message);
                     }
                 } else {
-                    FacesMessage message = new FacesMessage("Ошибка","Данные оплаты не заполнены.");
+                    FacesMessage message = new FacesMessage("Ошибка", "Данные оплаты не заполнены.");
                     FacesContext.getCurrentInstance().addMessage(null, message);
                 }
             } catch (IOException ex) {
                 LOGGER.error("Оплата персонажа не прошла. Ошибка подключения к сервису.", ex);
-                FacesMessage message = new FacesMessage("Ошибка","Оплата персонажа не прошла. Ошибка с серсвисом.");
+                FacesMessage message = new FacesMessage("Ошибка", "Оплата персонажа не прошла. Ошибка с серсвисом.");
                 FacesContext.getCurrentInstance().addMessage(null, message);
             }
         } else {
@@ -629,12 +629,6 @@ public class ClientBean implements Serializable {
     }
 
     //вывод картинки персонажу
-//    public StreamedContent getImageGoal(int id) throws IOException {
-//        Personage personage = personageFacadeLocal.find(id);
-//        List<PersonageImage> personageImages = (List<PersonageImage>) personage.getPersonageImageCollection();
-//        Image img = imageFacadeLocal.find(personageImages.get(1).getIDImage());//допустим будем выводить картинку на 1 уровне 
-//        return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
-//    }
     public StreamedContent getStreamedImageById() {
         FacesContext context = FacesContext.getCurrentInstance();
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -653,6 +647,24 @@ public class ClientBean implements Serializable {
                 }
             }
             //Image img = imageFacadeLocal.find(personageImages.get(0).getIDImage().getIDImage());//допустим будем выводить картинку на 1 уровне 
+            if (img != null) {
+                return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+            }
+            return null;
+        }
+    }
+
+    //Вывод картинок дефолтным целям
+    public StreamedContent getStreamedImageByIdGoalDefolt() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            return new DefaultStreamedContent();
+        } else {
+            context = FacesContext.getCurrentInstance();
+            Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+            int id = Integer.parseInt(params.get("id"));
+            Goal goal = goalFacadeLocal.find(id);
+            Image img = imageFacadeLocal.find(goal.getiDImage().getIDImage());
             if (img != null) {
                 return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
             }
