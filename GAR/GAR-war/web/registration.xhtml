@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"></link>
@@ -14,7 +15,7 @@
     </h:head>
     <h:body>
         <h:form class="form-horizontal">
-                <p:messages />
+<!--                <p:messages />-->
                 <div class="container">
                     <div class="row">
                         <div class="col-md-offset-3 col-md-6">
@@ -22,7 +23,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="lastName">Фамилия:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="surname" class="form-control" value="#{userBean.user.surname}" label="surname"/>
+                                        <p:inputText id="surname" class="form-control" value="#{userBean.user.surname}" label="surname" validatorMessage="Введите фамилию"/>
                                         <p:message for="surname" />
                                         <h:outputText value="#{userBean.user.surname}" />
                                     </div>
@@ -30,7 +31,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="firstName">Имя:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="name" class="form-control" value="#{userBean.user.name}" label="Name"/>
+                                        <p:inputText id="name" class="form-control" value="#{userBean.user.name}" label="Name" validatorMessage="Введите имя"/>
                                         <p:message for="name" />
                                         <h:outputText value="#{userBean.user.name}" />
                                     </div>
@@ -38,15 +39,17 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="inputLogin">Login:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="login" class="form-control" value="#{userBean.user.login}" label="login"/>
-                                        <p:message for="login" />
+                                        <p:inputText id="login" class="form-control" value="#{userBean.user.login}"  label="login" validatorMessage="Введите логин"/>
+                                        <c:if test="true">
+                                        <p:message for="login" /> 
+                                        </c:if>
                                         <h:outputText value="#{userBean.user.login}" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="inputEmail">Email:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="email" class="form-control" value="#{userBean.user.email}" label="email"/>
+                                        <p:inputText id="email" class="form-control" value="#{userBean.user.email}" label="email" validatorMessage="Введите корректный email"/>
                                         <p:message for="email" />
                                         <h:outputText value="#{userBean.user.email}" />
                                     </div>
@@ -54,7 +57,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="inputPassword">Пароль:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="pass" class="form-control" value="#{userBean.user.pass}" label="pass"/>
+                                        <p:inputText id="pass" class="form-control" value="#{userBean.user.pass}" label="pass"  validatorMessage="Введите пароль"/>
                                         <p:message for="pass" />
                                         <h:outputText value="#{userBean.user.pass}" />
                                     </div>
@@ -63,7 +66,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="phoneNumber">Телефон:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="phone" class="form-control" value="#{userBean.user.phone}" label="phone"/>
+                                        <p:inputText id="phone" class="form-control" value="#{userBean.user.phone}" label="phone" validatorMessage="Введите номер телефона"/>
                                         <p:message for="phone" />
                                         <h:outputText value="#{userBean.user.phone}" />
                                     </div>
@@ -71,7 +74,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="GenderNumber">Выберете пол:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="gender" class="form-control" value="#{userBean.user.gender}" label="gender"/>
+                                        <p:inputText id="gender" class="form-control" value="#{userBean.user.gender}" label="gender" validatorMessage="Заполните пол"/>
                                         <p:message for="gender" />
                                         <h:outputText value="#{userBean.user.gender}" />
                                     </div>
