@@ -75,6 +75,7 @@
                         <td>${item.goalUserCollection.size()}</td>
                         <td>
                             <h:form>
+                                <p:growl id="messages" showDetail="true" />
                             <h:commandButton action="#{administratorBean.directory}" rendered="#{!item.directory}" value="Убрать из дефолтных">
                                 <f:param name="id" value="#{item.IDGoal}" />
                             </h:commandButton>

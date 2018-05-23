@@ -265,19 +265,19 @@ public class ClientBean implements Serializable {
                 if (!holder.isEmpty() && !codeCard.isEmpty() && !codeSecurity.isEmpty() && !expirationDate.isEmpty()) {//ну хоть что-то проверим
                     paymentFlag = payment(holder, codeCard, codeSecurity, expirationDate, purchaseValue);
                     if (paymentFlag) {
-                        FacesMessage message = new FacesMessage("Прошла оплата персонажа.");
+                        FacesMessage message = new FacesMessage("Успех","Прошла оплата персонажа.");
                         FacesContext.getCurrentInstance().addMessage(null, message);
                     } else {
-                        FacesMessage message = new FacesMessage("Оплата не прошла. Проверьте корректность и аклуальность введенных данных.");
+                        FacesMessage message = new FacesMessage("Ошибка","Оплата не прошла. Проверьте корректность и аклуальность введенных данных.");
                         FacesContext.getCurrentInstance().addMessage(null, message);
                     }
                 } else {
-                    FacesMessage message = new FacesMessage("Данные оплаты не заполнены.");
+                    FacesMessage message = new FacesMessage("Ошибка","Данные оплаты не заполнены.");
                     FacesContext.getCurrentInstance().addMessage(null, message);
                 }
             } catch (IOException ex) {
                 LOGGER.error("Оплата персонажа не прошла. Ошибка подключения к сервису.", ex);
-                FacesMessage message = new FacesMessage("Оплата персонажа не прошла. Ошибка с серсвисом.");
+                FacesMessage message = new FacesMessage("Ошибка","Оплата персонажа не прошла. Ошибка с серсвисом.");
                 FacesContext.getCurrentInstance().addMessage(null, message);
             }
         } else {

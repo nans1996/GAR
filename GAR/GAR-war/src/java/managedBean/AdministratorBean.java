@@ -148,7 +148,9 @@ public class AdministratorBean {
         }
         return imageInByte;
     }
-    public void upload() throws IOException {
+    
+    //добавление картинки персонажу на уровень
+    public void uploadImagePersonage() throws IOException {
         if (file != null) {
             try {
                 image.setName(file.getFileName());
@@ -178,6 +180,10 @@ public class AdministratorBean {
     public List<Personage> personagesFild() {
         return personageFacadeLocal.findAll();
     }
+    //список дефолтных персонажей
+    public List<Goal> goalDef() {
+        return goalFacadeLocal.findGoalDefolt();
+    }
     public List<String> levelFild() {
         List<String> results = new ArrayList<String>();
         for (int i = 1; i < 22; i++) {
@@ -195,6 +201,8 @@ public class AdministratorBean {
             Client client = clientFacadeLocal.find(id);
             client.setBan(!client.getBan());
             clientFacadeLocal.edit(client); 
+            FacesMessage message = new FacesMessage("Успешно","Успешно услаовлен/снят бан");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (EJBException ex) {
             LOGGER.error("Ошибка при установки/снятии бана на пользователя.", ex);
             FacesMessage message = new FacesMessage("Ошибка при установки/снятии бана на пользователя.");
@@ -216,11 +224,42 @@ public class AdministratorBean {
             Goal goal = goalFacadeLocal.find(id);
             goal.setDirectory(!goal.getDirectory());
             goalFacadeLocal.edit(goal); 
+            FacesMessage message = new FacesMessage("Успех ","Статус цели изменен.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (EJBException ex) {
             LOGGER.error("Ошибка при изменении статуса цели.", ex);
-            FacesMessage message = new FacesMessage("Ошибка при изменении статуса цели.");
+            FacesMessage message = new FacesMessage("Ошибка ","Статус цели не изменен.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
-        return "/goalAdministration?faces-redirect=true";
+        return "goalAdministration";
+    }
+    
+    //добавление картинки дефолтной цели
+    public void uploadImageGoalDef() throws IOException {
+        if (file != null) {
+            try {
+                //добавляем картинку в БД
+                image.setName(file.getFileName());
+                image.setType(file.getContentType());
+                image.setPersonageImage(null);
+                image.setData(InputStreamToArryByte(file.getInputstream()));
+                imageFacadeLocal.create(image);
+                //изменяем цель
+                goal = goalFacadeLocal.find(goal.getIDGoal());
+                goal.setiDImage(image);
+                goalFacadeLocal.edit(goal);
+                FacesMessage message = new FacesMessage("Добавлен файл:", file.getFileName());
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            } catch (EJBException ex) {
+                LOGGER.error("Ошибка при добавлении картинки.", ex);
+                FacesMessage message = new FacesMessage("Не добавлен файл:", file.getFileName());
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        } else {
+            LOGGER.error("Файл пуст и не может быть добавлен.");
+            FacesMessage message = new FacesMessage("Файл пуст и не может быть добавлен.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        
     }
 }

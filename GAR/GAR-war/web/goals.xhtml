@@ -24,7 +24,7 @@
         <link href="css/modal.css" rel="stylesheet"></link>
     </h:head>
     <h:body>
-        <p:growl id="messages" showDetail="true" />
+        
         <nav class="navbar navbar-default navbar-fixed-top navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -209,6 +209,7 @@
                         <!-- Футер модального окна -->
                         <div class="modal-footer">
                             <div class="form-group"> 
+                                <p:growl id="messages" showDetail="true" />
                                 <h:commandButton class="btn btn-warning" action="#{clientBean.createGoalUser}" value="ДОБАВИТЬ МНЕ ЦЕЛЬ!!" />
                             </div>  
                         </div>
