@@ -109,7 +109,7 @@
                                 <!--                            <textarea class="form-control" rows="2" placeholder="Добавьте Ваш комментарий"></textarea>-->
                                 <h:inputText class="form-control"  value="#{forumBean.message.content}"></h:inputText>
                                 <div class="mar-top clearfix">
-                                    <h:commandButton action="#{forumBean.createMessage()}" value="Добавить"><i class="fa fa-pencil fa-fw"></i></h:commandButton>
+                                    <h:commandButton action="#{forumBean.createMessage()}" value="Добавить" rendered="#{!userBean.currentUserObject.client.ban}"><i class="fa fa-pencil fa-fw"></i></h:commandButton>
                                     <!--                                <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Добавить</button>-->
 
                                 </div>

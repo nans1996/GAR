@@ -79,10 +79,12 @@ public class UserBean {
         return "authorization";
     }
     
-    public User getCurrentUses(){
+    //вырнуть текущего
+    public User getCurrentUserObject(){
         return userFacade.findLogin(getCurrentUser());
     }
     
+    //наименование такное-себе но менять не помню где
     public String getCurrentUser(){
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, Object> params = fc.getExternalContext().getSessionMap();
