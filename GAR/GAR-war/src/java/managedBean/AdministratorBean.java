@@ -52,6 +52,8 @@ public class AdministratorBean {
     @EJB
     PersonageFacadeLocal personageFacadeLocal;
     Personage personage = new Personage();
+    @EJB
+    GoalFacadeLocal goalFacadeLocal;
     private Goal goal = new Goal();
     private PersonageImage personageImage = new PersonageImage();
     private String quantityLevel;
@@ -199,5 +201,9 @@ public class AdministratorBean {
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
         return "/user?faces-redirect=true";
+    }
+    
+    public List<Goal> getAllGoal (){
+        return goalFacadeLocal.findAll();
     }
 }
