@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package managedBean;
+
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -66,7 +67,7 @@ import org.apache.http.message.BasicNameValuePair;
 public class ClientBean implements Serializable {
 
     static final Logger LOGGER = Logger.getLogger(ClientBean.class);
-    
+
     @EJB
     private TopicFacadeLocal topicFacade;
     Topic topic = new Topic();
@@ -99,7 +100,7 @@ public class ClientBean implements Serializable {
     private List<Goal> listGoals;
     @EJB
     private PersonageImageFacadeLocal personageImageFacadeLocal;
-    
+
     public ClientBean() {
     }
 
@@ -258,29 +259,29 @@ public class ClientBean implements Serializable {
     public String createGoalUser() {
         personage = personageFacadeLocal.find(personage.getIDPersonage());
         boolean paymentFlag = false;
-        if (personage.getPrice() > 0){
+        if (personage.getPrice() > 0) {
             String purchaseValue = String.valueOf(personage.getPrice());
             try {
-                if (!holder.isEmpty()&&!codeCard.isEmpty()&&!codeSecurity.isEmpty()&&!expirationDate.isEmpty()){//ну хоть что-то проверим
-                    paymentFlag  = payment(holder, codeCard, codeSecurity, expirationDate, purchaseValue);
-                    if (paymentFlag) {  
+                if (!holder.isEmpty() && !codeCard.isEmpty() && !codeSecurity.isEmpty() && !expirationDate.isEmpty()) {//ну хоть что-то проверим
+                    paymentFlag = payment(holder, codeCard, codeSecurity, expirationDate, purchaseValue);
+                    if (paymentFlag) {
                         FacesMessage message = new FacesMessage("Прошла оплата персонажа.");
                         FacesContext.getCurrentInstance().addMessage(null, message);
-                    }else {
+                    } else {
                         FacesMessage message = new FacesMessage("Оплата не прошла. Проверьте корректность и аклуальность введенных данных.");
                         FacesContext.getCurrentInstance().addMessage(null, message);
                     }
-                }else {
+                } else {
                     FacesMessage message = new FacesMessage("Данные оплаты не заполнены.");
                     FacesContext.getCurrentInstance().addMessage(null, message);
                 }
             } catch (IOException ex) {
-                LOGGER.error("Оплата персонажа не прошла. Ошибка подключения к сервису.",ex);
+                LOGGER.error("Оплата персонажа не прошла. Ошибка подключения к сервису.", ex);
                 FacesMessage message = new FacesMessage("Оплата персонажа не прошла. Ошибка с серсвисом.");
                 FacesContext.getCurrentInstance().addMessage(null, message);
             }
         } else {
-            paymentFlag  = true;
+            paymentFlag = true;
         }
         try {
             if (paymentFlag) {
@@ -310,7 +311,7 @@ public class ClientBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, message);
             }
         } catch (EJBException ex) {
-            LOGGER.error("Персонаж не добавлен. Ошибка: ",ex);
+            LOGGER.error("Персонаж не добавлен. Ошибка: ", ex);
             FacesMessage message = new FacesMessage("Персонаж не добавлен. Обратитесь к администратору.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
@@ -453,7 +454,6 @@ public class ClientBean implements Serializable {
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
-   
     public String getSearch() {
         return search;
     }
@@ -605,9 +605,9 @@ public class ClientBean implements Serializable {
     public void setCodeCard(String codeCard) {
         this.codeCard = codeCard;
     }
-    
+
     //оплата персонажа
-    public boolean payment(String holder,String codeCard,String codeSecurity,String expirationDate,String purchaseValue) throws IOException {
+    public boolean payment(String holder, String codeCard, String codeSecurity, String expirationDate, String purchaseValue) throws IOException {
         boolean result = false;
         HttpClient clientHttp = new DefaultHttpClient();
         HttpPost post = new HttpPost("http://localhost:8081/account/purchase");
@@ -617,7 +617,7 @@ public class ClientBean implements Serializable {
         nameValuePairs.add(new BasicNameValuePair("holder", holder));//Lapygina Vasilisa
         nameValuePairs.add(new BasicNameValuePair("codeSecurity", codeSecurity));//321
         nameValuePairs.add(new BasicNameValuePair("codeCard", codeCard));//1232353424
-        nameValuePairs.add(new BasicNameValuePair("purchaseValue",purchaseValue));//
+        nameValuePairs.add(new BasicNameValuePair("purchaseValue", purchaseValue));//
         post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
         HttpResponse response = clientHttp.execute(post);
         BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
@@ -627,6 +627,7 @@ public class ClientBean implements Serializable {
         }
         return result;
     }
+
     //вывод картинки персонажу
 //    public StreamedContent getImageGoal(int id) throws IOException {
 //        Personage personage = personageFacadeLocal.find(id);
@@ -646,7 +647,7 @@ public class ClientBean implements Serializable {
             List<PersonageImage> personageImages = personageImageFacadeLocal.findAll();
             Image img = null;
             for (PersonageImage personageImage : personageImages) {
-                if (personageImage.getIDPersonage().getIDPersonage() == pers.getIDPersonage()&& personageImage.getLevel() == 1) {
+                if ((personageImage.getIDPersonage().getIDPersonage() == pers.getIDPersonage()) && personageImage.getLevel() == 8) {
                     img = imageFacadeLocal.find(personageImage.getIDImage().getIDImage());
                     break;
                 }
@@ -659,11 +660,40 @@ public class ClientBean implements Serializable {
         }
     }
 
+    //Вывод картинки по уровню
+    public StreamedContent getStreamedImageByIdAndLevel() {
+        Personage pers = personageFacadeLocal.find(goalUser.getIDGoal().getIDPersonage().getIDPersonage());
+        List<PersonageImage> personageImages = personageImageFacadeLocal.findAll();
+        client = clientFacade.find(goalUser.getIDClient().getIDClient());
+        Image img = null;
+        int level = 1;
+        Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
+        if (!levels.isEmpty()) {
+            for (Level item : levels) {
+                if (item.getLeveldate()) {
+                    level++;
+                }
+            }
+        }
+        for (PersonageImage personageImage : personageImages) {
+            if (personageImage.getIDPersonage().getIDPersonage() == pers.getIDPersonage() && personageImage.getLevel() == level) {
+                img = imageFacadeLocal.find(personageImage.getIDImage().getIDImage());
+                break;
+            }
+        }
+        //Image img = imageFacadeLocal.find(personageImages.get(0).getIDImage().getIDImage());//допустим будем выводить картинку на 1 уровне 
+        if (img != null) {
+            return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+        }
+        return null;
+
+    }
+
     public List<Personage> AllPersonages() {
         List<Personage> personages = personageFacadeLocal.findAll();
         return personages;
     }
-    
+
     //добавление авотарки пользователю
     private UploadedFile file;
 
@@ -685,7 +715,7 @@ public class ClientBean implements Serializable {
         }
         return imageInByte;
     }
-    
+
     public void uploadProfile() throws IOException {
         if (file != null) {
             image.setName(file.getFileName());
@@ -693,25 +723,25 @@ public class ClientBean implements Serializable {
             image.setPersonageImage(null);
             image.setData(InputStreamToArryByte(file.getInputstream()));
             imageFacadeLocal.create(image);
-            
+
             user = userFacadeLocal.findLogin(userBean.getCurrentUser());
             client = clientFacade.findIdUser(user.getIDUser());
             client.setiDImage(image);
             clientFacade.edit(client);
 
             FacesMessage message = new FacesMessage("Добавлен файл:", file.getFileName());
-            FacesContext.getCurrentInstance().addMessage(null, message);   
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
-        
+
     }
-    
-    public StreamedContent getAvatar(){
+
+    public StreamedContent getAvatar() {
         user = userFacadeLocal.findLogin(userBean.getCurrentUser());
         client = clientFacade.findIdUser(user.getIDUser());
         Image img = client.getiDImage();
         return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
     }
-    
+
     public List<Personage> personagesFild() {
         return personageFacadeLocal.findAll();
     }

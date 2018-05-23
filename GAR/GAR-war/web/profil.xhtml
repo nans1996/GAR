@@ -75,8 +75,8 @@
                             <div class="panel-body">
                                 <div class="text-center" id="author">
                                     <p:graphicImage value="#{clientBean.avatar}" />
-                                    <h3><h:outputText value="#{userBean.currentUses.surname}"/> <h:outputText value="#{userBean.currentUses.name}"/></h3>
-                                    <p><h:outputText value="#{userBean.currentUses.client.interests}"/></p>
+                                    <h3><h:outputText value="#{userBean.currentUserObject.surname}"/> <h:outputText value="#{userBean.currentUserObject.name}"/></h3>
+                                    <p><h:outputText value="#{userBean.currentUserObject.client.interests}"/></p>
                                 </div>
                             </div>
                         </div>
@@ -93,11 +93,11 @@
                                         <h4>История профиля</h4>
                                         <table class="table table-th-block">
                                             <tbody>
-                                                <tr><td class="active">Логин:</td><td> <h:outputText value="#{userBean.currentUses.login}"/></td></tr>
-                                                <tr><td class="active">Фамилия:</td><td><h:outputText value="#{userBean.currentUses.surname}"/></td></tr>
-                                                <tr><td class="active">Имя:</td><td><h:outputText value="#{userBean.currentUses.name}"/></td></tr>
-                                                <tr><td class="active">Телефон:</td><td><h:outputText value="#{userBean.currentUses.phone}"/></td></tr>
-                                                <tr><td class="active">Мыло:</td><td><h:outputText value="#{userBean.currentUses.email}"/></td></tr>
+                                                <tr><td class="active">Логин:</td><td> <h:outputText value="#{userBean.currentUserObject.login}"/></td></tr>
+                                                <tr><td class="active">Фамилия:</td><td><h:outputText value="#{userBean.currentUserObject.surname}"/></td></tr>
+                                                <tr><td class="active">Имя:</td><td><h:outputText value="#{userBean.currentUserObject.name}"/></td></tr>
+                                                <tr><td class="active">Телефон:</td><td><h:outputText value="#{userBean.currentUserObject.phone}"/></td></tr>
+                                                <tr><td class="active">Мыло:</td><td><h:outputText value="#{userBean.currentUserObject.email}"/></td></tr>
                                                 <tr><td class="active">Рейтинг пользователя:</td><td><i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> 4/5</td></tr>
                                                 <tr><td class="active">Плагин рейтинга:</td><td><a href="http://bootstraptema.ru/stuff/plugins_bootstrap/improvement/bootstrap_star_rating/12-1-0-73" target="_blank">http://goo.gl/bGGXuw</a></td></tr>
                                             </tbody>

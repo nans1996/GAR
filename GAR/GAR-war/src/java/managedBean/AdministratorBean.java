@@ -207,7 +207,7 @@ public class AdministratorBean {
         return goalFacadeLocal.findAll();
     }
     
-        //Назначить бан/снять бан
+    //Установка статуса цели 
     public String directory() { 
         try {
             FacesContext fc = FacesContext.getCurrentInstance();
