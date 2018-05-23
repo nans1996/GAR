@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
@@ -86,7 +87,12 @@
                                     <div class="panel-body">
                                         <div class="media-text text-justify">#{u.content}</div>
                                         <div class="pull-right"><a class="btn btn-info" href="#">Ответить</a></div>  
-                                       
+                                        <h:commandButton action="#{forumBean.ban}" rendered="#{!u.IDUser.client.ban}" value="Забанить">
+                                            <f:param name="id" value="#{u.IDUser.IDUser}" />
+                                        </h:commandButton>
+                                        <h:commandButton action="#{forumBean.ban}" rendered="#{u.IDUser.client.ban}" value="Разбанить">
+                                            <f:param name="id" value="#{u.IDUser.IDUser}" />
+                                        </h:commandButton>
                                         <h:commandButton value="Удалить" action="#{forumBean.deleteMessage(u)}" onclick="return confirm('Вы уверенны?')" />
 
                                     </div>

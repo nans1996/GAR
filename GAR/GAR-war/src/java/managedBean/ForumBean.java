@@ -15,7 +15,10 @@ import entity.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import static managedBean.AdministratorBean.LOGGER;
 import model.ClientFacadeLocal;
 import model.UserFacadeLocal;
 
@@ -29,8 +32,8 @@ public class ForumBean implements Serializable {
 
     @EJB
     private ClientFacadeLocal clientFacade;
-private Client client = new  Client();
-    private  List<Message> messageTopic;
+    private Client client = new Client();
+    private List<Message> messageTopic;
     @EJB
     private UserFacadeLocal userFacade;
 
@@ -43,7 +46,9 @@ private Client client = new  Client();
     private User user = new User();
     private UserBean userBean = new UserBean();
     private int id;
-    
+    @EJB
+    private ClientFacadeLocal clientFacadeLocal;
+
     /**
      * Creates a new instance of ForumBean
      */
@@ -58,6 +63,7 @@ private Client client = new  Client();
     public List<Message> getAllMessage() {
         return this.messageFacade.findAll();
     }
+
     // тут типа пытаюсь вывести сообщения по id темы
     public String messageIdTopic() {
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -67,17 +73,16 @@ private Client client = new  Client();
         return "comment";
 
     }
-    
-    public  String deleteMessage(Message message){
-       this.messageFacade.remove(message);
-       return "comment";
-      
+
+    public String deleteMessage(Message message) {
+        this.messageFacade.remove(message);
+        return "comment";
+
     }
 
 //    public int countMessage(int id) {
 //        return topicFacade.find(id).getMessageCollection().size();
 //    }
-
     public String createTopic() {
         topic.setDate(new Date());
         user = userFacade.findLogin(userBean.getCurrentUser());
@@ -89,7 +94,7 @@ private Client client = new  Client();
     public String createMessage() {
         user = userFacade.findLogin(userBean.getCurrentUser());
         client = clientFacade.findIdUser(user.getIDUser());
-        if (!client.getBan()){
+        if (!client.getBan()) {
             message.setDate(new Date());
             //пока сделаем дефолд
             message.setIDTopic(topicFacade.find(getId()));
@@ -132,7 +137,7 @@ private Client client = new  Client();
      * @return the messageTopic
      */
     public List<Message> getMessageTopic() {
-        return  messageTopic = messageFacade.findByIdTopic(getId());
+        return messageTopic = messageFacade.findByIdTopic(getId());
     }
 
     /**
@@ -156,4 +161,20 @@ private Client client = new  Client();
         this.id = id;
     }
 
+    //Назначить бан/снять бан
+    public String ban() {
+        try {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+            int id = Integer.parseInt(params.get("id"));
+            Client client = clientFacadeLocal.find(id);
+            client.setBan(!client.getBan());
+            clientFacadeLocal.edit(client);
+        } catch (EJBException ex) {
+            LOGGER.error("Ошибка при установки/снятии бана на пользователя.", ex);
+            FacesMessage message = new FacesMessage("Ошибка при установки/снятии бана на пользователя.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        return "/comment?faces-redirect=true";
+    }
 }
