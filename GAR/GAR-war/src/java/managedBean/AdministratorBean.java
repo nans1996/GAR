@@ -206,4 +206,21 @@ public class AdministratorBean {
     public List<Goal> getAllGoal (){
         return goalFacadeLocal.findAll();
     }
+    
+        //Назначить бан/снять бан
+    public String directory() { 
+        try {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+            int id = Integer.parseInt(params.get("id"));
+            Goal goal = goalFacadeLocal.find(id);
+            goal.setDirectory(!goal.getDirectory());
+            goalFacadeLocal.edit(goal); 
+        } catch (EJBException ex) {
+            LOGGER.error("Ошибка при изменении статуса цели.", ex);
+            FacesMessage message = new FacesMessage("Ошибка при изменении статуса цели.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        return "/goalAdministration?faces-redirect=true";
+    }
 }
