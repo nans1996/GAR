@@ -31,12 +31,9 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
-import java.io.IOException;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -45,17 +42,20 @@ import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
 import javax.faces.event.PhaseId;
 import javax.imageio.ImageIO;
+import org.apache.log4j.Logger;
+
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.log4j.Logger;
-
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -315,7 +315,7 @@ public class ClientBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
         //после добавления перебрасывает на index изменить на страницу подтверждения
-        return "goal?faces-redirect=true";
+        return "goal";
     }
 
     //удалить
@@ -609,7 +609,7 @@ public class ClientBean implements Serializable {
     //оплата персонажа
     public boolean payment(String holder,String codeCard,String codeSecurity,String expirationDate,String purchaseValue) throws IOException {
         boolean result = false;
-        HttpClient client = new DefaultHttpClient();
+        HttpClient clientHttp = new DefaultHttpClient();
         HttpPost post = new HttpPost("http://localhost:8081/account/purchase");
         List nameValuePairs = new ArrayList(1);
         nameValuePairs.add(new BasicNameValuePair("name", "value")); //you can as many name value pair as you want in the list.
@@ -619,7 +619,7 @@ public class ClientBean implements Serializable {
         nameValuePairs.add(new BasicNameValuePair("codeCard", codeCard));//1232353424
         nameValuePairs.add(new BasicNameValuePair("purchaseValue",purchaseValue));//
         post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-        HttpResponse response = client.execute(post);
+        HttpResponse response = clientHttp.execute(post);
         BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         String line = "";
         while ((line = rd.readLine()) != null) {
