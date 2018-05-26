@@ -7,6 +7,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.annotation.PostConstruct;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,13 +52,15 @@ public class User implements Serializable {
     @Column(name = "ID_User")
     private Integer iDUser;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Заполните логин")
     @Size(min = 1, max = 10)
-    @Column(name = "Login")
+    @Column(name = "Login", unique = true)
+   // @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z]).{3,10}", message = "Логин должен содержать латинские буквы, от 3 до 10 символов")
     private String login;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
+    @Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})")
     @Column(name = "Pass")
     private String pass;
     @Basic(optional = false)
@@ -74,11 +77,13 @@ public class User implements Serializable {
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "Phone")
+    @Pattern(regexp="(\\d){10}")
     private String phone;
     @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Недопустимый адрес электронной почты")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 30)
     @Column(name = "Email")
     private String email;
+    @NotNull(message = "Заполните пол")
     @Size(max = 10)
     @Column(name = "Gender")
     private String gender;
@@ -170,7 +175,8 @@ public class User implements Serializable {
     public void setGender(String gender) {
         this.gender = gender;
     }
-
+    
+     
     public UserRole getUserRole() {
         return userRole;
     }

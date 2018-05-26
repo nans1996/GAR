@@ -14,7 +14,7 @@
         <title>Регистрация</title>
     </h:head>
     <h:body>
-        <h:form class="form-horizontal">
+        <h:form class="form-horizontal" id="regForm">
 <!--                <p:messages />-->
                 <div class="container">
                     <div class="row">
@@ -23,60 +23,61 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="lastName">Фамилия:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="surname" class="form-control" value="#{userBean.user.surname}" label="surname" validatorMessage="Введите фамилию"/>
+                                        <p:inputText id="surname" class="form-control" value="#{userBean.user.surname}" label="surname" validatorMessage="Введите фамилию" placeholder="Фамилия"/>
                                         <p:message for="surname" />
-                                        <h:outputText value="#{userBean.user.surname}" />
+  
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="firstName">Имя:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="name" class="form-control" value="#{userBean.user.name}" label="Name" validatorMessage="Введите имя"/>
-                                        <p:message for="name" />
-                                        <h:outputText value="#{userBean.user.name}" />
+                                        <p:inputText id="name" class="form-control" value="#{userBean.user.name}" label="Name" validatorMessage="Введите имя" placeholder="Имя"/>
+                                       <p:message for="name" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="inputLogin">Login:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="login" class="form-control" value="#{userBean.user.login}"  label="login" validatorMessage="Введите логин"/>
-                                        <c:if test="true">
-                                        <p:message for="login" /> 
-                                        </c:if>
-                                        <h:outputText value="#{userBean.user.login}" />
+                                        <p:inputText id="login" class="form-control" value="#{userBean.user.login}"  label="login" placeholder="Логин"/>
+                                        
+                                            <p:message for="login" ></p:message> 
+                                        
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="inputEmail">Email:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="email" class="form-control" value="#{userBean.user.email}" label="email" validatorMessage="Введите корректный email"/>
-                                        <p:message for="email" />
-                                        <h:outputText value="#{userBean.user.email}" />
+                                        <p:inputText id="email" class="form-control" value="#{userBean.user.email}" label="email" placeholder="Email" />
+                                  <p:message for="email" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="inputPassword">Пароль:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="pass" class="form-control" value="#{userBean.user.pass}" label="pass"  validatorMessage="Введите пароль"/>
+                                        <p:inputText id="pass" class="form-control" value="#{userBean.user.pass}" label="pass"  validatorMessage="Пароль должен состоять и 6 до 20 символов, содержать заглавные и прописные буквы латинскогт алфавита, цифры" placeholder="Пароль"/>
                                         <p:message for="pass" />
-                                        <h:outputText value="#{userBean.user.pass}" />
+                                       
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="phoneNumber">Телефон:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="phone" class="form-control" value="#{userBean.user.phone}" label="phone" validatorMessage="Введите номер телефона"/>
+                                        <p:inputText id="phone" class="form-control" value="#{userBean.user.phone}" label="phone" validatorMessage="Введите номер телефона без 8" placeholder="Введите номер без 8"/>
                                         <p:message for="phone" />
-                                        <h:outputText value="#{userBean.user.phone}" />
+                                       
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="GenderNumber">Выберете пол:</label>
                                     <div class="col-xs-9">
-                                        <p:inputText id="gender" class="form-control" value="#{userBean.user.gender}" label="gender" validatorMessage="Заполните пол"/>
-                                        <p:message for="gender" />
-                                        <h:outputText value="#{userBean.user.gender}" />
+                                        <!--<p:inputText id="gender" class="form-control" value="" label="gender" validatorMessage="Заполните пол"/>-->
+                                    
+                                        <h:selectOneRadio id="gender" value="#{userBean.user.gender}" >
+                                            <f:selectItem itemValue="женщина" itemLabel="Женский" />
+                                            <f:selectItem itemValue="мужчина" itemLabel="Мужской" />
+                                        </h:selectOneRadio>
+                                          <p:message for="gender" />
                                     </div>
                                 </div>
                                 <div class="form-group">

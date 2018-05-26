@@ -6,12 +6,14 @@
 package managedBean;
 
 //import entitys.User;
+import static com.sun.faces.facelets.util.Path.context;
 import entity.*;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -59,6 +61,7 @@ public class UserBean {
     }
     
     public String createUser(){
+        try{
         user.setMessageCollection(null);
         user.setTopicCollection(null);
         //клиента по id в стидиюы
@@ -76,7 +79,18 @@ public class UserBean {
         client.setGoalUserCollection(null);
         client.setiDImage(facadeLocal.find(1));
         clientFacadeLocal.create(client);
-        return "authorization";
+        
+        }
+        catch (javax.ejb.EJBException e){
+           // String message="You must login to continue";
+      // String message = e.getMessage();
+            FacesContext.getCurrentInstance().addMessage("regForm:login", new FacesMessage("Пользователь с таким логином уже существует!!!"));
+          //  e.printStackTrace();
+          return "registration";
+        }
+        
+            return "authorization";
+        
     }
     
     //вырнуть текущего
