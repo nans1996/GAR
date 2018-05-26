@@ -29,7 +29,6 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
-    
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>jdbcRealmGAR</realm-name>
@@ -38,7 +37,6 @@
             <form-error-page>/registrationError.html</form-error-page>
         </form-login-config>
     </login-config>
-    
     <security-role>
         <description>admin</description>
         <role-name>admin</role-name>
@@ -47,7 +45,6 @@
         <description>client</description>
         <role-name>client</role-name>
     </security-role>
-    
     <security-constraint>
         <display-name>commentAdminClient</display-name>
         <web-resource-collection>
@@ -64,7 +61,6 @@
             <role-name>client</role-name>
         </auth-constraint>
     </security-constraint>
-
     <security-constraint>
         <display-name>forumAdminClient</display-name>
         <web-resource-collection>
@@ -81,7 +77,6 @@
             <role-name>client</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <security-constraint>
         <display-name>ratingAdminClient</display-name>
         <web-resource-collection>
@@ -98,7 +93,6 @@
             <role-name>client</role-name>
         </auth-constraint>
     </security-constraint>
-        
     <security-constraint>
         <display-name>creatImageAdmin</display-name>
         <web-resource-collection>
@@ -114,7 +108,6 @@
             <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <security-constraint>
         <display-name>userAdmin</display-name>
         <web-resource-collection>
@@ -130,7 +123,6 @@
             <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <security-constraint>
         <display-name>goalAdministrationAdmin</display-name>
         <web-resource-collection>
@@ -146,7 +138,6 @@
             <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
-  
     <security-constraint>
         <display-name>goaUserClient</display-name>
         <web-resource-collection>
@@ -162,7 +153,6 @@
             <role-name>client</role-name>
         </auth-constraint>
     </security-constraint>
-      
     <security-constraint>
         <display-name>goalsClient</display-name>
         <web-resource-collection>
@@ -176,9 +166,9 @@
         <auth-constraint>
             <description/>
             <role-name>client</role-name>
+            <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <security-constraint>
         <display-name>profilClient</display-name>
         <web-resource-collection>
@@ -194,7 +184,6 @@
             <role-name>client</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <error-page>
         <error-code>404</error-code>
         <location>/errors/404.xhtml</location>
@@ -207,7 +196,6 @@
         <error-code>512</error-code>
         <location>/errors/512.xhtml</location>
     </error-page>
-
     <servlet>
         <servlet-name>AdministratorBean</servlet-name>
         <servlet-class>managedBean.AdministratorBean</servlet-class>
