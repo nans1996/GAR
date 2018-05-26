@@ -36,7 +36,7 @@ body{
 .carousel .item{
     background: #333;    
     text-align: center;
-    height: 750px !important;
+    height: 600px !important;
 }
 .carousel h2{
     color: #fff;
@@ -141,14 +141,49 @@ body{
 #footer { 
     height: 150px; 
     background: #F4FA58; 
-    flex: 0 0 auto;
+/*    flex: 0 0 auto;*/
+    position: fixed;
     bottom: 0; 
     width: 100%; 
 }
 #footerNarrow { 
+    position: fixed;
     height: 70px; 
     background: #F4FA58; 
-    flex: 0 0 auto;
+/*    flex: 0 0 auto;*/
     bottom: 0; 
     width: 100%; 
+}
+
+.b {
+  text-decoration: none;
+  outline: none;
+  display: inline-block;
+  width: 160px;
+  height: 45px;
+  line-height: 45px;
+  border-radius: 45px;
+  margin: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 3px;
+  font-weight: 600;
+  color: #524f4e;
+  background: white;
+  box-shadow: 0 8px 15px rgba(0,0,0,.1);
+  transition: .3s;
+}
+.b:hover {
+  background: #2EE59D;
+  box-shadow: 0 15px 20px rgba(46,229,157,.4);
+  color: white;
+  transform: translateY(-7px);
+}
+.otstup {
+width:1024px;
+padding:20px;
+margin:0 auto;
+background:#fff;
 }
