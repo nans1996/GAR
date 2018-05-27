@@ -157,7 +157,8 @@ public class ForumBean implements Serializable {
             facesMessage = new FacesMessage("Ошибка", "Ошибка создании темы.");
         }
         FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-        return "forum";     
+        topic.setName("");
+        return "/forum?faces-redirect=true";     
     }
 
     public String createMessage() {

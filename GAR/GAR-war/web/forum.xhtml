@@ -49,16 +49,16 @@
                         <li class="active"><a href="#">Форум</a></li>                     
                         <p class="navbar-text"> 
                             Вы вошли как 
-                           <h:link outcome="profil" value="#{request.getRemoteUser()}" class="navbar-link"></h:link>                              
-                            
-                           <h:form rendered="#{!userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
-                               <li><h:link outcome="authorization" value="Войти"/></li>                                     
-                           </h:form>  
-                        <li>
-                            <h:form rendered="#{userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
+                            <h:link outcome="profil" value="#{request.getRemoteUser()}" class="navbar-link"></h:link>                              
+
+                            <h:form rendered="#{!userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
+                                <li><h:link outcome="authorization" value="Войти"/></li>                                     
+                            </h:form>  
+                            <li>
+                                <h:form rendered="#{userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
                                     <p:commandButton value="Выйти" id="logout" action="#{userBean.logout}" class="btn btn-link" />                                      
-                            </h:form>
-                        </li>  
+                                </h:form>
+                            </li>  
                         </p>
                     </ul>
                 </div>
@@ -67,60 +67,43 @@
         <br/>
         <br/>
         <div id="forumContainer"> 
-
-
             <div class="gDivLeft"><div class="gDivRight"><table border="0" width="100%" bgcolor="#FFFFFF" cellspacing="1" cellpadding="0" class="gTable"><tr><td class="gTableTop" colspan="5"><div style="float:right" class="gTopCornerRight"></div><a class="catLink" href="/forum/1">Форум</a></td></tr><tr><td width="5%" class="gTableSubTop">&nbsp;</td>
                             <td class="gTableSubTop">Тема</td>
                             <td width="8%" class="gTableSubTop" align="center">Ответы</td>
                             <td width="30%" class="gTableSubTop">Обновления</td></tr>
-
                         <h:form>
-                        <c:forEach items="${forumBean.allTopics}" var="t">    
-                            <tr> <td class="forumIcoTd" align="center"> 
-                                    <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
-                                </td> 
-                                <td class="forumNameTd"> 
-                                    <h:commandLink  action="#{forumBean.messageIdTopic()}" value="#{t.name}">
-                                        <f:param name="id" value="#{t.IDTopic}"/>
-                                    </h:commandLink>
-                                    
-                                   
-                                </td> 
-                                <td class="forumPostTd" align="center">
-                                    <h:outputText value="#{t.messageCollection.size()}"></h:outputText></td> 
-                                <td class="forumLastPostTd"> 
+                            <c:forEach items="${forumBean.allTopics}" var="t">    
+                                <tr> <td class="forumIcoTd" align="center"> 
+                                        <i class="fa fa-comments fa-lg" aria-hidden="true"></i> 
+                                    </td> 
+                                    <td class="forumNameTd"> 
+                                        <h:commandLink  action="#{forumBean.messageIdTopic()}" value="#{t.name}">
+                                            <f:param name="id" value="#{t.IDTopic}"/>
+                                        </h:commandLink>
+                                    </td> 
+                                    <td class="forumPostTd" align="center">
+                                        <h:outputText value="#{t.messageCollection.size()}"></h:outputText></td> 
+                                    <td class="forumLastPostTd"> 
+                                        <br/>Сообщение от: <span class="lastPostGuest"><a class="lastPostUserLink" href="/index/8-0-ps~studio">ps-studio</a></span> 
 
-
-                                    <!--                                <br/>Тема: <a class="forumLastPostLink" href="/forum/4-29-1">Фоновое изображение профиля</a> -->
-                                    <br/>Сообщение от: <span class="lastPostGuest"><a class="lastPostUserLink" href="/index/8-0-ps~studio">ps-studio</a></span> 
-
-                                </td> 
-                            </tr>
-                        </c:forEach>   
+                                    </td> 
+                                </tr>
+                            </c:forEach>   
                         </h:form>
                         <button type="submit" class="btn" id="btnTopic">Добавить тему</button>
                         <tr><td colspan="7"><div id="nativeroll_video_cont" style="display:none;"></div>
-
                             </td>   
-
-
                         </tr></table></div></div>
-
-
-
             <div class="gDivBottomLeft"></div>
             <div class="gDivBottomCenter"></div><div class="gDivBottomRight"></div><br />
-
             <div class="gDivBottomLeft"></div>
             <div class="gDivBottomCenter"></div>
             <div class="gDivBottomRight"></div>
             <br /><br /><br />
-
-
         </div> 
-        
-<!--        Модальное окно-->
-          <div id="myTopic" class="modal fade">
+
+        <!--        Модальное окно-->
+        <div id="myTopic" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- Заголовок модального окна -->
@@ -135,17 +118,17 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3" for="NameGoal">Название темы:</label>
                                 <div class="col-xs-9">
-<!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
-<p:inputText value="#{forumBean.topic.name}" id="topic" class="form-control" label="topic" maxlength="70" validatorMessage="Введите название" > 
-    <p:message for="topic"/>
-</p:inputText> 
+                                    <!--                                    <input type="text"  class="form-control" id="NameGoal" placeholder="Введите название цели"></input>-->
+                                    <p:inputText autocomplete="off" value="#{forumBean.topic.name}" id="topic" class="form-control" label="topic" maxlength="70" validatorMessage="Введите название" > 
+                                        <p:message for="topic"/>
+                                    </p:inputText> 
                                 </div>
                             </div>
-                           
+
                             <br/>
                             <br/>
                             <br/>
-                           
+
                         </div>
 
                         <!-- Футер модального окна -->
@@ -159,80 +142,80 @@
             </div>
         </div>
 
-  
-<!--
-<footer class="page-footer font-small unique-color-dark pt-0">-->
 
-<div id="footer">
+        <!--
+        <footer class="page-footer font-small unique-color-dark pt-0">-->
 
-    <!--            <div style="background-color: #6351ce;">
-                    <div class="container">
-                        <div class="row py-4 d-flex align-items-center">
-                             GAR Inc                
-                        </div>
+        <div id="footer">
+
+            <!--            <div style="background-color: #6351ce;">
+                            <div class="container">
+                                <div class="row py-4 d-flex align-items-center">
+                                     GAR Inc                
+                                </div>
+                            </div>
+                        </div>-->
+            <!--    <div style="background-color: #F4FA58;">-->
+            <div class="container mt-5 mb-4 text-center text-md-left">
+                <br/>
+                <br/>               
+                <div class="row mt-3">
+                    <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+                        <!--                        <h6 class="text-uppercase font-weight-bold">
+                                                    <strong>GAR</strong>
+                                                </h6>-->
+                        <!--                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;"></hr>-->
+                        <!--                         <h6 class="text-uppercase font-weight-bold">-->
+                        <strong>GAR</strong>
+                        <!--                        </h6>-->
+                        <p>Сервис достижения целей.</p>
                     </div>
-                </div>-->
-    <!--    <div style="background-color: #F4FA58;">-->
-    <div class="container mt-5 mb-4 text-center text-md-left">
-        <br/>
-        <br/>               
-        <div class="row mt-3">
-            <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
-                <!--                        <h6 class="text-uppercase font-weight-bold">
-                                            <strong>GAR</strong>
-                                        </h6>-->
-                <!--                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 300px;"></hr>-->
-                <!--                         <h6 class="text-uppercase font-weight-bold">-->
-                <strong>GAR</strong>
-                <!--                        </h6>-->
-                <p>Сервис достижения целей.</p>
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!--                        <h6 class="text-uppercase font-weight-bold">
+                                                   <strong></strong>
+                                                </h6>
+                                               <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>-->
+                        <p>
+                            <a href="#!">Цели</a>
+                        </p>
+                        <p>
+                            <a href="#!">Рейтинг</a>
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!--                        <h6 class="text-uppercase font-weight-bold">
+                                                    <strong>Useful links</strong>
+                                                </h6>
+                                                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>-->
+                        <p>
+                            <a href="#!">Форум</a>
+                        </p>
+                        <p>
+                            <a href="#!">О нас</a>
+                        </p>
+                    </div>
+                    <div class="col-md-4 col-lg-3 col-xl-3">
+                        <!--                        <h6 class="text-uppercase font-weight-bold">
+                                                    <strong>Contact</strong>
+                                                </h6>
+                                                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>-->
+                        <p>
+                            <i class="fa fa-home mr-3"></i> Владимир</p>
+                        <p>
+                            <i class="fa fa-envelope mr-3"></i> gar@gar.com</p>
+                        <p>
+                            <i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                <!--                        <h6 class="text-uppercase font-weight-bold">
-                                           <strong></strong>
-                                        </h6>
-                                       <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>-->
-                <p>
-                    <a href="#!">Цели</a>
-                </p>
-                <p>
-                    <a href="#!">Рейтинг</a>
-                </p>
-            </div>
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                <!--                        <h6 class="text-uppercase font-weight-bold">
-                                            <strong>Useful links</strong>
-                                        </h6>
-                                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>-->
-                <p>
-                    <a href="#!">Форум</a>
-                </p>
-                <p>
-                    <a href="#!">О нас</a>
-                </p>
-            </div>
-            <div class="col-md-4 col-lg-3 col-xl-3">
-                <!--                        <h6 class="text-uppercase font-weight-bold">
-                                            <strong>Contact</strong>
-                                        </h6>
-                                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;"></hr>-->
-                <p>
-                    <i class="fa fa-home mr-3"></i> Владимир</p>
-                <p>
-                    <i class="fa fa-envelope mr-3"></i> gar@gar.com</p>
-                <p>
-                    <i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
+            <div class="footer-copyright py-3 text-center">
+                © CAR Inc., 2018 г. Все права защищены.
+                <!--                <a href="#">
+                                    <strong> CAR.com</strong>
+                                </a>-->
             </div>
         </div>
-    </div>
-    <div class="footer-copyright py-3 text-center">
-        © CAR Inc., 2018 г. Все права защищены.
-        <!--                <a href="#">
-                            <strong> CAR.com</strong>
-                        </a>-->
-    </div>
-</div>
-<!--</div> -->
+        <!--</div> -->
         <script>
             $(document).ready(function () {
                 //при нажатию на любую кнопку, имеющую класс .btn
@@ -244,12 +227,12 @@
                 });
             });
         </script>
-        
-    </h:body>     
-<!--Футер-->
 
-        <!-- 0.02434 (s7) -->
-        
-  
+    </h:body>     
+    <!--Футер-->
+
+    <!-- 0.02434 (s7) -->
+
+
 </html>
 
