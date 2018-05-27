@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -22,6 +23,7 @@ import model.ClientFacadeLocal;
 import model.ImageFacadeLocal;
 import model.UserFacadeLocal;
 import model.UserRoleFacadeLocal;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -30,11 +32,13 @@ import model.UserRoleFacadeLocal;
 @ManagedBean(name = "userBean")
 @RequestScoped
 public class UserBean {
-
-
-
+    
+    public UserBean() {
+    }
+    
+    static final Logger LOGGER = Logger.getLogger(UserBean.class);    
     public static final String USER_KEY = "CurrentUser";
-        
+
     @EJB
     private UserFacadeLocal userFacade;
     private User user = new User();
@@ -48,9 +52,6 @@ public class UserBean {
     private Client client = new Client();
     @EJB
     private ImageFacadeLocal facadeLocal;
-    public UserBean() {
-    }
-
 
     public User getUser() {
         return user;
@@ -64,7 +65,7 @@ public class UserBean {
         try{
             user.setMessageCollection(null);
             user.setTopicCollection(null);
-            //клиента по id в стидиюы
+            //клиента по id
             user.setClient(null);
             userFacade.create(user);
 
@@ -79,27 +80,35 @@ public class UserBean {
             client.setGoalUserCollection(null);
             client.setiDImage(facadeLocal.find(1));
             clientFacadeLocal.create(client);
-        }
-        catch (javax.ejb.EJBException e){
-            // String message="You must login to continue";
-            // String message = e.getMessage();
-            FacesContext.getCurrentInstance().addMessage("regForm:login", new FacesMessage("Пользователь с таким логином уже существует!!!"));
-            //  e.printStackTrace();
-          return "registration";
+        } catch (EJBException ejbe){
+            FacesContext.getCurrentInstance().addMessage("regForm:login", new FacesMessage("Пользователь с таким логином уже существует!!!"));// не уверена...ооочень не уверена
+            LOGGER.error("Ошибка при добавлении поьзователя:", ejbe);
         }
             return "authorization";
     }
     
     //вырнуть текущего
     public User getCurrentUserObject(){
-        return userFacade.findLogin(getCurrentUser());
+        try {
+            user = userFacade.findLogin(getCurrentUser());
+        } catch (EJBException ejbe) {
+            LOGGER.error("Ошибка при получении текущего пользователя:", ejbe);
+        }
+        return user;
     }
     
     //наименование такное-себе но менять не помню где
     public String getCurrentUser(){
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, Object> params = fc.getExternalContext().getSessionMap();
-        String login = (String) params.get(UserBean.USER_KEY);
+        String login = "";
+        try {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String, Object> params = fc.getExternalContext().getSessionMap();
+            login = (String) params.get(UserBean.USER_KEY);
+        } catch (EJBException ejbe) {
+            LOGGER.error("Ошибка при получении логина текущего пользователя:", ejbe);
+        } catch (NumberFormatException nfe){
+            LOGGER.error("Ошибка при получении логина текущего пользователя. Пришли не верные параметры:", nfe);
+        }
         return login;
     }
     
