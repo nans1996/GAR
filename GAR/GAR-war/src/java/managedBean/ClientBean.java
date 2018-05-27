@@ -253,9 +253,21 @@ public class ClientBean implements Serializable {
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         int id = Integer.parseInt(params.get("id"));
         goalUser = goalUserFacadeLocal.find(id);
-        return "/goal_user?faces-redirect=true";
+        return "/goaUser?faces-redirect=true";
     }
 
+    public String deleteGoalUser() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        int id = Integer.parseInt(params.get("id"));
+        goalUser = goalUserFacadeLocal.find(id);
+        goalUser.getLevelCollection().forEach((item) -> {
+            levelFacadeLocal.remove(item);
+        });
+        goalUserFacadeLocal.remove(goalUser);
+        return "/profil?faces-redirect=true";
+    }
+        
     public String createGoalUser() {
         personage = personageFacadeLocal.find(personage.getIDPersonage());
         boolean paymentFlag = false;
