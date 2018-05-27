@@ -66,6 +66,8 @@ public class AdministratorBean {
     private String USER_ROLE = "admin";
     @EJB
     private UserRoleFacadeLocal userRoleFacadeLocal;
+    @EJB
+    private ClientFacadeLocal clientFacade;
 
     //Вывод списка пользователей для администратора
     public List<User> getAllUser() {
@@ -298,6 +300,6 @@ public class AdministratorBean {
             FacesMessage message = new FacesMessage("Файл пуст и не может быть добавлен.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
-
     }
+    
 }

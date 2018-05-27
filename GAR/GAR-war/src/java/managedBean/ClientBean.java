@@ -168,134 +168,142 @@ public class ClientBean implements Serializable {
         this.client = client;
     }
 
-    //вывести всех клиентов
-    public List<entity.Client> findAllClient() {
-        return this.clientFacade.findAll();
-    }
-
-    //создать клиента 
-    public String createClient() {
-        this.clientFacade.create(this.client);
-        return "index";
-    }
-
-    //удалить
-    public void deleteClient(entity.Client client) {
-        this.clientFacade.remove(client);
-    }
-
     public String editClient() {
-        userFacadeLocal.edit(user);
-        clientFacade.edit(client);
-        // client = new Client();
-        return "profile";
-    }
-
-    //забанить/разбанить пользователя
-    public String banClient(User u, boolean flag) {
-        //            user = userFacadeLocal.find(m.getIDUser());
-        client = clientFacade.findIdUser(u.getIDUser());
-        if (flag) {
-            client.setBan(true);
-        } else {
-            client.setBan(false);
+        try {
+            userFacadeLocal.edit(user);
+            clientFacade.edit(client);
+        } catch (EJBException ejbe) {
+            LOGGER.error("Ошибка просмтра данных клиента:", ejbe);
+            FacesMessage message = new FacesMessage("Ошибка", "Ошибка просмтра данных клиента.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
-        clientFacade.edit(this.client);
-
-        return "comment";
-    }
-
-    //проверить бан пользователя
-    public boolean isBanClient(User u) {
-        //user = userFacadeLocal.find(m.getIDUser());
-        client = clientFacade.findIdUser(u.getIDUser());
-        return client.getBan();
+        return "profile";
     }
 
     //вывести цели клиента
     public List<GoalUser> findAllGoalCurrentClient() {
-        user = userFacadeLocal.findLogin(userBean.getCurrentUser());
-        client = clientFacade.findIdUser(user.getIDUser());
-        return goalUserFacadeLocal.findGoalCurrentClient(client.getIDClient());
+        List<GoalUser> goalUsers = null;
+        try {
+            user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+            client = clientFacade.findIdUser(user.getIDUser());
+            goalUsers = goalUserFacadeLocal.findGoalCurrentClient(client.getIDClient());
+        } catch (EJBException ejbe) {
+            LOGGER.error("Ошибка отображения целей клиента:", ejbe);
+        }
+        return goalUsers;
     }
 
     //Добавление пользователю дефолтной цели 
     public String createGoalDefoltUser() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        int id = Integer.parseInt(params.get("id"));
-        goal = goalFacadeLocal.find(id);
-        goalUser.setIDGoal(goal);
-        user = userFacadeLocal.findLogin(userBean.getCurrentUser());
-        client = clientFacade.findIdUser(user.getIDUser());
-        goalUser.setIDClient(client);
-        goalUser.setLevelCollection(null);
-        this.goalUserFacadeLocal.create(this.goalUser);
-        //заполняем 21 день как не выполненые что-бы было подряд
-        Date date = new Date();
-        for (int i = 0; i < 21; i++) {
-            level.setIDGoaluser(goalUser);
-            level.setDate(date);
-            Calendar instance = Calendar.getInstance();
-            instance.setTime(date); //устанавливаем дату, с которой будет производить операции
-            instance.add(Calendar.DAY_OF_MONTH, 1);// прибавляем день
-            date = instance.getTime(); // получаем измененную дату
-            level.setLeveldate(false);
-            levelFacadeLocal.create(level);
+        FacesMessage message;
+        try {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+            int id = Integer.parseInt(params.get("id"));
+            goal = goalFacadeLocal.find(id);
+            goalUser.setIDGoal(goal);
+            user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+            client = clientFacade.findIdUser(user.getIDUser());
+            goalUser.setIDClient(client);
+            goalUser.setLevelCollection(null);
+            this.goalUserFacadeLocal.create(this.goalUser);
+            //заполняем 21 день как не выполненые что-бы было подряд
+            Date date = new Date();
+            for (int i = 0; i < 21; i++) {
+                level.setIDGoaluser(goalUser);
+                level.setDate(date);
+                Calendar instance = Calendar.getInstance();
+                instance.setTime(date); //устанавливаем дату, с которой будет производить операции
+                instance.add(Calendar.DAY_OF_MONTH, 1);// прибавляем день
+                date = instance.getTime(); // получаем измененную дату
+                level.setLeveldate(false);
+                levelFacadeLocal.create(level);
+            }
+            message = new FacesMessage("Успех", "Дефолтная цель успешно добавлена в список ваших целей!");
+        } catch (NumberFormatException nfe) {
+            message = new FacesMessage("Ошибка", "Ошибка добавления дефолтной цели. Обратитесь к администратору.");
+            LOGGER.error("Ошибка добавления дефолтной цели. Пришли не верные параметры:", nfe);
+        } catch (EJBException ejbe) {
+            message = new FacesMessage("Ошибка", "Ошибка добавления дефолтной цели. Обратитесь к администратору.");
+            LOGGER.error("Ошибка добавления дефолтной цели:", ejbe);
         }
-
-        //после добавления перебрасывает на index
-        return "index";
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        return "goals";
     }
 
     public String editGoalUser() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        int id = Integer.parseInt(params.get("id"));
-        goalUser = goalUserFacadeLocal.find(id);
-        return "/goaUser?faces-redirect=true";
+        FacesMessage message = null;
+        String resultStr;
+        try {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+            int id = Integer.parseInt(params.get("id"));
+            goalUser = goalUserFacadeLocal.find(id);
+            resultStr = "/goalUser?faces-redirect=true";
+        } catch (NumberFormatException nfe) {
+            message = new FacesMessage("Ошибка", "Ошибка перехода на страницу целей. Обратитесь к администратору.");
+            LOGGER.error("Ошибка перехода на страницу целей. Пришли не верные параметры:", nfe);
+            resultStr = "profil";
+        } catch (EJBException ejbe) {
+            message = new FacesMessage("Ошибка", "Ошибка перехода на страницу целей. Обратитесь к администратору.");
+            LOGGER.error("Ошибка перехода на страницу целей:", ejbe);
+            resultStr = "profil";
+        }
+        if (message != null) {
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        return resultStr;
     }
 
     public String deleteGoalUser() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        int id = Integer.parseInt(params.get("id"));
-        goalUser = goalUserFacadeLocal.find(id);
-        goalUser.getLevelCollection().forEach((item) -> {
-            levelFacadeLocal.remove(item);
-        });
-        goalUserFacadeLocal.remove(goalUser);
-        return "/profil?faces-redirect=true";
-    }
-        
-    public String createGoalUser() {
-        personage = personageFacadeLocal.find(personage.getIDPersonage());
-        boolean paymentFlag = false;
-        if (personage.getPrice() > 0) {
-            String purchaseValue = String.valueOf(personage.getPrice());
-            try {
-                if (!holder.isEmpty() && !codeCard.isEmpty() && !codeSecurity.isEmpty() && !expirationDate.isEmpty()) {//ну хоть что-то проверим
-                    paymentFlag = payment(holder, codeCard, codeSecurity, expirationDate, purchaseValue);
-                    if (paymentFlag) {
-                        FacesMessage message = new FacesMessage("Успех", "Прошла оплата персонажа.");
-                        FacesContext.getCurrentInstance().addMessage(null, message);
-                    } else {
-                        FacesMessage message = new FacesMessage("Ошибка", "Оплата не прошла. Проверьте корректность и аклуальность введенных данных.");
-                        FacesContext.getCurrentInstance().addMessage(null, message);
-                    }
-                } else {
-                    FacesMessage message = new FacesMessage("Ошибка", "Данные оплаты не заполнены.");
-                    FacesContext.getCurrentInstance().addMessage(null, message);
-                }
-            } catch (IOException ex) {
-                LOGGER.error("Оплата персонажа не прошла. Ошибка подключения к сервису.", ex);
-                FacesMessage message = new FacesMessage("Ошибка", "Оплата персонажа не прошла. Ошибка с серсвисом.");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            }
-        } else {
-            paymentFlag = true;
-        }
+        FacesMessage message;
         try {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+            int id = Integer.parseInt(params.get("id"));
+            goalUser = goalUserFacadeLocal.find(id);
+            goalUser.getLevelCollection().forEach((item) -> {
+                levelFacadeLocal.remove(item);
+            });
+            goalUserFacadeLocal.remove(goalUser);
+            message = new FacesMessage("Успех", "Цель успешно удалена");
+        } catch (NumberFormatException nfe) {
+            message = new FacesMessage("Ошибка", "Ошибка удаления цели. Обратитесь к администратору.");
+            LOGGER.error("Ошибка удаления цели. Пришли не верные параметры:", nfe);
+        } catch (EJBException ejbe) {
+            message = new FacesMessage("Ошибка", "Ошибка удаления цели. Обратитесь к администратору.");
+            LOGGER.error("Ошибка удаления цели:", ejbe);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        return "profil";
+    }
+
+    public String createGoalUser() {
+        FacesMessage message = null;
+        try {
+            personage = personageFacadeLocal.find(personage.getIDPersonage());
+            boolean paymentFlag = false;
+            //производим оплату персонажа
+            if (personage.getPrice() > 0) {
+                String purchaseValue = String.valueOf(personage.getPrice());
+                try {
+                    if (!holder.isEmpty() && !codeCard.isEmpty() && !codeSecurity.isEmpty() && !expirationDate.isEmpty()) {//ну хоть что-то проверим
+                        paymentFlag = payment(holder, codeCard, codeSecurity, expirationDate, purchaseValue);
+                        if (paymentFlag) {
+                            message = new FacesMessage("Успех", "Прошла оплата персонажа.");
+                        } else {
+                            message = new FacesMessage("Ошибка", "Оплата не прошла. Проверьте корректность и аклуальность введенных данных.");
+                        }
+                    } else {
+                        message = new FacesMessage("Ошибка", "Данные оплаты не заполнены.");
+                    }
+                } catch (IOException ex) {
+                    LOGGER.error("Оплата персонажа не прошла. Ошибка подключения к сервису.", ex);
+                    message = new FacesMessage("Ошибка", "Оплата персонажа не прошла. Ошибка с серсвисом.");
+                }
+            } else {
+                paymentFlag = true;
+            }
             if (paymentFlag) {
                 user = userFacadeLocal.findLogin(userBean.getCurrentUser());
                 client = clientFacade.findIdUser(user.getIDUser());
@@ -319,94 +327,92 @@ public class ClientBean implements Serializable {
                     level.setLeveldate(false);
                     levelFacadeLocal.create(level);
                 }
-                FacesMessage message = new FacesMessage("Цель успешно добавлена.");
-                FacesContext.getCurrentInstance().addMessage(null, message);
+                message = new FacesMessage("Успех","Цель успешно добавлена.");
             }
-        } catch (EJBException ex) {
-            LOGGER.error("Персонаж не добавлен. Ошибка: ", ex);
-            FacesMessage message = new FacesMessage("Персонаж не добавлен. Обратитесь к администратору.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+        } catch (EJBException ejbe) {
+            LOGGER.error("Персонаж не добавлен. Ошибка: ", ejbe);
+            message = new FacesMessage("Ошибка","Персонаж не добавлен. Обратитесь к администратору.");
         }
-        //после добавления перебрасывает на index изменить на страницу подтверждения
-        return "goal";
+        if (message != null) FacesContext.getCurrentInstance().addMessage(null, message);
+        return "goals";
     }
 
-    //удалить
-    public void deleteGoalUser(GoalUser goalUser) {
-        this.goalUserFacadeLocal.remove(goalUser);
-    }
-
-    //обновить 
-    public String editGoalUser(GoalUser goalUser) {
-        this.goalUser = goalUser;
-        return "edit";
-    }
-
-//   public String editGoalUser(){
-//       this.goalUserFacadeLocal.edit(this.goalUser);
-//       this.goalUser = new GoalUser();
-//       return "index";
-//   }
-    //создать сообщение пока так же
-    public String createMessage() {
-        this.messageFacade.create(this.message);
-        return "index";
-    }
-
-    //вывод дефолтных целей 
+    //поиск по дефолтным целям
     public void findAllGoalDefolt() {
-        if (search.trim().length() == 0)//возможно просто длину достаточно проверить
-        {
-            setListGoals(goalFacadeLocal.findGoalDefolt());
-        } else {
-            setListGoals(goalFacadeLocal.findGoalSearch(search.trim()));
+        try {
+            if (search.trim().length() == 0){//возможно просто длину достаточно проверить
+                setListGoals(goalFacadeLocal.findGoalDefolt());
+            } else {
+                setListGoals(goalFacadeLocal.findGoalSearch(search.trim()));
+            }
+        }catch (EJBException ejbe){
+            LOGGER.error("Ошибка при поиске дефолтных целей: ", ejbe);
         }
     }
-
+    
+    //вывод дефолтных целей 
     public List<Goal> AllGoalDefolt() {
-        if (listGoals == null) {
-            setListGoals(goalFacadeLocal.findGoalDefolt());
+        try {
+            if (listGoals == null) 
+                setListGoals(goalFacadeLocal.findGoalDefolt());
+        }catch (EJBException ejbe){
+            LOGGER.error("Ошибка при выводе дефолтных целей: ", ejbe);
         }
         return listGoals;
     }
 
-    //создать новую тему на форуме
-    public String createTopic() {
-        this.topicFacade.create(this.topic);
-        return "index";
+    public void setListGoals(List<Goal> listGoals) {
+        this.listGoals = listGoals;
     }
 
+    
+//    //создать новую тему на форуме
+//    public String createTopic() {
+//        this.topicFacade.create(this.topic);
+//        return "index";
+//    }
+
+    //Выполнение цели на день
     public String addLevel() {
-        Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
-        for (Level item : levels) {
-            if (isDateEqual(item.getDate()) && !item.getLeveldate()) {
-                item.setLeveldate(true);
-                levelFacadeLocal.edit(item);
+        FacesMessage message = null;
+        try {
+            Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
+            for (Level item : levels) {
+                if (isDateEqual(item.getDate()) && !item.getLeveldate()) {
+                    item.setLeveldate(true);
+                    levelFacadeLocal.edit(item);
+                    message = new FacesMessage("Успех","Цель успешно выполнена на сегодня.");
+                }
             }
+        } catch (EJBException ejbe){
+            LOGGER.error("Ошибка при выполнении цел на день: ", ejbe);
+            message = new FacesMessage("Ошибка","Ошибка при выполнении цел на день. Обратитесь к администратору.");
         }
-        return "/goal_user?faces-redirect=true";
+        if (message != null) FacesContext.getCurrentInstance().addMessage(null, message);
+        return "goalUser";
     }
 
     //выполненость
     public int percentСomplianceGoalUser() {
-        //goalUser = goalUserFacadeLocal.find(goalUser.getIDGoaluser());
         int caunt = 0;
+        try {
         Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
-        for (Level item : levels) {
-            if (item.getLeveldate()) {
-                caunt++;
+            for (Level item : levels) {
+                if (item.getLeveldate()) {
+                    caunt++;
+                }
             }
+        } catch (EJBException ejbe){
+            LOGGER.error("Не удалось подсчитать выполненность цели: ", ejbe);
         }
-
         int percent = (100 * caunt) / 21;
         return percent;
-        //return 100;
     }
+    
     //тут часть кода отвечвющая за календарик
+    //тут надо разобраться пока не причесывала
     private ScheduleModel eventModel;
-
     private ScheduleModel lazyEventModel;
-
     private ScheduleEvent event = new DefaultScheduleEvent();
 
     @PostConstruct
@@ -477,11 +483,7 @@ public class ClientBean implements Serializable {
     public List<Goal> getListGoals() {
         return listGoals;
     }
-
-    public void setListGoals(List<Goal> listGoals) {
-        this.listGoals = listGoals;
-    }
-
+    
     private LineChartModel areaModel;
 
     public LineChartModel getAreaModel() {
@@ -491,53 +493,60 @@ public class ClientBean implements Serializable {
 
     //график
     private void createAreaModel() {
-        areaModel = new LineChartModel();
+        try {
+            areaModel = new LineChartModel();
+            LineChartSeries target = new LineChartSeries();
+            target.setFill(true);
+            goalUser = goalUserFacadeLocal.find(goalUser.getIDGoaluser());
+            target.setLabel(goalUser.getIDGoal().getName());
 
-        LineChartSeries target = new LineChartSeries();
-        target.setFill(true);
-        goalUser = goalUserFacadeLocal.find(goalUser.getIDGoaluser());
-        target.setLabel(goalUser.getIDGoal().getName());
-
-        int namberLevel = 0;
-        for (Level item : goalUser.getLevelCollection()) {
-            if (item.getLeveldate()) {
-                namberLevel++;
-            }
-            target.set(item.getDate().toString(), namberLevel);
-            if (isDateEqual(item.getDate())) {
-                break;
-            }
-        }
-
-        areaModel.addSeries(target);
-
-        areaModel.setTitle("Достижение цели");
-        areaModel.setLegendPosition("ne");
-        areaModel.setStacked(true);
-        areaModel.setShowPointLabels(true);
-
-        Axis xAxis = new CategoryAxis("Дни");
-        areaModel.getAxes().put(AxisType.X, xAxis);
-        Axis yAxis = areaModel.getAxis(AxisType.Y);
-        yAxis.setLabel("Шкала выполнения");
-        yAxis.setMin(1);
-        yAxis.setMax(goalUser.getLevelCollection().size());
-    }
-
-    public boolean checkDate() {
-        Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
-        if (!levels.isEmpty()) {
-            for (Level level : levels) {
-                if (isDateEqual(level.getDate()) && level.getLeveldate()) {
-                    return true;
+            int namberLevel = 0;
+            for (Level item : goalUser.getLevelCollection()) {
+                if (item.getLeveldate()) {
+                    namberLevel++;
+                }
+                target.set(item.getDate().toString(), namberLevel);
+                if (isDateEqual(item.getDate())) {
+                    break;
                 }
             }
-        } else {
-            return false;
+            areaModel.addSeries(target);
+            areaModel.setTitle("Достижение цели");
+            areaModel.setLegendPosition("ne");
+            areaModel.setStacked(true);
+            areaModel.setShowPointLabels(true);
+            Axis xAxis = new CategoryAxis("Дни");
+            areaModel.getAxes().put(AxisType.X, xAxis);
+            Axis yAxis = areaModel.getAxis(AxisType.Y);
+            yAxis.setLabel("Шкала выполнения");
+            yAxis.setMin(1);
+            yAxis.setMax(goalUser.getLevelCollection().size()); 
+        } catch (EnumConstantNotPresentException ecnpe) {
+            LOGGER.error("Попытка использования неопределённого значения перечисления: ", ecnpe);
+        } catch (EJBException ejbe){
+            LOGGER.error("Ошибка при выводеграфика: ", ejbe);
+        }
+    }
+
+    //метод скрытия кнопки выполнения цели
+    public boolean checkDate() {
+        try {
+            Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
+            if (!levels.isEmpty()) {
+                for (Level level : levels) {
+                    if (isDateEqual(level.getDate()) && level.getLeveldate())
+                        return true;
+                }
+            } else {
+                return false;
+            }
+        }catch(EJBException ejbe){
+            LOGGER.error("Ошибка при получении списка выполнения целей:", ejbe);
         }
         return false;
     }
 
+    //сравнение дат
     public boolean isDateEqual(Date dateLevel) {
         LocalDate current = LocalDate.now();
         LocalDate levelLocalDate = Instant.ofEpochMilli(dateLevel.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
@@ -549,9 +558,8 @@ public class ClientBean implements Serializable {
         int rating = 0;
         if (client.getGoalUserCollection() != null) {
             for (GoalUser gu : client.getGoalUserCollection()) {
-                if (gu.getLevelCollection().size() - 1 == 21) {
+                if (gu.getLevelCollection().size() - 1 == 21) 
                     rating++;
-                }
             }
         }
         client.setRating(rating);
@@ -560,12 +568,16 @@ public class ClientBean implements Serializable {
 
     //метод который считает рейтинг для всех
     public List<entity.Client> calculateClientsRating() {
-        List<entity.Client> clients = clientFacade.findAll();
-        List<entity.Client> ratingList = new ArrayList<>();
-        for (entity.Client c : clients) {
-            ratingList.add(calculateClientReiting(c));
+        List<entity.Client> ratingList= null;
+        try {
+            List<entity.Client> clients = clientFacade.findAll();
+            ratingList = new ArrayList<>();
+            for (entity.Client c : clients)
+                ratingList.add(calculateClientReiting(c));
+            Collections.sort(ratingList, (c1, c2) -> compaeInts(c1.getRating(), c2.getRating()));
+        } catch (EJBException ejbe) {
+            LOGGER.error("Ошибка при получении списка пользователей:", ejbe);
         }
-        Collections.sort(ratingList, (c1, c2) -> compaeInts(c1.getRating(), c2.getRating()));
         return ratingList;
     }
 
@@ -619,6 +631,7 @@ public class ClientBean implements Serializable {
     }
 
     //оплата персонажа
+    //исключение обробатываем чуть выше
     public boolean payment(String holder, String codeCard, String codeSecurity, String expirationDate, String purchaseValue) throws IOException {
         boolean result = false;
         HttpClient clientHttp = new DefaultHttpClient();
@@ -642,79 +655,98 @@ public class ClientBean implements Serializable {
 
     //вывод картинки персонажу
     public StreamedContent getStreamedImageById() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-            return new DefaultStreamedContent();
-        } else {
-            context = FacesContext.getCurrentInstance();
-            Map<String, String> params = context.getExternalContext().getRequestParameterMap();
-            int id = Integer.parseInt(params.get("id"));
-            Personage pers = personageFacadeLocal.find(id);
-            List<PersonageImage> personageImages = personageImageFacadeLocal.findAll();
-            Image img = null;
-            for (PersonageImage personageImage : personageImages) {
-                if ((personageImage.getIDPersonage().getIDPersonage() == pers.getIDPersonage()) && personageImage.getLevel() == 8) {
-                    img = imageFacadeLocal.find(personageImage.getIDImage().getIDImage());
-                    break;
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+                return new DefaultStreamedContent();
+            } else {
+                context = FacesContext.getCurrentInstance();
+                Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+                int id = Integer.parseInt(params.get("id"));
+                Personage pers = personageFacadeLocal.find(id);
+                List<PersonageImage> personageImages = personageImageFacadeLocal.findAll();
+                Image img = null;
+                for (PersonageImage personageImage : personageImages) {
+                    if ((personageImage.getIDPersonage().getIDPersonage() == pers.getIDPersonage()) && personageImage.getLevel() == 8) {
+                        img = imageFacadeLocal.find(personageImage.getIDImage().getIDImage());
+                        break;
+                    }
+                }
+                if (img != null) {
+                    return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
                 }
             }
-            //Image img = imageFacadeLocal.find(personageImages.get(0).getIDImage().getIDImage());//допустим будем выводить картинку на 1 уровне 
-            if (img != null) {
-                return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
-            }
-            return null;
+        } catch (EJBException ejbe) {
+            LOGGER.error("Ошибка вывода картинок:", ejbe);
+        } catch (NumberFormatException nfe){
+            LOGGER.error("Ошибка вывода картинок. Пришли не верные параметры:", nfe);
         }
+        return null;
     }
 
     //Вывод картинок дефолтным целям
     public StreamedContent getStreamedImageByIdGoalDefolt() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-            return new DefaultStreamedContent();
-        } else {
-            context = FacesContext.getCurrentInstance();
-            Map<String, String> params = context.getExternalContext().getRequestParameterMap();
-            int id = Integer.parseInt(params.get("id"));
-            Goal goal = goalFacadeLocal.find(id);
-            Image img = imageFacadeLocal.find(goal.getiDImage().getIDImage());
-            if (img != null) {
-                return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+                return new DefaultStreamedContent();
+            } else {
+                context = FacesContext.getCurrentInstance();
+                Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+                int id = Integer.parseInt(params.get("id"));
+                Goal goal = goalFacadeLocal.find(id);
+                Image img = imageFacadeLocal.find(goal.getiDImage().getIDImage());
+                if (img != null) {
+                    return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+                }
             }
-            return null;
+        } catch (EJBException ejbe) {
+            LOGGER.error("Ошибка вывода картинки к дефолтной цели:", ejbe);
+        }catch (NumberFormatException nfe){
+            LOGGER.error("Ошибка вывода картинки к дефолтной цели. Пришли не верные параметры:", nfe);
         }
+        return null;
     }
 
     //Вывод картинки по уровню
     public StreamedContent getStreamedImageByIdAndLevel() {
-        Personage pers = personageFacadeLocal.find(goalUser.getIDGoal().getIDPersonage().getIDPersonage());
-        List<PersonageImage> personageImages = personageImageFacadeLocal.findAll();
-        client = clientFacade.find(goalUser.getIDClient().getIDClient());
-        Image img = null;
-        int level = 1;
-        Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
-        if (!levels.isEmpty()) {
-            for (Level item : levels) {
-                if (item.getLeveldate()) {
-                    level++;
+        try {
+            Personage pers = personageFacadeLocal.find(goalUser.getIDGoal().getIDPersonage().getIDPersonage());
+            List<PersonageImage> personageImages = personageImageFacadeLocal.findAll();
+            client = clientFacade.find(goalUser.getIDClient().getIDClient());
+            Image img = null;
+            int level = 1;
+            Collection<Level> levels = goalUserFacadeLocal.find(goalUser.getIDGoaluser()).getLevelCollection();
+            if (!levels.isEmpty()) {
+                for (Level item : levels) {
+                    if (item.getLeveldate()) {
+                        level++;
+                    }
                 }
             }
-        }
-        for (PersonageImage personageImage : personageImages) {
-            if (personageImage.getIDPersonage().getIDPersonage() == pers.getIDPersonage() && personageImage.getLevel() == level) {
-                img = imageFacadeLocal.find(personageImage.getIDImage().getIDImage());
-                break;
+            for (PersonageImage personageImage : personageImages) {
+                if (personageImage.getIDPersonage().getIDPersonage() == pers.getIDPersonage() && personageImage.getLevel() == level) {
+                    img = imageFacadeLocal.find(personageImage.getIDImage().getIDImage());
+                    break;
+                }
             }
-        }
-        //Image img = imageFacadeLocal.find(personageImages.get(0).getIDImage().getIDImage());//допустим будем выводить картинку на 1 уровне 
-        if (img != null) {
-            return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+            if (img != null)
+                return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
+        } catch (EJBException ejbe) {
+            LOGGER.error("Ошибка вывода картиноки по уровню:", ejbe);
+        }catch (NumberFormatException nfe){
+            LOGGER.error("Ошибка вывода картинки по уровню. Пришли не верные параметры:", nfe);
         }
         return null;
-
     }
 
     public List<Personage> AllPersonages() {
-        List<Personage> personages = personageFacadeLocal.findAll();
+        List<Personage> personages = null;
+        try {
+            personages = personageFacadeLocal.findAll();
+        } catch (EJBException ejbe) {
+            LOGGER.error("Ошибка при получении списка персонажей из БД:", ejbe);
+        }
         return personages;
     }
 
@@ -740,33 +772,51 @@ public class ClientBean implements Serializable {
         return imageInByte;
     }
 
-    public void uploadProfile() throws IOException {
-        if (file != null) {
-            image.setName(file.getFileName());
-            image.setType(file.getContentType());
-            image.setPersonageImage(null);
-            image.setData(InputStreamToArryByte(file.getInputstream()));
-            imageFacadeLocal.create(image);
+    //добавление авторарки
+    public void uploadProfile() {
+        try {
+            if (file != null) {
+                image.setName(file.getFileName());
+                image.setType(file.getContentType());
+                image.setPersonageImage(null);
+                image.setData(InputStreamToArryByte(file.getInputstream()));
+                imageFacadeLocal.create(image);
 
-            user = userFacadeLocal.findLogin(userBean.getCurrentUser());
-            client = clientFacade.findIdUser(user.getIDUser());
-            client.setiDImage(image);
-            clientFacade.edit(client);
+                user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+                client = clientFacade.findIdUser(user.getIDUser());
+                client.setiDImage(image);
+                clientFacade.edit(client);
 
-            FacesMessage message = new FacesMessage("Добавлен файл:", file.getFileName());
-            FacesContext.getCurrentInstance().addMessage(null, message);
+                FacesMessage message = new FacesMessage("Добавлен файл:", file.getFileName());
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        } catch (IOException ioe) {
+            LOGGER.error("Добавленни аватаки пользователю не произошло. Ошибка в чтении из потока в байтовый массив:", ioe);
+        }catch (EJBException ejbe){
+            LOGGER.error("Ошибка при добавленни авотаки пользователю:", ejbe);
         }
-
     }
 
     public StreamedContent getAvatar() {
-        user = userFacadeLocal.findLogin(userBean.getCurrentUser());
-        client = clientFacade.findIdUser(user.getIDUser());
-        Image img = client.getiDImage();
+        Image img = null;
+        try {
+            user = userFacadeLocal.findLogin(userBean.getCurrentUser());
+            client = clientFacade.findIdUser(user.getIDUser());
+            img = client.getiDImage();
+        } catch (EJBException ejbe) {
+            LOGGER.error("Ошибка при получении авотарки пользователя:", ejbe);
+        }
+        if (img == null) return null;
         return new DefaultStreamedContent(new ByteArrayInputStream(img.getData()), img.getType());
     }
 
     public List<Personage> personagesFild() {
-        return personageFacadeLocal.findAll();
+        List<Personage> personages = null;
+        try {
+            personages = personageFacadeLocal.findAll();
+        } catch (EJBException ejbe) {
+            LOGGER.error("Ошибка при получении списка персонажей:", ejbe);
+        }
+        return personages;
     }
 }
