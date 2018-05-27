@@ -22,8 +22,7 @@ CREATE TABLE User_Role (
 	Role varchar(10) NOT NULL, #//типо кода_наименования
 	Login varchar(10) NOT NULL,
 	PRIMARY KEY (Role,Login), #//составной первычный
-	CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login),
-	UNIQUE (Login) //уникальный логин????
+	CONSTRAINT `FK_myuser_role_1` FOREIGN KEY (Login) REFERENCES User (Login)
 );
 
 CREATE TABLE Message (#тут изменения!!
