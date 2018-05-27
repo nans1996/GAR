@@ -35,11 +35,10 @@ import org.apache.log4j.Logger;
 @SessionScoped
 public class AdministratorBean {
 
-    public AdministratorBean() throws IOException {
+    public AdministratorBean(){
 
     }
     static final Logger LOGGER = Logger.getLogger(AdministratorBean.class);
-
     private User user = new User();
 
     @EJB

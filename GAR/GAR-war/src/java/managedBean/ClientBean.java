@@ -68,11 +68,7 @@ public class ClientBean implements Serializable {
 
     static final Logger LOGGER = Logger.getLogger(ClientBean.class);
 
-    @EJB
-    private TopicFacadeLocal topicFacade;
     Topic topic = new Topic();
-    @EJB
-    private MessageFacadeLocal messageFacade;
     Message message = new Message();
     @EJB
     private GoalUserFacadeLocal goalUserFacadeLocal;
