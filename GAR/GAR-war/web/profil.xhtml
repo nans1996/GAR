@@ -117,13 +117,13 @@
 
             <ul class="nav">      
                 <h:form>
-                    <li class="nav-header">Мои цели</li>
+                    <h4>Мои цели:</h4>
                     <c:forEach items="${clientBean.findAllGoalCurrentClient()}" var="item"> 
                         <i class="icon-search">
-                            <h:commandLink styleClass="btn btn-default" style="width:100Px;height:100Px" action="#{clientBean.editGoalUser}" value="#{item.IDGoal.name}">
+                            <h:commandLink styleClass="btn btn-default" style="width:200Px" action="#{clientBean.editGoalUser}" value="#{item.IDGoal.name}">
                                 <f:param name="id" value="#{item.IDGoaluser}"/>
                             </h:commandLink>
-                            <h:commandLink styleClass="btn btn-default" style="width:100Px;height:100Px" action="#{clientBean.deleteGoalUser}" value="Удалить #{item.IDGoal.name}">
+                            <h:commandLink styleClass="btn btn-default" style="width:300Px" action="#{clientBean.deleteGoalUser}" value="Удалить #{item.IDGoal.name}">
                                 <f:param name="id" value="#{item.IDGoaluser}"/>
                             </h:commandLink>
                         </i>

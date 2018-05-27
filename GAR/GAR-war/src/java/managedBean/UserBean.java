@@ -62,35 +62,32 @@ public class UserBean {
     
     public String createUser(){
         try{
-        user.setMessageCollection(null);
-        user.setTopicCollection(null);
-        //клиента по id в стидиюы
-        user.setClient(null);
-        userFacade.create(user);
-        
-        rolePK.setLogin(user.getLogin());
-        rolePK.setRole(USER_ROLE);
-        userRole.setUserRolePK(rolePK);
-        userRole.setUser(user);
-        userRoleFacadeLocal.create(userRole);
+            user.setMessageCollection(null);
+            user.setTopicCollection(null);
+            //клиента по id в стидиюы
+            user.setClient(null);
+            userFacade.create(user);
 
-        client.setBan(false);
-        client.setIDUser(user);
-        client.setGoalUserCollection(null);
-        client.setiDImage(facadeLocal.find(1));
-        clientFacadeLocal.create(client);
-        
+            rolePK.setLogin(user.getLogin());
+            rolePK.setRole(USER_ROLE);
+            userRole.setUserRolePK(rolePK);
+            userRole.setUser(user);
+            userRoleFacadeLocal.create(userRole);
+
+            client.setBan(false);
+            client.setIDUser(user);
+            client.setGoalUserCollection(null);
+            client.setiDImage(facadeLocal.find(1));
+            clientFacadeLocal.create(client);
         }
         catch (javax.ejb.EJBException e){
-           // String message="You must login to continue";
-      // String message = e.getMessage();
+            // String message="You must login to continue";
+            // String message = e.getMessage();
             FacesContext.getCurrentInstance().addMessage("regForm:login", new FacesMessage("Пользователь с таким логином уже существует!!!"));
-          //  e.printStackTrace();
+            //  e.printStackTrace();
           return "registration";
         }
-        
             return "authorization";
-        
     }
     
     //вырнуть текущего

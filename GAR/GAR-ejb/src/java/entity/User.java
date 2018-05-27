@@ -87,8 +87,8 @@ public class User implements Serializable {
     @Size(max = 10)
     @Column(name = "Gender")
     private String gender;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private UserRole userRole;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<UserRole> userRole;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "iDUser")
     private Client client;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iDUser")
@@ -175,16 +175,15 @@ public class User implements Serializable {
     public void setGender(String gender) {
         this.gender = gender;
     }
-    
-     
-    public UserRole getUserRole() {
+
+    public Collection<UserRole> getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(UserRole userRole) {
+    public void setUserRole(Collection<UserRole> userRole) {
         this.userRole = userRole;
     }
-
+    
     public Client getClient() {
         return client;
     }
