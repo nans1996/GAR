@@ -138,7 +138,11 @@ public class AdministratorBean {
 
     public StreamedContent getImageCreate() throws IOException {
         if (file != null) {
-            return new DefaultStreamedContent(file.getInputstream(), file.getContentType());
+            try {
+                return new DefaultStreamedContent(file.getInputstream(), file.getContentType());
+            } catch (IOException ioe) {
+                LOGGER.error("Ошибка при добавлении картинок",ioe);
+            }
         } else {
             LOGGER.error("Картинка при добавлении пустая и не может быть выведена.");
         }
@@ -160,7 +164,8 @@ public class AdministratorBean {
     }
 
     //добавление картинки персонажу на уровень
-    public void uploadImagePersonage() throws IOException {
+    public void uploadImagePersonage(){
+        FacesMessage message;
         if (file != null) {
             try {
                 image.setName(file.getFileName());
@@ -173,19 +178,17 @@ public class AdministratorBean {
                 personageImage.setIDPersonage(personage);
                 personageImage.setLevel(Integer.parseInt(quantityLevel));
                 personageImageFacadeLocal.create(personageImage);
-                FacesMessage message = new FacesMessage("Добавлен файл:", file.getFileName());
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            } catch (EJBException ex) {
+                message = new FacesMessage("Добавлен файл:", file.getFileName());
+                
+            } catch (EJBException | IOException ex) {
                 LOGGER.error("Ошибка при добавлении картинки.", ex);
-                FacesMessage message = new FacesMessage("Не добавлен файл:", file.getFileName());
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            }
+                message = new FacesMessage("Не добавлен файл:", file.getFileName());
+            } 
         } else {
             LOGGER.error("Файл пуст и не может быть добавлен.");
-            FacesMessage message = new FacesMessage("Файл пуст и не может быть добавлен.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            message = new FacesMessage("Файл пуст и не может быть добавлен.");
         }
-
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     public List<Personage> personagesFild() {
@@ -207,6 +210,7 @@ public class AdministratorBean {
 
     //Назначить бан/снять бан
     public String ban() {
+        FacesMessage message;
         try {
             FacesContext fc = FacesContext.getCurrentInstance();
             Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
@@ -214,18 +218,17 @@ public class AdministratorBean {
             Client client = clientFacadeLocal.find(id);
             client.setBan(!client.getBan());
             clientFacadeLocal.edit(client);
-            FacesMessage message = new FacesMessage("Успешно", "Успешно услаовлен/снят бан");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            message = new FacesMessage("Успешно", "Успешно услаовлен/снят бан");
         } catch (EJBException ex) {
             LOGGER.error("Ошибка при установки/снятии бана на пользователя.", ex);
-            FacesMessage message = new FacesMessage("Ошибка при установки/снятии бана на пользователя.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            message = new FacesMessage("Ошибка при установки/снятии бана на пользователя.");
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
         return "/user?faces-redirect=true";
     }
 
-    //Назначить бан/снять бан
     public String addAdmin() {
+        FacesMessage message;
         try {
             FacesContext fc = FacesContext.getCurrentInstance();
             Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
@@ -240,13 +243,13 @@ public class AdministratorBean {
             userRoleFacadeLocal.create(userRole);
 
             clientFacadeLocal.edit(client);
-            FacesMessage message = new FacesMessage("Успешно", "Успешно добавлен администратор");
+            message = new FacesMessage("Успешно", "Успешно добавлен администратор");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (EJBException ex) {
             LOGGER.error("Ошибка при добавлении администратора.", ex);
-            FacesMessage message = new FacesMessage("Ошибка добавление администратора");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            message = new FacesMessage("Ошибка добавление администратора");  
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
         return "/user?faces-redirect=true";
     }
 
@@ -256,6 +259,7 @@ public class AdministratorBean {
 
     //Установка статуса цели 
     public String directory() {
+        FacesMessage message;
         try {
             FacesContext fc = FacesContext.getCurrentInstance();
             Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
@@ -263,18 +267,19 @@ public class AdministratorBean {
             Goal goal = goalFacadeLocal.find(id);
             goal.setDirectory(!goal.getDirectory());
             goalFacadeLocal.edit(goal);
-            FacesMessage message = new FacesMessage("Успех ", "Статус цели изменен.");
+            message = new FacesMessage("Успех ", "Статус цели изменен.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (EJBException ex) {
             LOGGER.error("Ошибка при изменении статуса цели.", ex);
-            FacesMessage message = new FacesMessage("Ошибка ", "Статус цели не изменен.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            message = new FacesMessage("Ошибка ", "Статус цели не изменен.");  
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
         return "goalAdministration";
     }
 
     //добавление картинки дефолтной цели
-    public void uploadImageGoalDef() throws IOException {
+    public void uploadImageGoalDef() {
+        FacesMessage message;
         if (file != null) {
             try {
                 //добавляем картинку в БД
@@ -287,18 +292,17 @@ public class AdministratorBean {
                 goal = goalFacadeLocal.find(goal.getIDGoal());
                 goal.setiDImage(image);
                 goalFacadeLocal.edit(goal);
-                FacesMessage message = new FacesMessage("Добавлен файл:", file.getFileName());
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            } catch (EJBException ex) {
+                message = new FacesMessage("Добавлен файл:", file.getFileName());
+            } catch (EJBException | IOException ex) {
                 LOGGER.error("Ошибка при добавлении картинки.", ex);
-                FacesMessage message = new FacesMessage("Не добавлен файл:", file.getFileName());
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            }
+                message = new FacesMessage("Не добавлен файл:", file.getFileName());
+                
+            }    
         } else {
             LOGGER.error("Файл пуст и не может быть добавлен.");
-            FacesMessage message = new FacesMessage("Файл пуст и не может быть добавлен.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            message = new FacesMessage("Файл пуст и не может быть добавлен.");
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
 }
