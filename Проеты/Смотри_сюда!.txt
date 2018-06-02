@@ -1,2 +1,0 @@
-GAR_test_spring - Hello World
-GAR - Проект наш
