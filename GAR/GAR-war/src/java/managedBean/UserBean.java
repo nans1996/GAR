@@ -5,12 +5,7 @@
  */
 package managedBean;
 
-//import entitys.User;
-import static com.sun.faces.facelets.util.Path.context;
 import entity.*;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
