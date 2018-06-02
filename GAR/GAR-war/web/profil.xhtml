@@ -59,8 +59,8 @@
             </div>
         </nav>  
         <br/>
-        <div id="left">
-            <p>Левая половина</p>
+<!--        <div id="left">
+            <p>Левая половина</p>-->
             <div id="main">
                 <div class="row" id="real-estates-detail">
                     <div class="col-lg-4 col-md-4 col-xs-12">
@@ -109,30 +109,8 @@
                     </div>
                 </div>
             </div>
-        </div> 
+<!--        </div> -->
 
-        <div id="right">
-            <p>Правая половина</p>
-            <br/>
-
-            <ul class="nav">      
-                <h:form>
-                    <h4>Мои цели:</h4>
-                    <c:forEach items="${clientBean.findAllGoalCurrentClient()}" var="item"> 
-                        <i class="icon-search">
-                            <h:commandLink styleClass="btn btn-default" style="width:200Px" action="#{clientBean.editGoalUser}" value="#{item.IDGoal.name}">
-                                <f:param name="id" value="#{item.IDGoaluser}"/>
-                            </h:commandLink>
-                            <h:commandLink styleClass="btn btn-default" style="width:300Px" action="#{clientBean.deleteGoalUser}" value="Удалить #{item.IDGoal.name}">
-                                <f:param name="id" value="#{item.IDGoaluser}"/>
-                            </h:commandLink>
-                        </i>
-                        <br/>
-                    </c:forEach>
-                </h:form>
-            </ul>
-
-        </div>
         <!--        Модальное окно-->
         <div id="myProfile" class="modal fade">
             <div class="modal-dialog">
