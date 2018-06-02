@@ -138,15 +138,8 @@ body{
     27% { opacity: 0; width: 100%; }
     100% { opacity: 0; }
 }
+
 #footer { 
-    height: 150px; 
-    background: #F4FA58; 
-/*    flex: 0 0 auto;*/
-    position: fixed;
-    bottom: 0; 
-    width: 100%; 
-}
-#footerNarrow { 
     position: fixed;
     height: 70px; 
     background: #F4FA58; 
