@@ -59,6 +59,35 @@
             </div>
         </nav>  
         <br/>
+<!--         <div id="right">
+            <p>Правая половина</p>-->
+            <br/>
+            <div class="panel-goals">
+            <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">Мои цели:</h3>
+        </div>
+        <div class="panel-body">
+            <h:form>
+            <c:forEach items="${clientBean.findAllGoalCurrentClient()}" var="item"> 
+                        <i class="icon-search">
+                            <h:commandLink styleClass="btn btn-default" style="width:350Px" action="#{clientBean.editGoalUser}" value="#{item.IDGoal.name}">
+                                <f:param name="id" value="#{item.IDGoaluser}"/>
+                            </h:commandLink>
+                            <h:commandLink styleClass="btn btn-default" style="width:150Px" action="#{clientBean.deleteGoalUser}" value="Удалить #{item.IDGoal.name}">
+                                <f:param name="id" value="#{item.IDGoaluser}"/>
+                            </h:commandLink>
+                        </i>
+                        <br/>
+                        <br/>
+                    </c:forEach>
+                </h:form>
+        </div>
+    </div>
+            </div>
+
+
+<!--        </div>-->
 <!--        <div id="left">
             <p>Левая половина</p>-->
             <div id="main">
@@ -217,6 +246,7 @@
                 © CAR Inc., 2018 г. Все права защищены.
             </div>
         </div>
+
 
         <script>
             $(document).ready(function () {

@@ -34,3 +34,9 @@
 #real-estates-detail .slides li img {
  height: 450px;
 }
+.panel-goals {
+    width: 400px;
+    position: absolute;
+    top: 70px;
+    right: 25px;
+}

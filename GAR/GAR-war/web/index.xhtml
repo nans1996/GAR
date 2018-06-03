@@ -62,16 +62,16 @@
                                 </ul> 
                             </li>
                         </c:if>
-                        <p class="navbar-text"> 
+                        <p class="navbar-text">
                              <c:if test='#{request.isUserInRole("client")}'> 
-                            Вы вошли как <li><h:link outcome="profil" value="#{request.getRemoteUser()}" class="navbar-link"></h:link></li>         
+                            Вы вошли как:<li><h:link outcome="profil" value="#{request.getRemoteUser()}"></h:link></li>         
                              </c:if>
                             <h:form rendered="#{!userBean.userLoggedIn}">
                                 <li><h:link outcome="authorization" value="Войти"/></li>                                     
                             </h:form>
                             <li>
                                 <h:form rendered="#{userBean.userLoggedIn}">
-                                    <p:commandButton value="Выйти" id="logout" action="#{userBean.logout}" class="btn btn-link" />                                      
+                                   <p:commandButton value="Выйти" id="logout" action="#{userBean.logout}" class="btn btn-link" />                                     
                                 </h:form>
                             </li>  
                         </p>
