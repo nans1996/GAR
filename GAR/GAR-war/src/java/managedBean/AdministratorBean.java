@@ -305,4 +305,24 @@ public class AdministratorBean {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
+    //Удаление цели из системы
+    public String deleteGoal (){
+        FacesMessage message;
+        try {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+            int id = Integer.parseInt(params.get("id"));
+            Goal goal = goalFacadeLocal.find(id);
+            //логика удаления
+            goalFacadeLocal.remove(goal);
+            message = new FacesMessage("Успех ", "Цель удалена.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } catch (EJBException ex) {
+            LOGGER.error("Ошибка при удалении цели.", ex);
+            message = new FacesMessage("Ошибка ", "Цель не удалена.");  
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        return "goalAdministration";
+    }
+    
 }

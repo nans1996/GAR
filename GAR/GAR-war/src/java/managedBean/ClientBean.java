@@ -258,9 +258,6 @@ public class ClientBean implements Serializable {
             Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
             int id = Integer.parseInt(params.get("id"));
             goalUser = goalUserFacadeLocal.find(id);
-            goalUser.getLevelCollection().forEach((item) -> {
-                levelFacadeLocal.remove(item);
-            });
             goalUserFacadeLocal.remove(goalUser);
             message = new FacesMessage("Успех", "Цель успешно удалена");
         } catch (NumberFormatException nfe) {

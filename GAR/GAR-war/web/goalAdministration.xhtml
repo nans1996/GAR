@@ -63,6 +63,7 @@
                     <th>Цель дефолтная?</th>
                     <th>Кол-во пользователей</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead> 
             <tbody>
@@ -76,12 +77,19 @@
                         <td>
                             <h:form>
                                 <p:growl id="messages" showDetail="true" />
-                            <h:commandButton action="#{administratorBean.directory}" rendered="#{!item.directory}" value="Убрать из дефолтных">
-                                <f:param name="id" value="#{item.IDGoal}" />
-                            </h:commandButton>
-                            <h:commandButton action="#{administratorBean.directory}" rendered="#{item.directory}" value="Добавить в дефолтные">
-                                <f:param name="id" value="#{item.IDGoal}" />
-                            </h:commandButton>
+                                <h:commandButton action="#{administratorBean.directory}" rendered="#{!item.directory}" value="Убрать из дефолтных">
+                                    <f:param name="id" value="#{item.IDGoal}" />
+                                </h:commandButton>
+                                <h:commandButton action="#{administratorBean.directory}" rendered="#{item.directory}" value="Добавить в дефолтные">
+                                    <f:param name="id" value="#{item.IDGoal}" />
+                                </h:commandButton>
+                            </h:form>
+                        </td>
+                        <td>
+                            <h:form>
+                                <h:commandButton action="#{administratorBean.deleteGoal}"  value="Удалить">
+                                    <f:param name="id" value="#{item.IDGoal}" />
+                                </h:commandButton>
                             </h:form>
                         </td>
                     </tr>

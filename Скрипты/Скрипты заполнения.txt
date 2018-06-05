@@ -1,17 +1,14 @@
-use GAR_BD; // хи если название забыли
+use GAR_BD; #открытие бд
 
-#//добавим тестовых пользователей чтобы было все круто!)
-#//моза всех нас сюда залить,это будет круче наверное
-#//или же одну админку вообще оставить
-
+#Добавление тестовых пользователей
 Insert Into User(Login, Pass, Surname, Name, Phone, Email,Gender) Values('Boss', 'password', 'Boss','Boss','0000000000','adman@inbox.ru','женщина');
 Insert Into User(Login, Pass, Surname, Name, Phone, Email,Gender) Values('gambler', 'password', 'Ivanov','Ivan','1111111111','gambler@inbox.ru','мужчина');
 
-#//и бахнем им роли
+#Роли
 Insert Into User_Role(Login, Role) Values('Boss', 'admin');
 Insert Into User_Role(Login, Role) Values('gambler', 'client');
 
-#//проверка 
+#Проверка
 SELECT * FROM User_Role,User WHERE User_Role.Login = User.Login;
 
 #Заполнение дефолтного персонажа
