@@ -151,7 +151,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3" for="DescriptionGoal">Описание:</label>
                                 <div class="col-xs-9">
-                                    <h:inputText value="#{clientBean.goal.description}" class="form-control" id="description" >  </h:inputText> 
+                                    <h:inputText value="#{clientBean.goal.description}" class="form-control" id="description"> </h:inputText> 
                                 </div>
                             </div>
                             <div class="form-group">
@@ -163,8 +163,9 @@
                                 </div>
                             </div>
                             <br/>
-                            <br/>
-                            <br/>                           
+                            <br/> 
+                            <a href="javascript:void(0)" onclick="showHide('block_id')" class="btn btn-warning">Купить персонажа</a><br/><br/> 
+                            <div id="block_id" style="display: none;">
                             <div class="form-group">
                                 <label class="control-label col-xs-3" for="DescriptionHolder">Владелец карты:</label>
                                 <div class="col-xs-9">
@@ -189,6 +190,7 @@
                                     <h:inputText value="#{clientBean.codeSecurity}" class="form-control" id="codeSecurity">  </h:inputText> 
                                 </div>
                             </div>  
+                            </div>    
                             <br/>
                             <br/>
                             <div id="carousel-example-generic" class="carousel slide" data-interval="false">
@@ -241,6 +243,23 @@
                 © CAR Inc., 2018 г. Все права защищены.
             </div>
         </div>
+        
+        <script type="text/javascript">  
+            function showHide(element_id) { 
+            //Если элемент с id-шником element_id существует 
+            if (document.getElementById(element_id)) { 
+            //Записываем ссылку на элемент в переменную obj 
+            var obj = document.getElementById(element_id); 
+            //Если css-свойство display не block, то: 
+            if (obj.style.display != "block") { 
+            obj.style.display = "block"; //Показываем элемент 
+            } 
+            else obj.style.display = "none"; //Скрываем элемент 
+            } 
+            //Если элемент с id-шником element_id не найден, то выводим сообщение 
+            else alert("Элемент с id: " + element_id + " не найден!"); 
+            } 
+        </script>
 
         <script>
             $(document).ready(function () {
