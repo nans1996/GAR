@@ -155,7 +155,7 @@ public class AdministratorBean {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             BufferedImage bImageFromConvert = ImageIO.read(in);
-            ImageIO.write(bImageFromConvert, "jpg", baos);
+            ImageIO.write(bImageFromConvert, "png", baos);
             imageInByte = baos.toByteArray();
         } catch (IOException ex) {
             LOGGER.error("Ошибка при чтении картинки из потока в байтовый массив.", ex);

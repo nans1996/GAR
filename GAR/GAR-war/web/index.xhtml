@@ -46,19 +46,16 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active"><a href="#">Главная  </a></li>
                         <li><h:link outcome="goals" value="Цели"/></li>
-                        <li><h:link outcome="user" value="Страница с пользователями"/></li>
-                        <li><h:link outcome="goalAdministration" value="Страница с целями"/></li>
                         <li><h:link outcome="rating" value="Рейтинг"/></li>
                         <li><h:link outcome="forum" value="Форум"/></li>
                         <c:if test='#{request.isUserInRole("admin")}'> 
                             <li class="dropdown"> 
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Выпадающий пункт <span class="caret"></span></a> 
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование <span class="caret"></span></a> 
                                 <ul class="dropdown-menu" role="menu"> 
                                     <li><h:link outcome="creatImage" value="Добавить картинку"/></li> 
-                                    <li><a href="#">Еще подпункт</a></li> 
-                                    <li><a href="#">Еще что-то</a></li> 
-                                    <li class="divider"></li> 
-                                    <li><a href="#">И еще</a></li> 
+                                    <li><h:link outcome="goalAdministration" value="Цели по умолчанию"/></li> 
+                                    <li><h:link outcome="user" value="Пользователи"/></li> 
+
                                 </ul> 
                             </li>
                         </c:if>
@@ -66,14 +63,14 @@
                              <c:if test='#{request.isUserInRole("client")}'> 
                             Вы вошли как:<li><h:link outcome="profil" value="#{request.getRemoteUser()}"></h:link></li>         
                              </c:if>
-                            <h:form rendered="#{!userBean.userLoggedIn}">
+                            
+                            <h:form rendered="#{!userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
                                 <li><h:link outcome="authorization" value="Войти"/></li>                                     
                             </h:form>
-                            <li>
-                                <h:form rendered="#{userBean.userLoggedIn}">
-                                   <p:commandButton value="Выйти" id="logout" action="#{userBean.logout}" class="btn btn-link" />                                     
+                            
+                                <h:form rendered="#{userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
+                                   <li><p:commandButton value="Выйти" id="logout" action="#{userBean.logout}" class="btn btn-link"/> </li>                                     
                                 </h:form>
-                            </li>  
                         </p>
                     </ul>
                 </div>

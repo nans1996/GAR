@@ -11,7 +11,7 @@
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
         <link href="css/style.css" rel="stylesheet"></link>
@@ -44,13 +44,24 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><h:link outcome="index" value="Главная"/></li>                        
                         <li><h:link outcome="goals" value="Цели"/></li>
-                        <li><h:link outcome="user" value="Страница с пользователями"/></li>
                         <li><h:link outcome="rating" value="Рейтинг"/></li>
-                        <li class="active"><a href="#">Форум</a></li>                     
+                        <li class="active"><a href="#">Форум</a></li>   
+                         <c:if test='#{request.isUserInRole("admin")}'> 
+                            <li class="dropdown"> 
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование <span class="caret"></span></a> 
+                                <ul class="dropdown-menu" role="menu"> 
+                                    <li><h:link outcome="creatImage" value="Добавить картинку"/></li> 
+                                    <li><h:link outcome="goalAdministration" value="Цели по умолчанию"/></li> 
+                                    <li><h:link outcome="user" value="Пользователи"/></li> 
+
+                                </ul> 
+                            </li>
+                        </c:if>
                         <p class="navbar-text"> 
+                             <c:if test='#{request.isUserInRole("client")}'> 
                             Вы вошли как 
                             <h:link outcome="profil" value="#{request.getRemoteUser()}" class="navbar-link"></h:link>                              
-
+                             </c:if>
                             <h:form rendered="#{!userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
                                 <li><h:link outcome="authorization" value="Войти"/></li>                                     
                             </h:form>  
@@ -90,7 +101,9 @@
                                 </tr>
                             </c:forEach>   
                         </h:form>
+                         <c:if test='#{request.isUserInRole("client")}'> 
                         <button type="submit" class="btn" id="btnTopic">Добавить тему</button>
+                         </c:if>
                         <tr><td colspan="7"><div id="nativeroll_video_cont" style="display:none;"></div>
                             </td>   
                         </tr></table></div></div>
