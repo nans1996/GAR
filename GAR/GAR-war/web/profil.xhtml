@@ -114,7 +114,7 @@
                         <div class="panel">
                             <div class="panel-body">
                                 <ul id="myTab" class="nav nav-pills">
-                                    <button type="submit" class="btn" id="btnProfile">Мои данные</button> <button type="submit" class="btn" id="btnJPG">Добавление аватарки</button>
+                                    <button type="submit" class="btn" id="btnProfile">Мои данные</button> <button type="submit" class="btn" id="btnJPG">Картинка профиля</button>
                                 </ul>
                                 <div id="myTabContent" class="tab-content">
                                     <hr/>
@@ -213,7 +213,7 @@
                     <!-- Заголовок модального окна -->
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Добавление аватарки</h4>
+                        <h4 class="modal-title">Добавление картинки</h4>
                     </div>
                     <!-- Основное содержимое модального окна -->
                     <h:form enctype="multipart/form-data">
@@ -230,7 +230,7 @@
                             <!-- Футер модального окна -->
                             <div class="modal-footer">
                                 <div class="form-group"> 
-                                    <p:commandButton class="btn btn-warning"  value="Добавление аватарки" ajax="false" actionListener="#{clientBean.uploadProfile}" disabled="false" />
+                                    <p:commandButton class="btn btn-warning"  value="Загрузить" ajax="false" actionListener="#{clientBean.uploadProfile}" disabled="false" />
                                 </div>  
                             </div>
 

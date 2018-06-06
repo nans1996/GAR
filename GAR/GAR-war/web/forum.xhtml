@@ -101,7 +101,7 @@
                             </c:forEach>   
                         </h:form>
                          <c:if test='#{request.isUserInRole("client")}'> 
-                        <button type="submit" class="btn" id="btnTopic">Добавить тему</button>
+                        <button type="submit" class="btn" id="btnTopic">Создать тему</button>
                          </c:if>
                         <tr><td colspan="7"><div id="nativeroll_video_cont" style="display:none;"></div>
                             </td>   
@@ -145,7 +145,7 @@
                         <!-- Футер модального окна -->
                         <div class="modal-footer">
                             <div class="form-group"> 
-                                <h:commandButton class="btn btn-warning" action="#{forumBean.createTopic}" value="ДОБАВИТЬ" />
+                                <h:commandButton class="btn btn-warning" action="#{forumBean.createTopic}" value="Создать" />
                             </div>  
                         </div>
                     </h:form>
