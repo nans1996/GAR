@@ -5,6 +5,7 @@
  */
 package model;
 
+import entity.GoalUser;
 import entity.Level;
 import java.util.List;
 import javax.ejb.Local;
@@ -29,5 +30,8 @@ public interface LevelFacadeLocal {
     List<Level> findRange(int[] range);
 
     int count();
+
+
+    public List<Level> findGoalLevel(GoalUser id);
     
 }

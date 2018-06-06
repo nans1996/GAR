@@ -51,6 +51,9 @@ import org.primefaces.model.UploadedFile;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -66,10 +69,14 @@ import org.apache.http.message.BasicNameValuePair;
 @SessionScoped
 public class ClientBean implements Serializable {
 
+    
+
     static final Logger LOGGER = Logger.getLogger(ClientBean.class);
 
     Topic topic = new Topic();
     Message message = new Message();
+    private int idGoal;
+  
     @EJB
     private GoalUserFacadeLocal goalUserFacadeLocal;
     GoalUser goalUser = new GoalUser();
@@ -94,6 +101,7 @@ public class ClientBean implements Serializable {
     Image image = new Image();
     private String search;
     private List<Goal> listGoals;
+   // private List<Level> listLevel;
     @EJB
     private PersonageImageFacadeLocal personageImageFacadeLocal;
 
@@ -233,8 +241,29 @@ public class ClientBean implements Serializable {
         try {
             FacesContext fc = FacesContext.getCurrentInstance();
             Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-            int id = Integer.parseInt(params.get("id"));
-            goalUser = goalUserFacadeLocal.find(id);
+            setIdGoal(Integer.parseInt(params.get("id")));
+          // int id = Integer.parseInt(params.get("id"));
+            goalUser = goalUserFacadeLocal.find(idGoal);           
+             eventModel = new DefaultScheduleModel();
+        //вычисление даты
+        List<Level> list = levelFacadeLocal.findGoalLevel(goalUserFacadeLocal.find(getIdGoal()));
+        for(Level t : list){
+            
+            if (t.getDate().getTime() == new Date().getTime()){
+            break;
+            }
+            else {
+            if (t.getLeveldate()){
+        eventModel.addEvent(new DefaultScheduleEvent("Выполнено", t.getDate(), t.getDate()));
+            }
+            else
+                eventModel.addEvent(new DefaultScheduleEvent("НЕ выполнено", t.getDate(), t.getDate()));
+            }   
+        }
+        lazyEventModel = new LazyScheduleModel() {
+        };
+            
+            
             resultStr = "/goalUser?faces-redirect=true";
         } catch (NumberFormatException nfe) {
             message = new FacesMessage("Ошибка", "Ошибка перехода на страницу целей. Обратитесь к администратору.");
@@ -358,12 +387,6 @@ public class ClientBean implements Serializable {
         this.listGoals = listGoals;
     }
 
-    
-//    //создать новую тему на форуме
-//    public String createTopic() {
-//        this.topicFacade.create(this.topic);
-//        return "index";
-//    }
 
     //Выполнение цели на день
     public String addLevel() {
@@ -378,7 +401,7 @@ public class ClientBean implements Serializable {
                 }
             }
         } catch (EJBException ejbe){
-            LOGGER.error("Ошибка при выполнении цел на день: ", ejbe);
+            LOGGER.error("Ошибка при выполнении цели на день: ", ejbe);
             message = new FacesMessage("Ошибка","Ошибка при выполнении цел на день. Обратитесь к администратору.");
         }
         if (message != null) FacesContext.getCurrentInstance().addMessage(null, message);
@@ -408,30 +431,6 @@ public class ClientBean implements Serializable {
     private ScheduleModel lazyEventModel;
     private ScheduleEvent event = new DefaultScheduleEvent();
 
-    @PostConstruct
-    public void init() {
-        eventModel = new DefaultScheduleModel();
-        //установка события
-        eventModel.addEvent(new DefaultScheduleEvent("Выполнено", previousDay8Pm(), previousDay8Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Выполнено", previousDay7Pm(), previousDay8Pm()));
-        lazyEventModel = new LazyScheduleModel() {
-        };
-    }
-
-    //пока дефолтные методы забора дат!
-    private Date previousDay8Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.HOUR, 6);
-        return t.getTime();
-    }
-
-    private Date previousDay7Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.HOUR, 24);
-        return t.getTime();
-    }
 
     public Date getInitialDate() {
         Calendar calendar = Calendar.getInstance();
@@ -812,4 +811,19 @@ public class ClientBean implements Serializable {
         }
         return personages;
     }
+
+    /**
+     * @return the idGoal
+     */
+    public int getIdGoal() {
+        return idGoal;
+    }
+
+    /**
+     * @param idGoal the idGoal to set
+     */
+    public void setIdGoal(int idGoal) {
+        this.idGoal = idGoal;
+    }
+
 }

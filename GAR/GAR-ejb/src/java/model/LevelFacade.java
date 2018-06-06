@@ -6,9 +6,12 @@
 package model;
 
 import entity.Level;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import entity.*;
 
 /**
  *
@@ -27,6 +30,13 @@ public class LevelFacade extends AbstractFacade<Level> implements LevelFacadeLoc
 
     public LevelFacade() {
         super(Level.class);
+    }
+    
+    @Override
+    public List<Level> findGoalLevel(GoalUser goaluser){
+        Query q = em.createNamedQuery("Level.findByIdGoal");
+        q.setParameter("iDGoaluser", goaluser);
+        return (List<Level>) q.getResultList();
     }
     
 }

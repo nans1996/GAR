@@ -34,7 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Level.findAll", query = "SELECT l FROM Level l")
     , @NamedQuery(name = "Level.findByIDLevel", query = "SELECT l FROM Level l WHERE l.iDLevel = :iDLevel")
     , @NamedQuery(name = "Level.findByDate", query = "SELECT l FROM Level l WHERE l.date = :date")
-    , @NamedQuery(name = "Level.findByLeveldate", query = "SELECT l FROM Level l WHERE l.leveldate = :leveldate")})
+    , @NamedQuery(name = "Level.findByLeveldate", query = "SELECT l FROM Level l WHERE l.leveldate = :leveldate")
+    , @NamedQuery(name = "Level.findByIdGoal", query = "SELECT l FROM Level l WHERE l.iDGoaluser = :iDGoaluser")
+})
 public class Level implements Serializable {
 
     private static final long serialVersionUID = 1L;

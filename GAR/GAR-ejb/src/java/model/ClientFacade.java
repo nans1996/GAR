@@ -30,6 +30,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         super(Client.class);
     }
     
+    @Override
     public Client findIdUser(Integer idUser){
         Query q = em.createNamedQuery("findByIDUser");
         q.setParameter("idUser", idUser);
