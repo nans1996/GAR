@@ -59,8 +59,7 @@
                         </c:if>
                         <p class="navbar-text"> 
                              <c:if test='#{request.isUserInRole("client")}'> 
-                            Вы вошли как 
-                            <h:link outcome="profil" value="#{request.getRemoteUser()}" class="navbar-link"></h:link>                              
+                            Вы вошли как:<li><h:link outcome="profil" value="#{request.getRemoteUser()}"></h:link></li>                             
                              </c:if>
                             <h:form rendered="#{!userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
                                 <li><h:link outcome="authorization" value="Войти"/></li>                                     

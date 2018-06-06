@@ -44,8 +44,7 @@
                         <li><h:link outcome="rating" value="Рейтинг"/></li>
                         <li><h:link outcome="forum" value="Форум"/></li>                    
                         <p class="navbar-text"> 
-                            Вы вошли как 
-                            <h:link outcome="profil" value="#{request.getRemoteUser()}" class="navbar-link"></h:link>                              
+                            Вы вошли как:<li><h:link outcome="profil" value="#{request.getRemoteUser()}"></h:link></li>                             
  <h:form rendered="#{!userBean.userLoggedIn}" class="nav navbar-nav navbar-right">
                             <li><h:link outcome="authorization" value="Войти"/></li>        
  </h:form>
