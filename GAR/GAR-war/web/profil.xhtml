@@ -16,6 +16,7 @@
         <script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="http://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
         <script src="http://bootstraptema.ru/_sf/3/394.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link> 
         <link href="css/style.css" rel="stylesheet"></link>
         <link href="css/profil.css" rel="stylesheet"></link>
         <link href="css/modal.css" rel="stylesheet"></link>
@@ -122,12 +123,13 @@
                                         <h4>История профиля</h4>
                                         <table class="table table-th-block">
                                             <tbody>
-                                                <tr><td class="active">Логин:</td><td> <h:outputText value="#{userBean.currentUserObject.login}"/></td></tr>
-                                                <tr><td class="active">Фамилия:</td><td><h:outputText value="#{userBean.currentUserObject.surname}"/></td></tr>
-                                                <tr><td class="active">Имя:</td><td><h:outputText value="#{userBean.currentUserObject.name}"/></td></tr>
-                                                <tr><td class="active">Телефон:</td><td><h:outputText value="#{userBean.currentUserObject.phone}"/></td></tr>
-                                                <tr><td class="active">Мыло:</td><td><h:outputText value="#{userBean.currentUserObject.email}"/></td></tr>
-                                                <tr><td class="active">Рейтинг пользователя:</td><td><i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> <i class="fa fa-star" style="color:red"></i> 4/5</td></tr>
+                                                <tr><td class="active"><i class="fa fa-user"></i>&nbsp;Логин:</td><td> <h:outputText value="#{userBean.currentUserObject.login}"/></td></tr>
+                                                <tr><td class="active"><i class="fa fa-vcard"></i>&nbsp;Фамилия:</td><td><h:outputText value="#{userBean.currentUserObject.surname}"/></td></tr>
+                                                <tr><td class="active"><i class="fa fa-vcard"></i>&nbsp;Имя:</td><td><h:outputText value="#{userBean.currentUserObject.name}"/></td></tr>
+                                                <tr><td class="active"><i class="glyphicon glyphicon-phone"></i>&nbsp;Телефон:</td><td><h:outputText value="#{userBean.currentUserObject.phone}"/></td></tr>
+                                 
+                                                <tr><td class="active"><i class="fa fa-envelope"></i>&nbsp;Маил:</td><td><h:outputText value="#{userBean.currentUserObject.email}"/></td></tr>
+<!--                                                <tr><i class="fa fa-birthday-cake" <td class="active">Дата рождения:</td><td></i></td></tr>-->
                                                 <tr><td class="active">Плагин рейтинга:</td><td><a href="http://bootstraptema.ru/stuff/plugins_bootstrap/improvement/bootstrap_star_rating/12-1-0-73" target="_blank">http://goo.gl/bGGXuw</a></td></tr>
                                             </tbody>
                                         </table>
@@ -246,7 +248,6 @@
                 © CAR Inc., 2018 г. Все права защищены.
             </div>
         </div>
-
 
         <script>
             $(document).ready(function () {

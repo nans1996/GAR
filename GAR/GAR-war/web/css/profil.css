@@ -40,3 +40,20 @@
     top: 70px;
     right: 25px;
 }
+/*#real-estates-detail .panel-body {
+background-color: #f00 !important
+}*/
+
+/*#real-estates-detail > .col-md-4 {
+padding-right: 0px !important
+}
+#real-estates-detail > .col-md-8 {
+padding-left: 0px !important
+}
+#real-estates-detail .panel {
+margin-top: 0px !important;
+margin-bottom: 0px !important;
+}*/
+#real-estates-detail td:first-child {
+width: 180px !important;
+}
