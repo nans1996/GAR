@@ -94,13 +94,15 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="media-text text-justify">#{u.content}</div>
-                                        <div class="pull-right"><a class="btn btn-info" href="#">Ответить</a></div>  
+<!--                                        <div class="pull-right"><a class="btn btn-info" href="#">Ответить</a></div>  -->
+                                        <c:if test='#{request.isUserInRole("admin")}'> 
                                         <h:commandButton action="#{forumBean.ban}" rendered="#{!u.IDUser.client.ban}" value="Забанить">
                                             <f:param name="id" value="#{u.IDUser.IDUser}" />
                                         </h:commandButton>
                                         <h:commandButton action="#{forumBean.ban}" rendered="#{u.IDUser.client.ban}" value="Разбанить">
                                             <f:param name="id" value="#{u.IDUser.IDUser}" />
                                         </h:commandButton>
+                                        </c:if>
                                         <h:commandButton value="Удалить" action="#{forumBean.deleteMessage(u)}" onclick="return confirm('Вы уверенны?')" />
                                     </div>
                                 </div>

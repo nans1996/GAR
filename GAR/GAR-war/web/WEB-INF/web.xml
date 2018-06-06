@@ -29,10 +29,10 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
-      <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.xhtml</url-pattern>
-  </servlet-mapping> 
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>jdbcRealmGAR</realm-name>
@@ -75,11 +75,6 @@
             <http-method>HEAD</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>admin</role-name>
-            <role-name>client</role-name>
-        </auth-constraint>
     </security-constraint>
     <security-constraint>
         <display-name>ratingAdminClient</display-name>
@@ -91,11 +86,6 @@
             <http-method>HEAD</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>admin</role-name>
-            <role-name>client</role-name>
-        </auth-constraint>
     </security-constraint>
     <security-constraint>
         <display-name>creatImageAdmin</display-name>
@@ -167,11 +157,6 @@
             <http-method>HEAD</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>client</role-name>
-            <role-name>admin</role-name>
-        </auth-constraint>
     </security-constraint>
     <security-constraint>
         <display-name>profilClient</display-name>
@@ -192,7 +177,7 @@
         <error-code>404</error-code>
         <location>/errors/404.xhtml</location>
     </error-page>
-    <error-page>
+        <error-page>
         <error-code>500</error-code>
         <location>/errors/500.xhtml</location>
     </error-page>

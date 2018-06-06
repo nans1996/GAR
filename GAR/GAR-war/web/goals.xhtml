@@ -93,8 +93,9 @@
                 </div>
                 <!--                <input type="text" class="input-medium search-query" ></input>
                                 <button type="submit" class="btn">Поиск</button>-->
-
+<c:if test='#{request.isUserInRole("client")}'> 
                 <button href="#myGoal" type="submit" class="btn" id="btnGoal">Добавить цель</button>
+</c:if>
             </div>
 
             <h:form>
@@ -198,7 +199,7 @@
                                         <h2>Сделай выбор</h2>
                                         <h2>ВЫРАСТИ МИЛОЕ СУЩЕСТВО</h2>
                                         <h2>КАТАЛОГ ПЕРСОНАЖЕЙ</h2>
-                                        <h2>Собери полную коллекцию вырости всех персонажей</h2>
+                                        <h2>Собери полную коллекцию, вырасти всех персонажей</h2>
                                     </div> 
                                     <c:forEach items="${clientBean.AllPersonages()}" var="item"> 
                                         <div class="item">

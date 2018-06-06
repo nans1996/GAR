@@ -140,7 +140,8 @@ body{
 }
 
 #footer { 
-    position: fixed;
+    flex: 0 0 auto;
+/*    position: fixed;*/
     height: 70px; 
     background: #F4FA58; 
     bottom: 0; 
