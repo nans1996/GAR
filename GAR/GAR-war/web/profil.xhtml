@@ -11,7 +11,7 @@
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
         <script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="http://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
@@ -125,11 +125,10 @@
                                                 <tr><td class="active"><i class="fa fa-user"></i>&nbsp;Логин:</td><td> <h:outputText value="#{userBean.currentUserObject.login}"/></td></tr>
                                                 <tr><td class="active"><i class="fa fa-vcard"></i>&nbsp;Фамилия:</td><td><h:outputText value="#{userBean.currentUserObject.surname}"/></td></tr>
                                                 <tr><td class="active"><i class="fa fa-vcard"></i>&nbsp;Имя:</td><td><h:outputText value="#{userBean.currentUserObject.name}"/></td></tr>
-                                                <tr><td class="active"><i class="glyphicon glyphicon-phone"></i>&nbsp;Телефон:</td><td><h:outputText value="#{userBean.currentUserObject.phone}"/></td></tr>
-                                 
+                                                <tr><td class="active"><i class="glyphicon glyphicon-phone"></i>&nbsp;Телефон:</td><td><h:outputText value="#{userBean.currentUserObject.phone}"/></td></tr>                                 
                                                 <tr><td class="active"><i class="fa fa-envelope"></i>&nbsp;Маил:</td><td><h:outputText value="#{userBean.currentUserObject.email}"/></td></tr>
-<!--                                                <tr><i class="fa fa-birthday-cake" <td class="active">Дата рождения:</td><td></i></td></tr>-->
-                                                <tr><td class="active">Плагин рейтинга:</td><td><a href="http://bootstraptema.ru/stuff/plugins_bootstrap/improvement/bootstrap_star_rating/12-1-0-73" target="_blank">http://goo.gl/bGGXuw</a></td></tr>
+                                                <tr><td class="active"><i class="fa fa-gift"></i>&nbsp;Дата рождения:</td><td><h:outputText value="#{userBean.currentUserObject.client.dateBirth}"/></td></tr>
+                                                <tr><td class="active"><i class="fa fa-gratipay"></i>&nbsp;Интересы:</td><td><h:outputText value="#{userBean.currentUserObject.client.interests}"/></td></tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -182,8 +181,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3" for="NameGoal">Дата рождения:</label>
                                 <div class="col-xs-9">
-
-                                    <h:inputText value="#{clientBean.client.dateBirth}" class="form-control" > 
+                                     <h:inputText value="#{clientBean.client.dateBirth}" class="form-control" > 
                                         <f:convertDateTime pattern = "dd-mm-yyyy" />
                                     </h:inputText> 
                                 </div>
@@ -236,15 +234,6 @@
 
                         </div></h:form>
                 </div>
-            </div>
-        </div>
-        <!--Футер-->
-        <div id="footer">
-            <br/>
-            <div class="footer-copyright py-3 text-center ">
-                Владимир gar@gar.com    + 01 234 567 88
-                <br/>
-                © CAR Inc., 2018 г. Все права защищены.
             </div>
         </div>
 
